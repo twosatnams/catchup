@@ -2,7 +2,7 @@
 
 [Heroku link][heroku]
 
-[heroku]: http://<pending>.herokuapp.com
+[heroku]: #
 
 ## Minimum Viable Product
 Catch Up is a clone of Facebook built on Rails and Backbone. Users can:
@@ -11,7 +11,7 @@ Catch Up is a clone of Facebook built on Rails and Backbone. Users can:
 
 - [ ] Create accounts and log in
 - [ ] View and modify their profiles
-- [ ] Create posts with mentions
+- [ ] Create posts and mention other users in them
 - [ ] Like and comment on posts
 - [ ] Send, receive, accept and deny friend requests to/from other users
 - [ ] Users can search for other users and pages
