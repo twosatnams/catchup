@@ -29,6 +29,21 @@ author_id   | integer   | not null, foreign key (references users)
 title       | string    | not null
 body        | string    |
 
+## likes
+column name | data type | details
+------------|-----------|-----------------------
+id          | integer   | not null, primary key
+post_id     | integer   | not null, foreign key (references posts)
+user_id     | integer   | not null, foreign key (references users)
+
+## comments
+column name | data type | details
+------------|-----------|-----------------------
+id          | integer   | not null, primary key
+author_id   | integer   | not null, foreign key (references users)
+post_id     | integer   | not null, foreign key (reference posts)
+body        | string    |
+
 ## mentions
 column name | data type | details
 ------------|-----------|-----------------------

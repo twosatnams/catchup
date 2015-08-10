@@ -1,11 +1,11 @@
-# Facebook-clone (Still thinking about the name)
+# Catch Up
 
 [Heroku link][heroku]
 
 [heroku]: http://<pending>.herokuapp.com
 
 ## Minimum Viable Product
-<pending> is a clone of Facebook built on Rails and Backbone. Users can:
+Catch Up is a clone of Facebook built on Rails and Backbone. Users can:
 
 <!-- This is a Markdown checklist. Use it to keep track of your progress! -->
 
@@ -17,14 +17,12 @@
 - [ ] Users can search for other users and pages
 - [ ] Search is ranked by mutual friends, age, location and similar interests.
 
-<pending>
-  ## Design Docs
-  * [View Wireframes][views]
-  * [DB schema][schema]
+## Design Docs
+* [View Wireframes][views]
+* [DB schema][schema]
 
-  [views]: ./docs/views.md
-  [schema]: ./docs/schema.md
-</pending>
+[views]: ./docs/views.md
+[schema]: ./docs/schema.md
 
 ## Implementation Timeline
 
@@ -66,6 +64,8 @@ mutual friends, location and age.
 
 ### Bonus Features (TBD)
 - [ ] Groups
+- [ ] User can a photos page
+- [ ] Users can create posts with one or multiple photos
 - [ ] Create pages
 - [ ] Users can follow other users or pages
 - [ ] Users can choose to make their information and posts public or private
