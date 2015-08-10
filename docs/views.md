@@ -12,7 +12,7 @@
 ## Search Results
 ![search-results]
 
-[new-session]: ./wireframes/new_session.png
-[feed-show]: ./wireframes/profile_show.png
-[blog-show]: ./wireframes/friends_show.png
-[search-results]: ./wireframes/search_results.png
+[new-session]: ./wireframes/new-session.png
+[feed-show]: ./wireframes/profile-show.png
+[blog-show]: ./wireframes/friends-show.png
+[search-results]: ./wireframes/search-results.png
