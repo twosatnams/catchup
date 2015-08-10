@@ -1,91 +1,81 @@
-# Flux-capacitr
+# Facebook-clone (Still thinking about the name)
 
 [Heroku link][heroku]
 
-[heroku]: http://flux-capacitr.herokuapp.com
+[heroku]: http://<pending>.herokuapp.com
 
 ## Minimum Viable Product
-Flux-capacitr is a clone of Tumblr built on Rails and Backbone. Users can:
+<pending> is a clone of Facebook built on Rails and Backbone. Users can:
 
 <!-- This is a Markdown checklist. Use it to keep track of your progress! -->
 
-- [x] Create accounts
-- [x] Create sessions (log in)
-- [x] Create blogs
-- [x] Create blog posts
-- [ ] View blogs and posts
-- [ ] Subscribe to blogs
-- [ ] View a feed of subscribed blogs
-- [ ] Tag blog posts
-- [ ] Search for blogs by title
-- [ ] Search for posts by tag
+- [ ] Create accounts and log in
+- [ ] View and modify their profiles
+- [ ] Create posts with mentions
+- [ ] Like and comment on posts
+- [ ] Send, receive, accept and deny friend requests to/from other users
+- [ ] Users can search for other users and pages
+- [ ] Search is ranked by mutual friends, age, location and similar interests.
 
-## Design Docs
-* [View Wireframes][views]
-* [DB schema][schema]
+<pending>
+  ## Design Docs
+  * [View Wireframes][views]
+  * [DB schema][schema]
 
-[views]: ./docs/views.md
-[schema]: ./docs/schema.md
+  [views]: ./docs/views.md
+  [schema]: ./docs/schema.md
+</pending>
 
 ## Implementation Timeline
 
-### Phase 1: User Authentication, Blog Creation (~1 day)
-I will implement user authentication in Rails based on the practices learned at
-App Academy. By the end of this phase, users will be able to create blogs using
-a simple text form in a Rails view. The most important part of this phase will
-be pushing the app to Heroku and ensuring that everything works before moving on
-to phase 2.
+### Phase 1: User Authentication, Profiles (~2 days)
+Implementation of user authentication and personal profiles. By the end of this
+phase, a user will be able to log in and customize their profiles. I will deploy
+to Heroku as soon as this is achieved.
 
 [Details][phase-one]
 
-### Phase 2: Viewing Blogs and Posts (~2 days)
-I will add API routes to serve blog and post data as JSON, then add Backbone
-models and collections that fetch data from those routes. By the end of this
-phase, users will be able to create blogs and view both blogs and posts, all
-inside a single Backbone app.
+### Phase 2: Posts, mentions, likes and comments (~2.5 days)
+The primary focus of this phase will be posts. User will be able to CRUD posts.
+By the end of this phase, users will be able to mention other users, like and
+comment on posts.
 
 [Details][phase-two]
 
-### Phase 3: Editing and Displaying Posts (~2 days)
-I plan to use third-party libraries to add functionality to the `PostForm` and
-`PostShow` views in this phase. First I'll need to add a Markdown editor to the
-`PostForm`, and make sure that the Markdown is properly escaped and formatted in
-the `PostShow` view. I also plan to integrate Filepicker for file upload so
-users can add images to blog posts.
+### Phase 3: Friend requests (~2 days)
+By the end of this phase, users will be able to send/receive friend requests
+to/from other users and will be able to accept or deny them.
 
 [Details][phase-three]
 
-### Phase 4: User Feeds (~1-2 days)
-I'll start by adding a `feed` route that uses the `current_user`'s
-`subscribed_blogs` association to serve a list of blog posts ordered
-chronologically. On the Backbone side, I'll make a `FeedShow` view whose `posts`
-collection fetches from the new route.  Ultimately, this will be the page users
-see after logging in.
+### Phase 4: Seed data (~0.5 day)
+To be able to demo a efficient search feature I will need a lot of seed data.
+The target of this phase will be to add ~1,000 fake users using faker. Seed data
+will have profile pictures (celebrity or anime pictures will do). Seed data
+for friendships and posts will also be required to demo the search feature in an
+appealing way.
 
 [Details][phase-four]
 
-### Phase 5: Searching for Blogs and Posts (~2 days)
-I'll need to add `search` routes to both the Blogs and Posts controllers. On the
-Backbone side, there will be a `SearchResults` composite view has `BlogsIndex`
-and `PostsIndex` subviews. These views will use plain old `blogs` and `posts`
-collections, but they will fetch from the new `search` routes.
+### Phase 5: Search (~1 day)
+By the end of this phase a user will be able to search for other user by name,
+location, school or workplace. The search results will be ranked by friends,
+mutual friends, location and age.
 
 [Details][phase-five]
 
 ### Bonus Features (TBD)
-- [ ] "Like" button and counter for posts
-- [ ] Custom blog urls
-- [ ] Pagination/infinite scroll
-- [ ] Activity history (e.g. likes, reblogs, taggings)
-- [ ] Post types (image posts, quote posts, etc)
-- [ ] Reblogging
-- [ ] Multiple sessions/session management
-- [ ] User avatars
-- [ ] Typeahead search bar
+- [ ] Groups
+- [ ] Create pages
+- [ ] Users can follow other users or pages
+- [ ] Users can choose to make their information and posts public or private
+- [ ] User can have several interests
+- [ ] Rank search by interests
+- [ ] Notifications about friend requests and mentions
+- [ ] Users can message each other privately or within a group
 
 [phase-one]: ./docs/phases/phase1.md
 [phase-two]: ./docs/phases/phase2.md
 [phase-three]: ./docs/phases/phase3.md
 [phase-four]: ./docs/phases/phase4.md
 [phase-five]: ./docs/phases/phase5.md
-

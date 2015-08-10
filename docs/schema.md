@@ -1,18 +1,25 @@
 # Schema Information
 
-## blogs
+## Users
+column name     | data type | details
+----------------|-----------|-----------------------
+id              | integer   | not null, primary key
+email           | string    | not null, unique
+password_digest | string    | not null
+session_token   | string    | not null, unique
+
+## Profiles
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
 owner_id    | integer   | not null, foreign key (references users)
-title       | string    | not null
-
-## followings
-column name | data type | details
-------------|-----------|-----------------------
-id          | integer   | not null, primary key
-blog_id     | integer   | not null, foreign key (references blogs)
-follower_id | integer   | not null, foreign key (references users)
+DOB         | date      | not null
+profile_pic | string    | unique
+cover_pic   | string    |
+city        | string    |
+high school | string    |
+college     | string    |
+workplace   | string    |
 
 ## posts
 column name | data type | details
@@ -22,24 +29,17 @@ author_id   | integer   | not null, foreign key (references users)
 title       | string    | not null
 body        | string    |
 
-## tags
+## mentions
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
-label       | string    | not null, unique
+post_id     | integer   | not null, foreign key (references post)
+user_id     | integer   | not null, foreign key (references users)
 
-## taggings
+## friends
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
-post_id     | integer   | not null, foreign key (references posts)
-tag_id      | integer   | not null, foreign key (references tags)
-
-## users
-column name     | data type | details
-----------------|-----------|-----------------------
-id              | integer   | not null, primary key
-email           | string    | not null, unique
-password_digest | string    | not null
-session_token   | string    | not null, unique
-
+user_id     | integer   | not null, foreign key (references users)
+friend_id   | integer   | not null, foreign key (references users)
+pending     | boolean   | not null

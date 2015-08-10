@@ -1,13 +1,17 @@
-# Phase 4: User Feeds
+# Phase 3: Seed Data
+
+### Things to do
+* Create at least 1000 users using Faker
+* Use anime pictures for profile and cover pictures
+* Create posts for users with mentions (not required for all the users)
+* Seed data for friendships
 
 ## Rails
 ### Models
 
 ### Controllers
-Api::PostsController (feed)
 
 ### Views
-posts/feed.json.jbuilder
 
 ## Backbone
 ### Models
@@ -15,6 +19,6 @@ posts/feed.json.jbuilder
 ### Collections
 
 ### Views
-* FeedShow (composite view, contains PostsIndex subview)
 
 ## Gems/Libraries
+* Faker

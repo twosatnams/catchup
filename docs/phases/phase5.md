@@ -1,11 +1,19 @@
-# Phase 5: Searching for Blogs and Posts
+# Phase 3: Search
+
+### Features
+* User can search for other users
+* User can filter search using location and age
+* Search is ranked in the following order -
+  * friends
+  * friends of friends
+  * mentions
+  * location
+  * age
 
 ## Rails
 ### Models
 
 ### Controllers
-Api::BlogsController (search)
-Api::PostsController (search)
 
 ### Views
 
@@ -15,8 +23,7 @@ Api::PostsController (search)
 ### Collections
 
 ### Views
-* BlogSearchItem
-* SearchShow (composite view, contains BlogsIndex and PostsIndex subviews)
+* ShowProfile
+
 
 ## Gems/Libraries
-
