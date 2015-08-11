@@ -28,8 +28,9 @@ Catch Up is a clone of Facebook built on Rails and Backbone. Users can:
 
 ### Phase 1: User Authentication, Profiles (~2 days)
 Implementation of user authentication and personal profiles. By the end of this
-phase, a user will be able to log in and customize their profiles. I will deploy
-to Heroku as soon as this is achieved.
+phase, a user will be able to log in and customize basic information (location,
+profile picture, cover picture, schools and workplace) their profiles. I will
+deploy to Heroku as soon as this is achieved.
 
 [Details][phase-one]
 
