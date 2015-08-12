@@ -1,1 +1,7 @@
 <div id="content"></div>
+<script type="text/javascript">
+  $(function () {
+    var userData = <%= current_user.to_json.html_safe %>;
+    window.currentUser = new Catchup.Models.User(userData);
+  });
+</script>

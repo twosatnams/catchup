@@ -6,6 +6,14 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
     this.listenTo(this.model, 'sync', this.addBasicInfoSubview);
   },
 
+  events: {
+    "click .edit-profile" : "editProfile"
+  },
+
+  editProfile: function () {
+    Backbone.history.navigate("users/" + currentUser.get('id') + "/edit", {trigger: true});
+  },
+
   addBasicInfoSubview: function () {
     var basicInfo = new Catchup.Views.BasicInfo({
       model: this.model
