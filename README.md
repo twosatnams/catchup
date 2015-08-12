@@ -2,7 +2,7 @@
 
 [Heroku link][heroku]
 
-[heroku]: catchup-fb.herokuapp.com
+[heroku]: https://catchup-fb.herokuapp.com
 
 ## Minimum Viable Product
 Catch Up is a clone of Facebook built on Rails and Backbone. Users can:

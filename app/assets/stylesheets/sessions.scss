@@ -34,8 +34,20 @@ h2 { font-size: 30px; line-height:38px; font-weight:normal; }
 	font-family: Arial, Helvetica, sans-serif; margin-top: 8px; font-size: 15px; border: 1px solid #ccc; width: 420px;  outline: none;
 }
 .loginbox button {
-	background: #5870A8; background-image:-webkit-linear-gradient(top, #637BAD, #4F67A4); padding: 10px 20px; font-size: 18px; border: 1px solid #1D3871; letter-spacing: 1px; color: #fff; width: 440px; line-height:30px; font-family:	'Helvetica Neue', Helvetica, Arial, sans-serif;
-	-moz-box-shadow: 1px 1px 3px #1D3871; -webkit-box-shadow: 1px 1px 3px #1D3871; box-shadow: 1px 1px 3px #1D3871; cursor: pointer;
+	background: #5870A8;
+	background-image:-webkit-linear-gradient(top, #637BAD, #4F67A4);
+	padding: 10px 20px;
+	font-size: 18px;
+	border: 1px solid #1D3871;
+	letter-spacing: 1px;
+	color: #fff;
+	width: 400px;
+	line-height:30px;
+	font-family:	'Helvetica Neue', Helvetica, Arial, sans-serif;
+	-moz-box-shadow: 1px 1px 3px #1D3871;
+	-webkit-box-shadow: 1px 1px 3px #1D3871;
+	box-shadow: 1px 1px 3px #1D3871;
+	cursor: pointer;
 }
 
 .radius { -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; }

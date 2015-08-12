@@ -1,6 +1,33 @@
-<h1 class="name">Welcome: <%= user.escape("name") %></h1>
+<div id="profile-container">
+  <div id='cover_container' style="background:url('<%= user.escape("cover_pic") %>');">
 
-<img class="profile_pic" src="<%= user.escape("profile_pic") %>"/>
-<img class="cover_pic" src="<%= user.escape("cover_pic") %>"/>
+    <div id='info_box'>
+      <div id="profile_img"><img src="<%= user.escape("profile_pic") %>" class='avatar_img'/></div>
+      <div id="info-box">
+      <div id="info-name"><%= user.escape("name") %></div>
+        <div id="info-content">
+          <div style="float:right">
+            <div><button name="change-cover">Change Cover</button></div>
+          </div>
 
-<ul class="basic-info"></ul>
+          <div id="info-photos">
+            <div>Photos</div>
+            <div>17</div>
+          </div>
+
+          <div id="info-friends">
+            <div>Friends</div>
+            <div>270</div>
+          </div>
+
+            // Content on the Page
+            <ul class="basic-info"></ul>  
+
+          <div id="container-content">
+            Put your Content Here.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
