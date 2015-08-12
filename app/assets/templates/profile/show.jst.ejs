@@ -1,5 +1,6 @@
 <h1 class="name">Welcome: <%= user.escape("name") %></h1>
 
-<img class="profile_pic" src=""/>
+<img class="profile_pic" src="<%= user.escape("profile_pic") %>"/>
+<img class="cover_pic" src="<%= user.escape("cover_pic") %>"/>
 
-<img class="cover_pic" src=""/>
+<ul class="basic-info"></ul>

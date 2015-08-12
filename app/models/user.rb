@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true
 
   attr_reader :password
-  after_initialize :ensure_session_token
+  after_initialize :ensure_session_token, :blank_profile_pics
 
   def self.find_by_credentials(user_params)
     user = User.find_by_email(user_params[:email])
@@ -30,5 +30,10 @@ class User < ActiveRecord::Base
 
   def ensure_session_token
     self.session_token ||= SecureRandom.urlsafe_base64(16)
+  end
+
+  def blank_profile_pics
+    self.profile_pic = "assets/profile/avatar.png"
+    self.cover_pic = "assets/profile/cover.jpg"
   end
 end
