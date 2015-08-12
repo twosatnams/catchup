@@ -1,61 +1,73 @@
-<h1>Sign In</h1>
-
-<form action="/session" method="post">
-  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-  <label>Email:
-    <input name="user[email]"
-           type="text">
-  </label>
-
-  <label>Password:
-    <input name="user[password]"
-           type="password">
-  </label>
-
-  <input type="submit" value="Log In">
-</form>
-
-<h1>Register</h1>
-
-<form action="/users" method="post">
-  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-
-  <label>First Name:
-    <input type="text"
-           name="user[name]"
-           value="">
-  </label>
-
-  <br>
-
-  <label>Email:
-    <input type="text"
-           name="user[email]"
-           value="">
-  </label>
-
-  <br>
-
-  <label>Password:
-    <input type="password"
-           name="user[password]">
-  </label>
-
-  <br>
-
-  <!-- <label>Re-enter Password:
-    <input type="password"
-           name="user[re-password]">
-  </label>
-
-  <br> -->
-
-  <label>Date of Birth:
-    <input type="date"
-           name="user[dob]">
-  </label>
-
-  <br>
-
-  <input type="submit" value="Register"><br>
-</form>
+<head>
+<title>Welcome To Catch Up!</title>
+</head>
+<body class="login">
+<!-- header starts here -->
+<div id="facebook-Bar">
+  <div id="facebook-Frame">
+    <!-- To Do -->
+    <div id="logo"> <a href="#">Catch Up!</a> </div>
+    <div id="header-main-right">
+      <div id="header-main-right-nav">
+        <form method="post" action="/session" id="login_form" name="login_form">
+          <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+          <table border="0" style="border:none">
+            <tr>
+              <td ><input type="text" tabindex="1"  id="email" placeholder="Email" name="user[email]" class="inputtext radius1" value=""></td>
+              <td ><input type="password" tabindex="2" id="pass" placeholder="Password" name="user[password]" class="inputtext radius1" ></td>
+              <td ><input type="submit" class="fbbutton" name="login" value="Login" /></td>
+            </tr>
+            <tr>
+              <td><label>
+                  <input id="persist_box" type="checkbox" name="persistent" value="1" checked="1"/>
+                  <span style="color:#ccc;">Keep me logged in</span></label></td>
+              <td><label><a href="" style="color:#ccc; text-decoration:none">forgot your password?</a></label></td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- header ends here -->
+<div class="loginbox radius">
+  <h2 style="color:#141823; text-align:center;">Welcome to Catch Up</h2>
+  <div class="loginboxinner radius">
+    <div class="loginheader">
+      <h4 class="title">Connect with friends and the world around you.</h4>
+    </div>
+    <!--loginheader-->
+    <div class="loginform">
+      <form id="login" action="/users" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <p>
+          <input type="text" id="name" name="user[name]" placeholder="Enter Your Name" value="" class="radius mini" />
+        </p>
+        <p>
+          <input type="text" id="email" name="user[email]" placeholder="Your Email" value="" class="radius" />
+        </p>
+        <p>
+          <input type="password" id="password" name="user[password]" placeholder="Select a Password" class="radius" />
+        </p>
+        <p>
+          <!-- To Do -->
+          <input type="password" id="repassword" name="" placeholder="Re-enter Password" class="radius" />
+        </p>
+        <p>
+          <!-- To Do -->
+          <input type="date" name="user[dob]" value="" placeholder="Your Date of Birth">
+        </p>
+        <p>
+          <!-- <input class="radius title loginbox" type="submit" value="Sign Up for Catch Up"> -->
+          <button type="submit" form="login" class="radius title" name="signup">Sign Up for Catch Up</button>
+          
+        </p>
+      </form>
+    </div>
+    <!--loginform-->
+  </div>
+  <!--loginboxinner-->
+</div>
+<!--loginbox-->
+</body>
+</html>
