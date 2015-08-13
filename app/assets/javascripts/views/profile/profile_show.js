@@ -4,6 +4,7 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
   initialize: function () {
     this.listenTo(this.model, 'sync', this.render);
     this.listenTo(this.model, 'sync', this.addBasicInfoSubview);
+    this.listenTo(this.model, 'sync', this.addPostsIndexSubview);
   },
 
   events: {
@@ -19,6 +20,13 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
       model: this.model
     });
     this.addSubview("ul.basic-info", basicInfo);
+  },
+
+  addPostsIndexSubview: function () {
+    var posts = new Catchup.Views.PostsIndex({
+      collection: this.model.posts()
+    });
+    this.addSubview(".posts-holder", posts);
   },
 
   render: function () {
