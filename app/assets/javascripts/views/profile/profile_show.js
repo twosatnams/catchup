@@ -7,7 +7,7 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
   },
 
   events: {
-    "click .edit-profile" : "editProfile"
+    "click #edit-profile" : "editProfile"
   },
 
   editProfile: function () {
