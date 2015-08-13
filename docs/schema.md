@@ -32,7 +32,7 @@ column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
 post_id     | integer   | not null, foreign key (references posts)
-user_id     | integer   | not null, foreign key (references users)
+liker_id    | integer   | not null, foreign key (references users)
 
 ## comments
 column name | data type | details
@@ -43,11 +43,11 @@ post_id     | integer   | not null, foreign key (reference posts)
 body        | string    |
 
 ## mentions
-column name | data type | details
-------------|-----------|-----------------------
-id          | integer   | not null, primary key
-post_id     | integer   | not null, foreign key (references post)
-user_id     | integer   | not null, foreign key (references users)
+column name        | data type | details
+-------------------|-----------|-----------------------
+id                 | integer   | not null, primary key
+post_id            | integer   | not null, foreign key (references post)
+mentioned_user_id  | integer   | not null, foreign key (references users)
 
 ## friends
 column name | data type | details

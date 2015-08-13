@@ -4,4 +4,5 @@ class Photo < ActiveRecord::Base
     class_name: "Post",
     foreign_key: :post_id,
     primary_key: :id
+  
 end
