@@ -25,6 +25,7 @@ body        | string    |
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
+url         | string    | not null
 post_id     | integer   | not null, foreign key (references posts)
 
 ## likes
