@@ -58,14 +58,11 @@
   }
 }
 
-.form-control {
-  height: 25px;
-  margin-left: 150px;
-}
-
 .navbar-form .form-control {
-  width: 300px;
+  width: 400px;
   margin-top: 5px;
+  height: 25px;
+  margin-left: 70px;
 }
 
 button.btn.btn-default.search {
@@ -73,4 +70,13 @@ button.btn.btn-default.search {
   padding:inherit;
   font-size: 12px;
   margin-top: 5px;
+}
+
+a.navbar-brand {
+  top: 20px;
+  font-size: 23px;
+  font-weight: bold;
+  color: #FFF;
+  text-decoration: none;
+  font-family: "Lucida Sans Unicode","Lucida Grande",sans-serif;
 }

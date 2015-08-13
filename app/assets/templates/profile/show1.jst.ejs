@@ -1,0 +1,40 @@
+<div id="profile-container">
+  <div id='cover_container' style="background:url('<%= user.escape("cover_pic") %>');">
+
+    <div id='info_box'>
+      <div id="profile_img"><img src="<%= user.escape("profile_pic") %>" class='avatar_img'/></div>
+      <div id="info-box">
+      <div id="info-name"><%= user.escape("name") %></div>
+        <div id="info-content">
+          <div style="float:right">
+            <div><button name="change-cover">Change Cover</button></div>
+          </div>
+
+          <div id="info-photos">
+            <div>Photos</div>
+            <div>17</div>
+          </div>
+
+          <div id="info-friends">
+            <div>Friends</div>
+            <div>270</div>
+          </div>
+
+          <div id="edit-profile">
+            <button class="edit-profile">Edit Profile</button>
+          </div>
+
+            // Content on the Page
+
+          <div id="container-content">
+            Put your Content Here.
+          </div>
+        </div>
+        <ul class="basic-info"></ul>
+      </div>
+    </div>
+  </div>
+
+  <textarea name="post[body]" rows="8" cols="40" placeholder="What's on your mind?"></textarea>
+
+</div>

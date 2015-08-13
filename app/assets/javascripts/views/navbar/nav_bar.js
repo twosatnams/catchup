@@ -17,7 +17,7 @@ Catchup.Views.NavBar = Backbone.View.extend({
 
   render: function () {
     var content = this.template({
-
+      currentUser: this.currentUser
     });
     this.$el.html(content);
     return this;
