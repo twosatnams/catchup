@@ -20,7 +20,12 @@ column name | data type | details
 id          | integer   | not null, primary key
 author_id   | integer   | not null, foreign key (references users)
 body        | string    |
-photos
+
+## photos
+column name | data type | details
+------------|-----------|-----------------------
+id          | integer   | not null, primary key
+post_id     | integer   | not null, foreign key (references posts)
 
 ## likes
 column name | data type | details
