@@ -20,3 +20,12 @@ end
 json.comments @post.comments do |comment|
   json.extract! comment, :id, :author_id, :body
 end
+
+# like = photo.likes.find_by(user_id: current_user.id)
+#   if like
+#     json.like do
+#       json.extract! like, :id
+#     end
+#   end
+#
+#   json.numLikes photo.likes.count

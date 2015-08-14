@@ -3,8 +3,9 @@
 </p>
 
 <br>
-<%= post.likes().length %>
+<%= post.escape("numLikes") %>
 <br>
+<% debugger %>
 <button class="post-like">Like!</button>
 <br>
 

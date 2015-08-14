@@ -16,7 +16,8 @@ Catchup.Views.PostShow = Backbone.CompositeView.extend({
 
   likePost: function() {
     console.log("liked");
-    this.model.like().save({photo_id: this.model.id});
+    debugger
+    this.model.like().save({post_id: this.model.id});
     this.model.set({numLikes: this.model.get('numLikes') + 1});
   },
 
@@ -29,7 +30,8 @@ Catchup.Views.PostShow = Backbone.CompositeView.extend({
 
   initialize: function () {
     this.listenTo(this.model, 'add', this.addCommentSubview);
-    // this.listenTo(this.model, 'sync', this.render);
+    this.listenTo(this.model, 'sync change:numLikes', this.render);
+    this.listenTo(this.model.like(), 'change', this.render);
     this.model.comments().each(function (comment) {
       this.addCommentSubview(comment);
     }.bind(this));

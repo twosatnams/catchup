@@ -25,6 +25,17 @@ Catchup.Models.Post = Backbone.Model.extend({
     return this._photos;
   },
 
+  like: function() {
+    if (!this._like) {
+      this._like = new Catchup.Models.Like();
+    }
+    return this._like;
+  },
+
+  isLiked: function() {
+    return !this.like().isNew();
+  },
+
   parse: function (response) {
     if (response.likes) {
       this.likes().set(response.likes, { parse: true });
@@ -39,6 +50,12 @@ Catchup.Models.Post = Backbone.Model.extend({
     if (response.photos) {
       this.photos().set(response.photos, { parse: true });
       delete response.photos;
+    }
+
+    if (response.like) {
+      this.like().set(response.like);
+      delete response.like;
+      // why not delete response.like ?
     }
 
     return response;
