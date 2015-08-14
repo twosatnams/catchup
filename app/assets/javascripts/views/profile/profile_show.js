@@ -5,6 +5,7 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
     this.listenTo(this.model, 'sync', this.render);
     this.listenTo(this.model, 'sync', this.addBasicInfoSubview);
     this.listenTo(this.model, 'sync', this.addPostsIndexSubview);
+    this.listenTo(this.model, 'sync', this.addNewPostSubview);
   },
 
   events: {
@@ -20,6 +21,14 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
       model: this.model
     });
     this.addSubview("ul.basic-info", basicInfo);
+  },
+
+  addNewPostSubview: function () {
+    var post = new Catchup.Models.Post();
+    var form = new Catchup.Views.PostForm({
+      model: post
+    });
+    this.addSubview(".new-post-form", form);
   },
 
   addPostsIndexSubview: function () {

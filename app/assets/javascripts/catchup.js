@@ -15,5 +15,5 @@ window.Catchup = {
 };
 
 // $(document).ready(function(){
-//   Catchup.initialize();
+//   $(".dropdown-toggle").dropdown();
 // });
