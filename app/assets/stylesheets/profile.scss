@@ -26,7 +26,7 @@
   height: 300px;
   background-size: cover;
   border-bottom: 1px solid #ccc;
-  overflow: auto;
+  overflow: hidden;
 }
 
 #cover-pic-holder {
@@ -35,7 +35,7 @@
   align-items:center;
   max-height: 300px;
   z-index: -1;
-  // overflow:hidden
+  overflow:hidden
 }
 
 #cover-pic {

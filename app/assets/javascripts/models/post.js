@@ -3,16 +3,42 @@ Catchup.Models.Post = Backbone.Model.extend({
 
   likes: function () {
     if (!this._likes) {
-      this._likes = new Catchup.Collections.Posts([], { user: this });
+      this._likes = new Catchup.Collections.Likes([], { post: this });
     }
 
     return this._likes;
   },
 
+  comments: function () {
+    if (!this.comments) {
+      this.comments = new Catchup.Collections.Comments([], { post: this });
+    }
+
+    return this.comments;
+  },
+
+  photos: function () {
+    if (!this.photos) {
+      this.photos = new Catchup.Collections.Photos([], { post: this });
+    }
+
+    return this.photos;
+  },
+
   parse: function (response) {
-    if (response.posts) {
-      this.posts().set(response.posts, { parse: true });
-      delete response.posts;
+    if (response.likes) {
+      this.likes().set(response.likes, { parse: true });
+      delete response.likes;
+    }
+
+    if (response.comments) {
+      this.comments().set(response.comments, { parse: true });
+      delete response.comments;
+    }
+
+    if (response.photos) {
+      this.photos().set(response.photos, { parse: true });
+      delete response.photos;
     }
 
     return response;
