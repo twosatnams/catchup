@@ -17,6 +17,7 @@ json.posts @user.posts do |post|
 
   json.comments post.comments do |comment|
     json.extract! comment, :id, :author_id, :body
+    json.author_name comment.author.name
   end
 
   json.photos post.photos do |photo|
