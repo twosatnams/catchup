@@ -2,19 +2,20 @@ Catchup.Views.PostsIndex = Backbone.CompositeView.extend({
   template: JST['post/post_index'],
 
   initialize: function () {
-    this.addPostsSubview();
-    this.listenTo(this.collection, 'sync', this.addPostsSubview);
+    this.listenTo(this.collection, 'add', this.addPostSubview);
     this.listenTo(this.collection, 'sync', this.render);
-  },
 
-  addPostsSubview: function () {
     var that = this;
     this.collection.each(function (post) {
-      var post = new Catchup.Views.PostShow({
-        model: post
-      });
-      that.addSubview("ul.posts", post);
+      that.addPostSubview(post);
     });
+  },
+
+  addPostSubview: function (post) {
+    var postSubview = new Catchup.Views.PostShow({
+      model: post
+    });
+    this.addSubview("ul.posts", postSubview);
   },
 
   render: function () {
