@@ -5,8 +5,15 @@
 <br>
 <%= post.escape("numLikes") %>
 <br>
-<% debugger %>
-<button class="post-like">Like!</button>
+
+<% var likeButtonText = "" %>
+<% if (post.isLiked() === true) { %>
+<%   likeButtonText = "Unlike"; %>
+<% } else { %>
+<%   likeButtonText = "Like!"; %>
+<% } %>
+
+<button class="post-like"><%= likeButtonText %></button>
 <br>
 
 <ul class="comments-container">

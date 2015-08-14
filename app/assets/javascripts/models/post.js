@@ -55,7 +55,6 @@ Catchup.Models.Post = Backbone.Model.extend({
     if (response.like) {
       this.like().set(response.like);
       delete response.like;
-      // why not delete response.like ?
     }
 
     return response;
