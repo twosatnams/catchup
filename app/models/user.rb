@@ -8,6 +8,20 @@ class User < ActiveRecord::Base
     foreign_key: :author_id,
     primary_key: :id
 
+  has_many :likes,
+    class_name: "Like",
+    foreign_key: :liker_id,
+    primary_key: :id
+
+  has_many :liked_posts,
+    through: :likes,
+    source: :post
+
+  has_many :comments,
+    class_name: "Comment",
+    foreign_key: :author_id,
+    primary_key: :id
+
   attr_reader :password
   after_initialize :ensure_session_token, :blank_profile_pics
 

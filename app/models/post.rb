@@ -27,4 +27,8 @@ class Post < ActiveRecord::Base
     foreign_key: :post_id,
     primary_key: :id
 
+  has_many :likers,
+    through: :likes,
+    source: :liker
+
 end
