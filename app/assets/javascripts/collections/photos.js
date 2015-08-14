@@ -1,5 +1,5 @@
-Catchup.Collection.Photos = Backbone.Collection.extend({
-  url: '/api/photos'
+Catchup.Collections.Photos = Backbone.Collection.extend({
+  url: '/api/photos',
   model: Catchup.Models.Photo,
 
   getOrFetch: function (id) {

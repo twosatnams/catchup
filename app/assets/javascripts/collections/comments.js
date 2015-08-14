@@ -1,5 +1,5 @@
-Catchup.Collection.Comments = Backbone.Collection.extend({
-  url: '/api/comments'
+Catchup.Collections.Comments = Backbone.Collection.extend({
+  url: '/api/comments',
   model: Catchup.Models.Comment,
 
   getOrFetch: function (id) {
