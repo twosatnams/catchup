@@ -6,10 +6,13 @@
 <%= post.likes().length %>
 <br>
 <button class="post-like">Like!</button>
-<button class="post-comments">Comments</button>
 <br>
 
+<ul class="comments-container">
+
+</ul>
+
 <form class="create-comment" action="/api/comments" method="post">
-  <textarea rows="2" cols="40" placeholder="Write a comment..."></textarea>
+  <textarea rows="1" cols="40" placeholder="Write a comment..."></textarea>
   <button class="post-create-comment">Comment</button>
 </form>

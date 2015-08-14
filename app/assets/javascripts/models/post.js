@@ -10,19 +10,19 @@ Catchup.Models.Post = Backbone.Model.extend({
   },
 
   comments: function () {
-    if (!this.comments) {
-      this.comments = new Catchup.Collections.Comments([], { post: this });
+    if (!this._comments) {
+      this._comments = new Catchup.Collections.Comments([], { post: this });
     }
 
-    return this.comments;
+    return this._comments;
   },
 
   photos: function () {
-    if (!this.photos) {
-      this.photos = new Catchup.Collections.Photos([], { post: this });
+    if (!this._photos) {
+      this._photos = new Catchup.Collections.Photos([], { post: this });
     }
 
-    return this.photos;
+    return this._photos;
   },
 
   parse: function (response) {
