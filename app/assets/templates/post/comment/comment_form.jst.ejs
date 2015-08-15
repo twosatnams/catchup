@@ -1,2 +1,3 @@
-<textarea rows="1" cols="40" placeholder="Write a comment..."></textarea>
-<button class="btn-create-comment">Comment</button>
+<textarea rows="1" cols="40" name="comment[body]" placeholder="Write a comment..."></textarea>
+<input type="hidden" name="comment[post_id]" value="<%= post_id %>">
+<button class="btn-create-comment" type="submit">Comment</button>
