@@ -26,7 +26,8 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
   addNewPostSubview: function () {
     var post = new Catchup.Models.Post();
     var form = new Catchup.Views.PostForm({
-      model: post
+      model: post,
+      collection: this.model.posts()
     });
     this.addSubview(".new-post-form", form);
   },
