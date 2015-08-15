@@ -3,10 +3,13 @@ Catchup.Views.PostShow = Backbone.CompositeView.extend({
   className: 'post-content',
 
   initialize: function () {
-    this.listenTo(this.model, 'add', this.addCommentsSubview);
     this.addNewCommentSubview();
+
+    this.listenTo(this.model, 'add', this.addCommentsSubview);
     this.listenTo(this.model, 'sync change:numLikes', this.render);
     this.listenTo(this.model.like(), 'change', this.render);
+    this.listenTo(this.model.comments(), 'add', this.render);
+
     this.model.comments().each(function (comment) {
       this.addCommentsSubview(comment);
     }.bind(this));
@@ -38,7 +41,8 @@ Catchup.Views.PostShow = Backbone.CompositeView.extend({
   addNewCommentSubview: function () {
     var newComment = new Catchup.Models.Comment();
     var subview = new Catchup.Views.CommentForm({
-      model: newComment
+      model: newComment,
+      collection: this.model.comments()
     });
     this.addSubview('.new-comment-container', subview);
   },
