@@ -8,7 +8,7 @@ json.extract! @user,
   :school,
   :workplace
 
-json.posts @user.posts.reverse do |post|
+json.posts @user.posts.order("created_at") do |post|
   json.extract! post, :id, :author_id, :body
 
   json.likes post.likes do |like|
