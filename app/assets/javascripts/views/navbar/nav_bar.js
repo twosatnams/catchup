@@ -6,6 +6,14 @@ Catchup.Views.NavBar = Backbone.View.extend({
     this.listenTo(this.router, "route", this.handleRoute);
   },
 
+  events: {
+    "click #edit-profile" : "editProfile"
+  },
+
+  editProfile: function () {
+    Backbone.history.navigate("users/" + currentUser.get('id') + "/edit", {trigger: true});
+  },
+
   handleRoute: function (routeName, params) {
     this.$el.find(".active").removeClass("active");
     this.$el.find("." + routeName).addClass("active");
@@ -20,6 +28,8 @@ Catchup.Views.NavBar = Backbone.View.extend({
       currentUser: this.currentUser
     });
     this.$el.html(content);
+    this.$el.find('#sign_out_auth_token')
+            .val($('meta[name=csrf-token]').attr('content'));
     return this;
   }
 });

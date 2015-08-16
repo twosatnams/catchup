@@ -50,6 +50,13 @@
   color: #ffbbbc;
 }
 
+// .settings {
+//   background-color: inherit;
+//   position: absolute;
+//   vertical-align: middle;
+//   margin-top: 8px;
+// }
+
 @media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: #f8fbfb;
@@ -62,6 +69,27 @@
     background-color: #3b5998;
   }
 
+}
+
+input.sign-out {
+  background-color: white;
+  border: none;
+  height: 20px;
+  font-size: 14px;
+  margin-left: -6px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  // display: block;
+  // padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  color: #333333;
+  white-space: nowrap;
+  background-color: inherit;
+}
+
+input.sign-out:hover {
+  background: transparent;
 }
 
 .navbar-right {
