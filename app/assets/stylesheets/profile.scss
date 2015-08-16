@@ -1,23 +1,26 @@
 .content {
   position: relative;
   margin: 0 auto;
-  background: #fff;
-  width: 68%;
-  border-left: 1px solid #ccc;
-  border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  background: transparent;
+  // width: 68%;
+  // border-left: 1px solid #ccc;
+  // border-right: 1px solid #ccc;
+  // border-bottom: 1px solid #ccc;
+  width: 60%;
+  float: left;
+  margin-left: 230px;
 }
 
-.content:before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 240px;
-  width: 1px;
-  background: #ccc;
-}
+// .content:before {
+//   content: "";
+//   display: block;
+//   position: absolute;
+//   top: 0;
+//   bottom: 0;
+//   left: 240px;
+//   width: 1px;
+//   background: #ccc;
+// }
 
 
 .content-cover {
@@ -33,7 +36,7 @@
   // display:flex;
   justify-content:center;
   align-items:center;
-  max-height: 300px;
+  max-height: 305px;
   z-index: -1;
   overflow:hidden
 }
@@ -46,13 +49,16 @@
 
 .content-cover > h1 {
   position: absolute;
-  bottom: 65px;
-  left: 210px;
-  font-size: 36px;
-  line-height: 1;
-  font-weight: 300;
+  bottom: 45px;
+  left: 200px;
   color: #fff;
-  text-shadow: #000 0 0 10px;
+  text-rendering: optimizelegibility;
+  text-shadow: 0 0 3px rgba(0,0,0,.8);
+  font-family: helvetica, arial, sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 30px;
+  max-width: 275px;
 }
 
 #profile-pic {
@@ -61,8 +67,8 @@
   margin-left: 15px;
   margin-top: -140px;
   position: absolute;
-  border: 4px solid;
-  border-color: white;
+  border: 3px solid;
+  border-color: grey;
   width: 170px;
   height: 170px;
   float:left;
@@ -124,8 +130,26 @@ ul.basic-info {
   float: left;
   background-color: white;
   width: 100%;
-  border-radius: 2px;
+  border-radius: 4px;
   border: 1px solid lightgrey;
   float: left;
   padding: 15px;
+}
+
+div.profile-ribbon ul.nav.nav-pills {
+  margin-left: 205px;
+}
+
+div.profile-ribbon ul.nav.nav-pills > li {
+  border-right: 1px solid #e9eaed;
+  border-radius: 0px;
+  margin: 0px;
+}
+
+div.profile-ribbon ul.nav.nav-pills > li > a {
+  // border-right: 1px solid #e9eaed;
+  border-radius: 0px;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: helvetica, arial, sans-serif;
 }
