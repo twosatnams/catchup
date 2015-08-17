@@ -32,7 +32,7 @@
           <ul class="dropdown-menu">
             <li><a href="#" id="edit-profile">Edit Profile</a></li>
 
-            <li><a href="#" onclick="document.getElementById('sign-out-form').submit();">Sign Out</a>
+            <li>
               <form action="session" method="post" id="sign-out-form">
                 <input type="hidden" name="_method" value="delete">
                 <input type="hidden"
@@ -43,6 +43,7 @@
                 <input type="hidden" value="" />
 
               </form>
+              <a href="#" onclick="document.getElementById('sign-out-form').submit();">Sign Out</a>
             </li>
 
           </ul>
