@@ -5,8 +5,13 @@ Catchup.Routers.Router = Backbone.Router.extend({
   },
 
   routes: {
+    "" : "redirect_to_profile",
     "users/:id" : "show",
     "users/:id/edit" : "edit"
+  },
+
+  redirect_to_profile: function () {
+    Backbone.history.navigate("users/" + currentUser.get('id'), {trigger: true});
   },
 
   show: function (id) {
