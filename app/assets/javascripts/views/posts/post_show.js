@@ -10,6 +10,7 @@ Catchup.Views.PostShow = Backbone.CompositeView.extend({
     this.listenTo(this.model.comments(), 'add', this.addCommentsSubview);
 
     this.addNewCommentSubview();
+    
     this.model.comments().each(function (comment) {
       this.addCommentsSubview(comment);
     }.bind(this));
