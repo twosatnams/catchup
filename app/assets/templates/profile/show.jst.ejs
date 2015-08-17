@@ -3,7 +3,11 @@
     <div id="cover-pic-holder"><img id="cover-pic" src="<%= user.escape("cover_pic") %>"/></div>
     <h1><%= user.escape("name") %></h1>
     <img id="profile-pic" src="<%= user.escape("profile_pic") %>"/>
-    <button id="change-cover">Change Cover</button>
+
+    <% if (user === currentUser) { %>
+      <button id="change-avatar">Update Profile Picture</button>
+      <button id="change-cover">Update Cover Picture</button>
+    <% } %>
 
     <div class="profile-ribbon">
       <ul class="nav nav-pills">
