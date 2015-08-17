@@ -100,7 +100,7 @@ input.sign-out:hover {
   width: 400px;
   margin-top: 5px;
   height: 25px;
-  margin-left: 70px;
+  margin-left: 200px;
 }
 
 button.btn.btn-default.search {
@@ -117,4 +117,11 @@ a.navbar-brand {
   color: #FFF;
   text-decoration: none;
   font-family: "Lucida Sans Unicode","Lucida Grande",sans-serif;
+}
+
+.btn-default.btn-search {
+  border: none;
+  padding-bottom: 2px;
+  padding-top: 3px;
+  margin-top: 5px;
 }

@@ -19,10 +19,6 @@ Catchup.Views.NavBar = Backbone.View.extend({
     this.$el.find("." + routeName).addClass("active");
   },
 
-  // updateCount: function () {
-  //   this.$("#tweets-count").text(this.collection.length);
-  // },
-
   render: function () {
     var content = this.template({
       currentUser: this.currentUser
