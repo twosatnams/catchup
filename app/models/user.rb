@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
   end
 
   def blank_profile_pics
-    self.profile_pic = "assets/profile/avatar.png"
-    self.cover_pic = "assets/profile/cover.jpg"
+    self.profile_pic = "assets/avatar.png"
+    self.cover_pic = "assets/cover.jpg"
   end
 end
