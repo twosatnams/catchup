@@ -1,3 +1,6 @@
-<textarea rows="1" cols="40" name="comment[body]" placeholder="Write a comment..."></textarea>
+<textarea class="new-comment-input"rows="1" name="comment[body]" placeholder="Write a comment..."></textarea>
 <input type="hidden" name="comment[post_id]" value="<%= post_id %>">
-<button class="btn-create-comment" type="submit">Comment</button>
+<button type="submit" class="btn btn-default btn-create-comment" aria-label="Left Align">
+  <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+  <span contenteditable="true"></span>
+</button>

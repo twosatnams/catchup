@@ -1,32 +1,54 @@
-<p class="post-body">
-  <%= post.escape('body') %>
-</p>
+<div class="post-main">
+  <p class="post-body">
+    <%= post.escape('body') %>
+  </p>
 
-<!-- Dropdown -->
-<div class="btn-group">
-  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <span class="caret"></span>
-    <span class="sr-only">Toggle Dropdown</span>
+  <!-- Dropdown -->
+  <li class="dropdown post">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
+    <ul class="dropdown-menu">
+      <li><a href="#">Edit</a></li>
+      <li><a href="#">Delete</a></li>
+    </ul>
+  </li>
+
+  <!-- <script>
+  $(document).ready(function(){
+      $("button").click(function(){
+          $("p:first").addClass("intro");
+      });
+  });
+  </script> -->
+
+  <!-- <script type="text/javascript">
+    if (post.isLiked() === true) {
+      debugger
+      $('button.post-like').addClass('liked');
+    }
+  </script> -->
+
+
+  <br>
+  <% var likeButtonText = "" %>
+  <% if (post.isLiked() === true) { %>
+  <%   likeButtonText = "Unlike"; %>
+  <% } else { %>
+  <%   likeButtonText = "Like!"; %>
+  <% } %>
+  <hr>
+
+  <button type="button" class="btn btn-default post-like" aria-label="Left Align">
+    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <%= likeButtonText %>
   </button>
-  <ul class="dropdown-menu">
-    <li><a href="#">Edit Post</a></li>
-    <li><a href="#">Delete Post</a></li>
-  </ul>
 </div>
 
-<br>
-<%= post.escape("numLikes") %>
-<br>
+<div class="post-footer">
+  <div class="likes-text">
+    <%= post.escape("numLikes") %> people like this.
+  </div>
 
-<% var likeButtonText = "" %>
-<% if (post.isLiked() === true) { %>
-<%   likeButtonText = "Unlike"; %>
-<% } else { %>
-<%   likeButtonText = "Like!"; %>
-<% } %>
+  <hr>
 
-<button class="post-like"><%= likeButtonText %></button>
-<br>
-
-<ul class="comments-container"></ul>
-<div class="new-comment-container"></div>
+  <ul class="comments-container"></ul>
+  <div class="new-comment-container"></div>
+</div>
