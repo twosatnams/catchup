@@ -61,6 +61,10 @@
   max-width: 275px;
 }
 
+#cover-pic-holder {
+  z-index: 2;
+}
+
 #profile-pic {
   background-color: #FFFFFF;
   border: 1px solid #DEDEDE;
@@ -74,6 +78,37 @@
   float:left;
   z-index: 2;
 }
+
+button#change-avatar {
+  background-color: transparent;
+  color: transparent;
+  z-index: 5;
+  border: none;
+  position:relative;
+  margin-left: 18px;
+  width: 164px;
+  height: 54px;
+  margin-top: -27px;
+}
+
+button#change-avatar:hover {
+  z-index: 5;
+  background-color: rgba(0,0,0,0.8);
+  font-size: 20px;
+  color: lightgrey;
+}
+
+#change-cover {
+  z-index: 3;
+  background-color: rgba(0,0,0,0.8);
+  color: lightgrey;
+  position:absolute;
+  top: 0;
+  margin-left: 10px;
+  margin-top: 10px;
+  border: none;
+}
+
 
 .profile-ribbon {
   position: absolute;
@@ -118,11 +153,6 @@ content-cover > li {
 }
 
 
-#change-cover {
-  z-index: -1;
-  position: absolute;
-  top: 0;
-}
 
 
 ul.basic-info {

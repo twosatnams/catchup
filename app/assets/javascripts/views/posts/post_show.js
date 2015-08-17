@@ -4,7 +4,7 @@ Catchup.Views.PostShow = Backbone.CompositeView.extend({
 
   initialize: function () {
     this.listenTo(this.model, 'add', this.addCommentsSubview);
-    this.listenTo(this.model, 'sync change:numLikes', this.render);
+    this.listenTo(this.model, 'sync change:numLikes change', this.render);
     this.listenTo(this.model.like(), 'change', this.render);
     this.listenTo(this.model.comments(), 'sync', this.render);
     this.listenTo(this.model.comments(), 'add', this.addCommentsSubview);
@@ -18,8 +18,10 @@ Catchup.Views.PostShow = Backbone.CompositeView.extend({
 
   events: {
     'click .post-like' : 'toggleLike',
-    'click #edit-post' : 'editPost',
-    'click #delete-post' : 'deletePost'
+    'click #edit-post' : 'startEdit',
+    'click #delete-post' : 'deletePost',
+    'blur input': 'stopEdit',
+    'click #btn-done-editing' : 'stopEdit'
   },
 
   toggleLike: function(event) {
@@ -31,7 +33,12 @@ Catchup.Views.PostShow = Backbone.CompositeView.extend({
   },
 
   likePost: function() {
-    this.model.like().save({post_id: this.model.id});
+    this.model.like().save({
+      post_id: this.model.id,
+      success: function () {
+        this.$(".like-button").addClass('liked');
+      }
+    });
     this.model.set({numLikes: this.model.get('numLikes') + 1});
   },
 
@@ -41,15 +48,24 @@ Catchup.Views.PostShow = Backbone.CompositeView.extend({
     this.model.set({numLikes: this.model.get('numLikes') - 1});
   },
 
-  editPost: function (event) {
+  startEdit: function (event) {
     event.preventDefault();
-    var $target = $(event.currentTarget);
-    var newPostForm = new Catchup.Views.PostForm({
-      model: this.model,
-      collection: currentUser.posts()
-    });
-    debugger
-    $target.replaceWith(newPostForm.render().$el);
+    var $target = this.$(".post-body");
+    var $input = $("<textarea class='post-body' id='being-edited' rows='4'></textarea>");
+    $input.val(this.model.get("body"));
+    $target.replaceWith($input);
+    $('#btn-done-editing').show();
+  },
+
+  stopEdit: function (event) {
+    event.preventDefault();
+    var $target = this.$(".post-body");
+    var newBody = $target.val();
+    var $input = $("<div></div>");
+    $input.text(newBody);
+    $target.replaceWith($input);
+    this.model.save({body: newBody});
+    $('#btn-done-editing').hide();
   },
 
   deletePost: function () {
@@ -77,6 +93,7 @@ Catchup.Views.PostShow = Backbone.CompositeView.extend({
     var content = this.template({
       post: this.model
     });
+    $('#btn-done-editing').hide();
     this.$el.html(content);
     this.attachSubviews();
     return this;

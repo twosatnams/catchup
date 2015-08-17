@@ -10,11 +10,30 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
     this.listenTo(this.model, 'sync', this.addBasicInfoSubview);
   },
 
+  events: {
+    'click #change-cover' : 'updateCover'
+  },
+
   addBasicInfoSubview: function () {
     var basicInfo = new Catchup.Views.BasicInfo({
       model: this.model
     });
     this.addSubview("ul.basic-info", basicInfo);
+  },
+
+  updateCover: function(event) {
+    debugger
+    // var image = new CloudinaryDemo.Models.Image();
+    event.preventDefault();
+    cloudinary.openUploadWidget(CLOUDINARY_OPTIONS, function(error, result){
+      var data = result[0];
+      this.model.set({cover_pic: data.url});
+      this.model.save({}, {
+        success: function () {
+          console.log('cover change worked');
+        }
+      });
+    });
   },
 
   addNewPostSubview: function () {
