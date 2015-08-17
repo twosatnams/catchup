@@ -10,7 +10,7 @@ Catchup.Views.PostShow = Backbone.CompositeView.extend({
     this.listenTo(this.model.comments(), 'add', this.addCommentsSubview);
 
     this.addNewCommentSubview();
-    
+
     this.model.comments().each(function (comment) {
       this.addCommentsSubview(comment);
     }.bind(this));
@@ -18,6 +18,8 @@ Catchup.Views.PostShow = Backbone.CompositeView.extend({
 
   events: {
     'click .post-like' : 'toggleLike',
+    'click #edit-post' : 'editPost',
+    'click #delete-post' : 'deletePost'
   },
 
   toggleLike: function(event) {
@@ -37,6 +39,21 @@ Catchup.Views.PostShow = Backbone.CompositeView.extend({
     this.model.like().destroy();
     this.model.like().clear();
     this.model.set({numLikes: this.model.get('numLikes') - 1});
+  },
+
+  editPost: function (event) {
+    event.preventDefault();
+    var $target = $(event.currentTarget);
+    var newPostForm = new Catchup.Views.PostForm({
+      model: this.model,
+      collection: currentUser.posts()
+    });
+    debugger
+    $target.replaceWith(newPostForm.render().$el);
+  },
+
+  deletePost: function () {
+
   },
 
   addNewCommentSubview: function () {
