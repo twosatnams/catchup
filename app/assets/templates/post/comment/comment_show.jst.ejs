@@ -1,2 +1,19 @@
-<%= comment.escape('author_name') %> :
-<%= comment.escape('body') %>
+<div class="comment-info">
+  <%= comment.escape('author_name') %> :
+</div>
+
+<div class="comment-body">
+  <%= comment.escape('body') %>
+</div>
+
+<% if (comment.escape('author_id') === currentUser.escape('id')) { %>
+  <div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li><a href="#" class="edit-comment">Edit</a></li>
+    <li><a href="#" class="delete-comment">Delete</a></li>
+  </ul>
+</div>
+<% } %>

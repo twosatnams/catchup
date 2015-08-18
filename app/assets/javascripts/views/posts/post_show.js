@@ -18,8 +18,8 @@ Catchup.Views.PostShow = Backbone.CompositeView.extend({
 
   events: {
     'click .post-like' : 'toggleLike',
-    'click #edit-post' : 'startEdit',
-    'click #delete-post' : 'deletePost',
+    'click .edit-post' : 'startEdit',
+    'click .delete-post' : 'deletePost',
     'blur input': 'stopEdit',
     'click .btn-done-editing' : 'stopEdit'
   },
