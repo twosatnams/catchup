@@ -8,23 +8,23 @@ Catchup.Views.CommentShow = Backbone.View.extend({
     'blur .comment-body': 'stopEdit'
   },
 
-  startEdit: function (e) {
-    e.preventDefault();
+  startEdit: function (event) {
+    event.preventDefault();
     this.$('.comment-body').attr('contenteditable', 'true');
     this.$('.comment-body').focus();
   },
 
-  stopEdit: function (e) {
-    e.preventDefault();
+  stopEdit: function (event) {
+    event.preventDefault();
     var formData = this.$('.comment-body').text();
     this.model.save({body: formData});
   },
 
-  // deletePost: function (event) {
-  //   event.preventDefault();
-  //   var comment = this.collection.get(this.model.escape('id'));
-  //   post.destroy();
-  // },
+  deleteComment: function (event) {
+    event.preventDefault();
+    var comment = this.collection.get(this.model.escape('id'));
+    comment.destroy();
+  },
 
   render: function () {
     var content = this.template({

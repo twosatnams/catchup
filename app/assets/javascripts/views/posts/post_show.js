@@ -7,6 +7,7 @@ Catchup.Views.PostShow = Backbone.CompositeView.extend({
     this.listenTo(this.model, 'sync change:numLikes change', this.render);
     this.listenTo(this.model.like(), 'change', this.render);
     this.listenTo(this.model.comments(), 'sync', this.render);
+    this.listenTo(this.model.comments(), 'remove', this.removeCommentSubview);
     this.listenTo(this.model.comments(), 'add', this.addCommentsSubview);
 
     this.addNewCommentSubview();
@@ -109,10 +110,16 @@ Catchup.Views.PostShow = Backbone.CompositeView.extend({
 
   addCommentsSubview: function (comment) {
     var subview = new Catchup.Views.CommentShow({
-      model: comment
+      model: comment,
+      collection: this.model.comments()
     });
     this.addSubview('.comments-container', subview);
   },
+
+  removeCommentSubview: function (model, collection, options) {
+    this.removeModelSubview(".comments-container", model);
+  },
+
 
   render: function () {
     var content = this.template({
