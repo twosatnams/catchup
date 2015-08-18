@@ -11,7 +11,8 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
   },
 
   events: {
-    'click #change-cover' : 'updateCover'
+    'click #change-cover' : 'updateCover',
+    'click #change-avatar' : 'updateAvatar'
   },
 
   addBasicInfoSubview: function () {
@@ -22,13 +23,26 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
   },
 
   updateCover: function(event) {
-    debugger
-    // var image = new CloudinaryDemo.Models.Image();
     event.preventDefault();
+    var that = this;
     cloudinary.openUploadWidget(CLOUDINARY_OPTIONS, function(error, result){
       var data = result[0];
-      this.model.set({cover_pic: data.url});
-      this.model.save({}, {
+      that.model.set({cover_pic: data.url});
+      that.model.save({}, {
+        success: function () {
+          console.log('cover change worked');
+        }
+      });
+    });
+  },
+
+  updateAvatar: function(event) {
+    event.preventDefault();
+    var that = this;
+    cloudinary.openUploadWidget(CLOUDINARY_OPTIONS, function(error, result){
+      var data = result[0];
+      that.model.set({profile_pic: data.url});
+      that.model.save({}, {
         success: function () {
           console.log('cover change worked');
         }

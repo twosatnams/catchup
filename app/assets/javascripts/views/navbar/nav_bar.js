@@ -20,9 +20,7 @@ Catchup.Views.NavBar = Backbone.View.extend({
   },
 
   render: function () {
-    var content = this.template({
-      currentUser: this.currentUser
-    });
+    var content = this.template();
     this.$el.html(content);
     this.$el.find('#sign_out_auth_token')
             .val($('meta[name=csrf-token]').attr('content'));

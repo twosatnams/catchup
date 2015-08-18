@@ -3,21 +3,25 @@ Catchup.Views.PostForm = Backbone.View.extend({
   tagName: 'form',
 
   events: {
-    'click .btn-submit-post' : 'newPost'
+    'click .btn-submit-post' : 'newPost',
+    'click .add-photo-post' : 'addPhoto'
   },
 
   newPost: function (event) {
     event.preventDefault();
     var attrs = this.$el.serializeJSON();
-
     var that = this;
-    this.model.set(attrs);
+    this.model.set(attrs.post);
     this.model.save({}, {
       success: function () {
         that.collection.unshift(that.model, {merge: true});
         that.model = new Catchup.Models.Post();
       }
     });
+  },
+
+  addPhoto: function () {
+
   },
 
   render: function () {

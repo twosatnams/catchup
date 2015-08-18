@@ -21,7 +21,7 @@ Catchup.Views.PostShow = Backbone.CompositeView.extend({
     'click #edit-post' : 'startEdit',
     'click #delete-post' : 'deletePost',
     'blur input': 'stopEdit',
-    'click #btn-done-editing' : 'stopEdit'
+    'click .btn-done-editing' : 'stopEdit'
   },
 
   toggleLike: function(event) {
@@ -48,28 +48,53 @@ Catchup.Views.PostShow = Backbone.CompositeView.extend({
     this.model.set({numLikes: this.model.get('numLikes') - 1});
   },
 
-  startEdit: function (event) {
-    event.preventDefault();
-    var $target = this.$(".post-body");
-    var $input = $("<textarea class='post-body' id='being-edited' rows='4'></textarea>");
-    $input.val(this.model.get("body"));
-    $target.replaceWith($input);
-    $('#btn-done-editing').show();
+  // startEdit: function (event) {
+  //   event.preventDefault();
+  //   var $target = this.$(".post-body");
+  //   var $input = $("<textarea class='post-body' id='being-edited' rows='4'></textarea>");
+  //   $input.val(this.model.get("body"));
+  //   $target.replaceWith($input);
+  //   this.$('.btn-done-editing').show();
+  // },
+  //
+  // stopEdit: function (event) {
+  //   event.preventDefault();
+  //   debugger
+  //   var $target = this.$(".post-body");
+  //   var newBody = $target.val();
+  //   var $input = $("<div class='post-body'></div>");
+  //   $input.text(newBody);
+  //   $target.replaceWith($input);
+  //   var that = this;
+  //   this.model.set({body: newBody});
+  //   this.model.save({}, {
+  //     success: function () {
+  //       // that.collection.unshift(that.model, {patch: true});
+  //       console.log('it saved');
+  //     }
+  //   });
+  //   this.$('.btn-done-editing').hide();
+  // },
+
+  startEdit: function (e) {
+    e.preventDefault();
+    this.$('.post-body').attr('contenteditable', 'true');
+    this.$('.post-body').focus();
+    this.$('.btn-done-editing').show();
   },
 
-  stopEdit: function (event) {
-    event.preventDefault();
-    var $target = this.$(".post-body");
-    var newBody = $target.val();
-    var $input = $("<div></div>");
-    $input.text(newBody);
-    $target.replaceWith($input);
-    this.model.save({body: newBody});
-    $('#btn-done-editing').hide();
+  stopEdit: function (e) {
+    e.preventDefault();
+    // $(e.currentTarget).parent().find('.post-body');
+    var formData = this.$('.post-body').text();
+    this.model.save({body: formData});
+    this.$('.btn-done-editing').hide();
   },
 
-  deletePost: function () {
-
+  deletePost: function (event) {
+    event.preventDefault();
+    var post = this.collection.get(this.model.escape('id'));
+    post.destroy();
   },
 
   addNewCommentSubview: function () {
