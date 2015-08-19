@@ -45,10 +45,12 @@ class User < ActiveRecord::Base
     self.session_token
   end
 
-  def friends
-    Friend.find_by_sql ["SELECT friend_id FROM friends WHERE user_id = ? AND pending = false
-                         UNION
-                         SELECT user_id FROM friends WHERE friend_id = ? AND pending = false", self.id, self.id]
+  def friend_requests
+    Friend.where('friend_id = ? AND pending = true', self.id).all
+  end
+
+  def unsuccessful_friend_requests
+    Friend.where('user_id = ? AND pending = true', self.id).all
   end
 
   def friends

@@ -1,17 +1,12 @@
 class Api::FriendsController < ApplicationController
 
   def create
-    @friendship = current_user.friends.new(friend_params)
+    @friendship = Friend.new(friend_params)
     if @friendship.save
       render json: @friendship
     else
       render json: @friendship.errors.full_messages, status: 422
     end
-  end
-
-  def index
-    @friendships = User.find(params[:user_id]).friends
-    # render json: @friendships
   end
 
   def update
@@ -23,8 +18,6 @@ class Api::FriendsController < ApplicationController
     end
   end
 
-
-
   def destroy
     @friendship = Friend.find(params[:id])
     @friendship.destroy
@@ -32,6 +25,6 @@ class Api::FriendsController < ApplicationController
   end
 
   def friend_params
-    params.require(:friend).permit(:friend_id, :pending)
+    params.require(:friend).permit(:user_id, :friend_id, :pending)
   end
 end

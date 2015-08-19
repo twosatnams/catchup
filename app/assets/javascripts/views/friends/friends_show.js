@@ -4,7 +4,7 @@ Catchup.Views.FriendsShow = Backbone.CompositeView.extend({
   initialize: function () {
     this.listenTo(this.collection, 'add reset', this.addFriendSubview);
     this.listenTo(this.collection, 'sync', this.render);
-
+    
     var that = this;
     this.collection.each(function (friend) {
       that.addFriendSubview(friend);

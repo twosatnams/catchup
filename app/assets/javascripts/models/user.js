@@ -11,11 +11,13 @@ Catchup.Models.User = Backbone.Model.extend({
 
   friends: function () {
     if (!this._friends) {
-      this._posts = new Catchup.Collections.Friends([], { user: this });
+      this._friends = new Catchup.Collections.Friends([], { user: this });
     }
 
-    return this._posts;
+    return this._friends;
   },
+
+  
 
   parse: function (response) {
     if (response.posts) {

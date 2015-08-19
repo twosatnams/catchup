@@ -12,6 +12,14 @@ json.friends @user.friends do |friend|
   json.extract! friend, :id, :name
 end
 
+json.unsuccessful_friend_requests @user.unsuccessful_friend_requests do |friendship|
+  json.extract! friendship, :id, :friend_id
+end
+
+json.friend_requests @user.friend_requests do |friendship|
+  json.extract! friendship, :id, :user_id
+end
+
 json.posts @user.posts.order("created_at") do |post|
   json.extract! post, :id, :author_id, :body
 

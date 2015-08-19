@@ -110,6 +110,18 @@ button#change-avatar:hover {
   border: none;
 }
 
+#add-friend {
+  z-index: 20;
+  position: absolute;
+  right: 10px;
+  bottom: 50px;
+  background-color: green;
+  color: white;
+  border: none;
+  float: right;
+
+}
+
 
 .profile-ribbon {
   position: absolute;

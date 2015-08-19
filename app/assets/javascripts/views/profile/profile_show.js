@@ -9,12 +9,22 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
   events: {
     'click #change-cover' : 'updateCover',
     'click #change-avatar' : 'updateAvatar',
+    'click #add-friend' : 'addFriend',
     'click #photos' : 'replaceWithPhotosSubview',
     'click #about' : 'replaceWithAboutSubview',
     'click #timeline' : 'replaceWithTimelineSubview',
     'click #friends-show' : 'replaceWithFriendsSubview'
   },
 
+  addFriend: function (event) {
+    event.preventDefault();
+    var friend = new Catchup.Models.Friendship({
+      user_id: currentUser.get('id'),
+      friend_id: this.model.id,
+      pending: true
+    });
+    friend.save();
+  },
 
   updateCover: function(event) {
     event.preventDefault();
@@ -57,9 +67,10 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
 
   replaceWithFriendsSubview: function (event) {
     event.preventDefault();
+    var friendsList = this.model.friends();
 
     var friendsView = new Catchup.Views.FriendsShow({
-      collection: this.model.friends()
+      collection: friendsList
     });
     this.swapSubview(friendsView);
   },
