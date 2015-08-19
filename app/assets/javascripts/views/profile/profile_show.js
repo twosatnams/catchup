@@ -5,19 +5,20 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
     this.listenTo(this.model, 'sync', this.render);
     this.addPostsIndexSubview();
     this.addNewPostSubview();
-    this.listenTo(this.model, 'sync', this.addBasicInfoSubview);
+    this.addBasicInfoSubview();
   },
 
   events: {
     'click #change-cover' : 'updateCover',
-    'click #change-avatar' : 'updateAvatar'
+    'click #change-avatar' : 'updateAvatar',
+    'click #friends' : 'replaceWithFriendsSubview'
   },
 
   addBasicInfoSubview: function () {
     var basicInfo = new Catchup.Views.BasicInfo({
       model: this.model
     });
-    this.addSubview("ul.basic-info", basicInfo);
+    this.addSubview(".basic-info", basicInfo);
   },
 
   updateCover: function(event) {
@@ -62,6 +63,13 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
       collection: this.model.posts()
     });
     this.addSubview(".posts-holder", posts);
+  },
+
+  replaceWithFriendsSubview: function (event) {
+    event.preventDefault();
+    this.removeSubview('.posts-holder', this.subviews('.posts-holder').first());
+    this.removeSubview('.new-post-form', this.subviews('.new-post-form').first());
+    this.removeSubview('.basic-info', this.subviews('.basic-info').first());
   },
 
   render: function () {
