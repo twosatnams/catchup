@@ -8,6 +8,10 @@ json.extract! @user,
   :school,
   :workplace
 
+json.friends @user.friends do |friend|
+  json.extract! friend, :id, :name
+end
+
 json.posts @user.posts.order("created_at") do |post|
   json.extract! post, :id, :author_id, :body
 

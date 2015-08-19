@@ -3,10 +3,8 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
 
   initialize: function () {
     this.listenTo(this.model, 'sync', this.render);
-    this.listenTo(this.model, 'sync', this.addPostsIndexSubview);
-    this.listenTo(this.model, 'sync', this.addNewPostSubview);
-    // this.addPostsIndexSubview();
-    // this.addNewPostSubview();
+    this.addPostsIndexSubview();
+    this.addNewPostSubview();
     this.listenTo(this.model, 'sync', this.addBasicInfoSubview);
   },
 

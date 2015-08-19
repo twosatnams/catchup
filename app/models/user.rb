@@ -51,6 +51,18 @@ class User < ActiveRecord::Base
                          SELECT user_id FROM friends WHERE friend_id = ? AND pending = false", self.id, self.id]
   end
 
+  def friends
+    user_ids = Friend.where(
+      '(user_id = :id OR friend_id = :id) AND pending = false',
+       id: self.id
+    ).pluck(:user_id, :friend_id)
+     .flatten
+     .uniq
+     .reject { |id| id == self.id }
+
+    User.where(id: user_ids)
+  end
+
   protected
 
   def ensure_session_token
