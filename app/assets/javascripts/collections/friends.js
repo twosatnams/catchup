@@ -1,13 +1,13 @@
 Catchup.Collections.Friends = Backbone.Collection.extend({
 
   initialize: function (models, options) {
-    this.user_id = options.user_id;
+    this.user = options.user;
   },
 
   model: Catchup.Models.User,
 
   url: function () {
-    return '/api/users/' + this.user_id + '/friends';
+    return '/api/users/' + this.user.escape('id') + '/friends';
   },
 
   getOrFetch: function (id) {

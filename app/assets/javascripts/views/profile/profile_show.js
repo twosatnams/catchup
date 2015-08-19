@@ -3,9 +3,7 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
 
   initialize: function () {
     this.listenTo(this.model, 'sync', this.render);
-    this.addPostsIndexSubview();
-    this.addNewPostSubview();
-    this.addBasicInfoSubview();
+    this.replaceWithTimelineSubview();
   },
 
   events: {
@@ -13,15 +11,10 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
     'click #change-avatar' : 'updateAvatar',
     'click #photos' : 'replaceWithPhotosSubview',
     'click #about' : 'replaceWithAboutSubview',
-    'click #timeline' : 'replaceWithTimelineSubview'
+    'click #timeline' : 'replaceWithTimelineSubview',
+    'click #friends-show' : 'replaceWithFriendsSubview'
   },
 
-  addBasicInfoSubview: function () {
-    var basicInfo = new Catchup.Views.BasicInfo({
-      model: this.model
-    });
-    this.addSubview(".basic-info", basicInfo);
-  },
 
   updateCover: function(event) {
     event.preventDefault();
@@ -51,42 +44,32 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
     });
   },
 
-  removeExistingSubviews: function () {
-    this.eachSubview(function () {
-
+  replaceWithTimelineSubview: function (event) {
+    if (event !== undefined) {
+      event.preventDefault();
+    }
+    var timeline = new Catchup.Views.TimelineSubview({
+      model: this.model
     });
+    this.swapSubview(timeline);
   },
 
-  redirectToFriends: function (id) {
-    Backbone.history.navigate("users/" + id + "/friends", {trigger: true});
-  },
-
-  addNewPostSubview: function () {
-    var post = new Catchup.Models.Post();
-    var form = new Catchup.Views.PostForm({
-      model: post,
-      collection: this.model.posts()
-    });
-    this.addSubview(".new-post-form", form);
-  },
-
-  addPostsIndexSubview: function () {
-    var posts = new Catchup.Views.PostsIndex({
-      collection: this.model.posts()
-    });
-    this.addSubview(".posts-holder", posts);
-  },
 
   replaceWithFriendsSubview: function (event) {
     event.preventDefault();
-    this.removeSubview('.posts-holder', this.subviews('.posts-holder').first());
-    this.removeSubview('.new-post-form', this.subviews('.new-post-form').first());
-    this.removeSubview('.basic-info', this.subviews('.basic-info').first());
 
-    var friendsSubview = new Catchup.CompositeView.FriendsShow({
+    var friendsView = new Catchup.Views.FriendsShow({
       collection: this.model.friends()
     });
-    this.addSubview(".friends-container", friendsSubview);
+    this.swapSubview(friendsView);
+  },
+
+  swapSubview: function (newView) {
+    if (this.activeSubview !== undefined) {
+      this.removeSubview(".active-subview", this.activeSubview);
+    }
+    this.activeSubview = newView;
+    this.addSubview('.active-subview',this.activeSubview);
   },
 
   render: function () {

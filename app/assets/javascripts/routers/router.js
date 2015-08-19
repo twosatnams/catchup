@@ -8,7 +8,6 @@ Catchup.Routers.Router = Backbone.Router.extend({
     "" : "redirect_to_profile",
     "users/:id" : "show",
     "users/:id/edit" : "edit",
-    "users/:id/friends" : "friends"
   },
 
   redirect_to_profile: function () {
@@ -31,15 +30,6 @@ Catchup.Routers.Router = Backbone.Router.extend({
     user.fetch();
     var view = new Catchup.Views.ProfileEdit({
       model: user
-    });
-    this._swapview(view);
-  },
-
-  friends: function (id) {
-    var friends = new Catchup.Collections.Friends([], {user_id: id});
-    friends.fetch();
-    var view = new Catchup.Views.FriendsShow({
-      collection: friends
     });
     this._swapview(view);
   },

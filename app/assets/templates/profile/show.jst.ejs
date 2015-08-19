@@ -23,37 +23,21 @@
       <% } %>
     </div>
 
-    <%= if (user.escape('id') !== currentUser.escape('id')) %>
-    <button type="button" class="btn btn-default">Add Friend</button>
-
+    <% if (user.escape('id') !== currentUser.escape('id')) { %>
+      <button type="button" class="btn btn-default">Add Friend</button>
+    <% } %>
 
 
     <div class="profile-ribbon">
       <ul class="nav nav-pills">
         <li role="presentation"><a href="#">Timeline</a></li>
         <li role="presentation"><a href="#">About</a></li>
-        <li role="presentation"><a href="#/users/<%= user.escape('id') %>/friends">Friends</a></li>
+        <li role="presentation"><a href="#" id="friends-show">Friends</a></li>
         <li role="presentation"><a href="#">Photos</a></li>
       </ul>
     </div>
   </header>
 
-  <section class="content-sidebar">
-    <div class="basic-info"></div>
-    <div class="friends-thumbs">
-
-    </div>
-
-    <div class="photos-thumbs">
-
-    </div>
-  </section>
-
-  <section class="content-main">
-
-    <div class="new-post-form"></div>
-    <div class="posts-holder"></div>
-
-  </section>
+  <section class="active-subview"></section>
 
 </main>
