@@ -11,7 +11,9 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
   events: {
     'click #change-cover' : 'updateCover',
     'click #change-avatar' : 'updateAvatar',
-    'click #friends' : 'replaceWithFriendsSubview'
+    'click #photos' : 'replaceWithPhotosSubview',
+    'click #about' : 'replaceWithAboutSubview',
+    'click #timeline' : 'replaceWithTimelineSubview'
   },
 
   addBasicInfoSubview: function () {
@@ -49,6 +51,16 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
     });
   },
 
+  removeExistingSubviews: function () {
+    this.eachSubview(function () {
+
+    });
+  },
+
+  redirectToFriends: function (id) {
+    Backbone.history.navigate("users/" + id + "/friends", {trigger: true});
+  },
+
   addNewPostSubview: function () {
     var post = new Catchup.Models.Post();
     var form = new Catchup.Views.PostForm({
@@ -70,6 +82,11 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
     this.removeSubview('.posts-holder', this.subviews('.posts-holder').first());
     this.removeSubview('.new-post-form', this.subviews('.new-post-form').first());
     this.removeSubview('.basic-info', this.subviews('.basic-info').first());
+
+    var friendsSubview = new Catchup.CompositeView.FriendsShow({
+      collection: this.model.friends()
+    });
+    this.addSubview(".friends-container", friendsSubview);
   },
 
   render: function () {

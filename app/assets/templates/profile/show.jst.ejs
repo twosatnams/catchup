@@ -23,7 +23,8 @@
       <% } %>
     </div>
 
-
+    <%= if (user.escape('id') !== currentUser.escape('id')) %>
+    <button type="button" class="btn btn-default">Add Friend</button>
 
 
 
@@ -31,7 +32,7 @@
       <ul class="nav nav-pills">
         <li role="presentation"><a href="#">Timeline</a></li>
         <li role="presentation"><a href="#">About</a></li>
-        <li role="presentation"><a href="#" id="friends">Friends</a></li>
+        <li role="presentation"><a href="#/users/<%= user.escape('id') %>/friends">Friends</a></li>
         <li role="presentation"><a href="#">Photos</a></li>
       </ul>
     </div>
