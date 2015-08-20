@@ -13,7 +13,6 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
   events: {
     'click #change-cover' : 'updateCover',
     'click #change-avatar' : 'updateAvatar',
-    // 'click #un-friend' : 'unFriend',
     'click #photos' : 'replaceWithPhotosSubview',
     'click #about' : 'replaceWithAboutSubview',
     'click #timeline-show' : 'replaceWithTimelineSubview',
@@ -27,10 +26,6 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
     });
     this.addSubview('.btn-friendship-status', button);
   },
-
-  // unFriend: function (event) {
-  //   debugger
-  // },
 
   updateCover: function(event) {
     event.preventDefault();

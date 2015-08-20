@@ -1,6 +1,6 @@
 Catchup.Collections.Users = Backbone.Collection.extend({
   url: '/api/users',
-  model: Catchup.Model.User,
+  model: Catchup.Models.User,
 
   getOrFetch: function (id) {
     var model = this.get(id);
