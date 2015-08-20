@@ -30,6 +30,11 @@ class User < ActiveRecord::Base
     user.try(:is_password?, user_params[:password]) ? user : nil
   end
 
+  def self.search(search)
+    query = search.downcase
+    User.where("name ~* ?", "^#{query}[a-z]*|[a-z]* #{query}")
+  end
+
   def password=(password)
     @password = password
     self.password_digest = BCrypt::Password.create(password)

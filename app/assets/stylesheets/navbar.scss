@@ -125,3 +125,10 @@ a.navbar-brand {
   padding-top: 3px;
   margin-top: 5px;
 }
+
+.search-results {
+  z-index: 33;
+  position: absolute;
+  // margin-left: 150px;
+  margin-top: 50px;
+}
