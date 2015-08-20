@@ -18,7 +18,6 @@ Catchup.Views.ProfileEdit = Backbone.View.extend({
     event.preventDefault();
     var attrs = this.$el.serializeJSON();
     this.model.set(attrs);
-    debugger
     this.model.save({}, {
       success: function () {
         Backbone.history.navigate("users/" + currentUser.get("id"), {trigger: true});

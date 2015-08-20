@@ -1,4 +1,4 @@
-Catchup.Views.FriendSubview = Backbone.CompositeView.extend({
+Catchup.Views.FriendSubview = Backbone.View.extend({
   template: JST['friend/friend_subview'],
 
   tagName: 'li',

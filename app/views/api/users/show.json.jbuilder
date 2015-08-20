@@ -8,16 +8,30 @@ json.extract! @user,
   :school,
   :workplace
 
+if current_user.friends.pluck(:id).include?(@user.id)
+  json.friendship_status "un-friend"
+elsif current_user.unsuccessful_requests.pluck(:friend_id).include?(@user.id)
+  json.friendship_status "friend-request-sent"
+elsif current_user.friend_requests.pluck(:user_id).include?(@user.id)
+  json.friendship_status "accept-friend-request"
+elsif current_user == @user
+  json.friendship_status "user-himself"
+else
+  json.friendship_status "add-friend"
+end
+
 json.friends @user.friends do |friend|
   json.extract! friend, :id, :name
 end
 
-json.unsuccessful_friend_requests @user.unsuccessful_friend_requests do |friendship|
+json.unsuccessful_requests @user.unsuccessful_requests do |friendship|
   json.extract! friendship, :id, :friend_id
+  json.name User.find(friendship.friend_id).name
 end
 
 json.friend_requests @user.friend_requests do |friendship|
   json.extract! friendship, :id, :user_id
+  json.name User.find(friendship.user_id).name
 end
 
 json.posts @user.posts.order("created_at") do |post|

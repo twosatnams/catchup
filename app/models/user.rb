@@ -46,11 +46,15 @@ class User < ActiveRecord::Base
   end
 
   def friend_requests
-    Friend.where('friend_id = ? AND pending = true', self.id).all
+    friend_ids = Friend.where(
+      'friend_id = ? AND pending = true', self.id
+      ).all
   end
 
-  def unsuccessful_friend_requests
-    Friend.where('user_id = ? AND pending = true', self.id).all
+  def unsuccessful_requests
+    friend_ids = Friend.where(
+      'user_id = ? AND pending = true', self.id
+      ).all
   end
 
   def friends

@@ -4,26 +4,46 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
   initialize: function () {
     this.listenTo(this.model, 'sync', this.render);
     this.replaceWithTimelineSubview();
+    if (currentUser.get('id') !== this.model.id) {
+      this.addFriendStatusButton();
+    }
   },
 
   events: {
     'click #change-cover' : 'updateCover',
     'click #change-avatar' : 'updateAvatar',
     'click #add-friend' : 'addFriend',
+    'click #un-friend' : 'unfriend',
     'click #photos' : 'replaceWithPhotosSubview',
     'click #about' : 'replaceWithAboutSubview',
-    'click #timeline' : 'replaceWithTimelineSubview',
+    'click #timeline-show' : 'replaceWithTimelineSubview',
     'click #friends-show' : 'replaceWithFriendsSubview'
+  },
+
+  addFriendStatusButton: function () {
+    this.model.fetch();
+    var button = new Catchup.Views.FriendStatus({
+      model: this.model
+    });
+    this.addSubview('.btn-friendship-status', button);
+  },
+
+  unfriend: function (event) {
+    event.preventDefault();
+    var friendship = new Catchup.Models.Friendship({
+      id: this.model.friendshipID
+    });
+    friendship.destroy();
   },
 
   addFriend: function (event) {
     event.preventDefault();
-    var friend = new Catchup.Models.Friendship({
+    var friendship = new Catchup.Models.Friendship({
       user_id: currentUser.get('id'),
       friend_id: this.model.id,
       pending: true
     });
-    friend.save();
+    friendship.save();
   },
 
   updateCover: function(event) {
@@ -32,11 +52,7 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
     cloudinary.openUploadWidget(CLOUDINARY_OPTIONS, function(error, result){
       var data = result[0];
       that.model.set({cover_pic: data.url});
-      that.model.save({}, {
-        success: function () {
-          console.log('cover change worked');
-        }
-      });
+      that.model.save();
     });
   },
 
@@ -46,11 +62,7 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
     cloudinary.openUploadWidget(CLOUDINARY_OPTIONS, function(error, result){
       var data = result[0];
       that.model.set({profile_pic: data.url});
-      that.model.save({}, {
-        success: function () {
-          console.log('cover change worked');
-        }
-      });
+      that.model.save();
     });
   },
 
@@ -68,9 +80,11 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
   replaceWithFriendsSubview: function (event) {
     event.preventDefault();
     var friendsList = this.model.friends();
+    var friendRequests = this.model.friendRequests();
 
     var friendsView = new Catchup.Views.FriendsShow({
-      collection: friendsList
+      collection: friendsList,
+      friendRequests: friendRequests
     });
     this.swapSubview(friendsView);
   },

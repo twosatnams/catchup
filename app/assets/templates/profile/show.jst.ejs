@@ -23,14 +23,12 @@
       <% } %>
     </div>
 
-    <% if (user.escape('id') !== currentUser.escape('id')) { %>
-      <button type="button" class="btn btn-default" id="add-friend">Add Friend</button>
-    <% } %>
+    <div class="btn-friendship-status"></div>
 
 
     <div class="profile-ribbon">
       <ul class="nav nav-pills">
-        <li role="presentation"><a href="#">Timeline</a></li>
+        <li role="presentation"><a href="#" id="timeline-show">Timeline</a></li>
         <li role="presentation"><a href="#">About</a></li>
         <li role="presentation"><a href="#" id="friends-show">Friends</a></li>
         <li role="presentation"><a href="#">Photos</a></li>
