@@ -4,16 +4,16 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
   initialize: function () {
     this.listenTo(this.model, 'sync', this.render);
     this.replaceWithTimelineSubview();
-    if (currentUser.get('id') !== this.model.id) {
+
+    if (currentUser.get('id') !== parseInt(this.model.id)) {
       this.addFriendStatusButton();
-    }
+    };
   },
 
   events: {
     'click #change-cover' : 'updateCover',
     'click #change-avatar' : 'updateAvatar',
-    'click #add-friend' : 'addFriend',
-    'click #un-friend' : 'unfriend',
+    // 'click #un-friend' : 'unFriend',
     'click #photos' : 'replaceWithPhotosSubview',
     'click #about' : 'replaceWithAboutSubview',
     'click #timeline-show' : 'replaceWithTimelineSubview',
@@ -28,23 +28,9 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
     this.addSubview('.btn-friendship-status', button);
   },
 
-  unfriend: function (event) {
-    event.preventDefault();
-    var friendship = new Catchup.Models.Friendship({
-      id: this.model.friendshipID
-    });
-    friendship.destroy();
-  },
-
-  addFriend: function (event) {
-    event.preventDefault();
-    var friendship = new Catchup.Models.Friendship({
-      user_id: currentUser.get('id'),
-      friend_id: this.model.id,
-      pending: true
-    });
-    friendship.save();
-  },
+  // unFriend: function (event) {
+  //   debugger
+  // },
 
   updateCover: function(event) {
     event.preventDefault();

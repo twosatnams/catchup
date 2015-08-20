@@ -110,18 +110,24 @@ button#change-avatar:hover {
   border: none;
 }
 
-#add-friend {
+.friendship-status {
   z-index: 20;
   position: absolute;
   right: 10px;
   bottom: 50px;
-  background-color: green;
-  color: white;
   border: none;
   float: right;
-
 }
 
+#add-friend.friendship-status {
+  background-color: green;
+  color: white;
+}
+
+#un-friend.friendship-status {
+  background-color: red;
+  color: white;
+}
 
 .profile-ribbon {
   position: absolute;

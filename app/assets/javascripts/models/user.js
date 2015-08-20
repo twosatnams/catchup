@@ -33,13 +33,17 @@ Catchup.Models.User = Backbone.Model.extend({
     return this._friend_requests;
   },
 
-  // friendshipStatus: function () {
-  //   if (!this._friendship_status) {
-  //     this._friendship_status = new Catchup.Collections.Friends([], { user: this });
-  //   }
-  //
-  //   return this._friend_requests;
-  // },
+  friendshipStatus: "",
+  friendshipID: 0,
+
+  mutualFriends: function () {
+    if (!this._mutual_friends) {
+      this._mutual_friends = new Catchup.Collections.Friends([], { user: this });
+    }
+
+    return this._mutual_friends;
+  },
+
 
   parse: function (response) {
 
@@ -62,6 +66,22 @@ Catchup.Models.User = Backbone.Model.extend({
       this.friendRequests().set(response.friend_requests);
       delete response.friend_requests;
     }
+
+    if (response.mutual_friends) {
+      this.mutualFriends().set(response.mutual_friends);
+      delete response.mutual_friends;
+    }
+
+    if (response.friendship_status) {
+      this.friendshipStatus = response.friendship_status;
+      delete response.friendship_status;
+    }
+
+    if (response.friendshipID) {
+      this.friendshipID = response.friendshipID;
+      delete response.friendshipID;
+    }
+
     return response;
   }
 });

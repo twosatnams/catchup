@@ -10,10 +10,28 @@ json.extract! @user,
 
 if current_user.friends.pluck(:id).include?(@user.id)
   json.friendship_status "un-friend"
+
+  friendshipID = Friend.where(
+    '(user_id = :id AND friend_id = :friend_id) OR
+      user_id = :friend_id AND friend_id = :id',
+     id: current_user.id, friend_id: @user.id
+  ).pluck(:id).join("").to_i
+
+  json.friendshipID friendshipID
+
 elsif current_user.unsuccessful_requests.pluck(:friend_id).include?(@user.id)
   json.friendship_status "friend-request-sent"
 elsif current_user.friend_requests.pluck(:user_id).include?(@user.id)
   json.friendship_status "accept-friend-request"
+
+  friendshipID = Friend.where(
+    '(user_id = :id AND friend_id = :friend_id) OR
+      user_id = :friend_id AND friend_id = :id',
+     id: current_user.id, friend_id: @user.id
+  ).pluck(:id).join("").to_i
+
+  json.friendshipID friendshipID
+
 elsif current_user == @user
   json.friendship_status "user-himself"
 else
@@ -32,6 +50,18 @@ end
 json.friend_requests @user.friend_requests do |friendship|
   json.extract! friendship, :id, :user_id
   json.name User.find(friendship.user_id).name
+end
+
+if current_user.id != @user.id
+  mutual_friends = []
+  current_user.friends.each do |friend|
+    if @user.friends.include?(friend)
+      mutual_friends << friend
+    end
+  end
+  json.mutual_friends mutual_friends do |friend|
+    json.extract! friend, :name
+  end
 end
 
 json.posts @user.posts.order("created_at") do |post|
