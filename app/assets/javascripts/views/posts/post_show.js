@@ -11,6 +11,7 @@ Catchup.Views.PostShow = Backbone.CompositeView.extend({
     this.listenTo(this.model.comments(), 'add', this.addCommentsSubview);
 
     this.addNewCommentSubview();
+    this.addPhotosSubview();
 
     this.model.comments().each(function (comment) {
       this.addCommentsSubview(comment);
@@ -114,6 +115,13 @@ Catchup.Views.PostShow = Backbone.CompositeView.extend({
       collection: this.model.comments()
     });
     this.addSubview('.comments-container', subview);
+  },
+
+  addPhotosSubview: function () {
+    var subview = new Catchup.Views.PhotoShow({
+      collection: this.model.photos()
+    });
+    this.addSubview('.photos-container', subview);
   },
 
   removeCommentSubview: function (model, collection, options) {
