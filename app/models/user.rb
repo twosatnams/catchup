@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
   end
 
   def self.search(search)
+    return [] if search == ""
     query = search.downcase
     User.where("name ~* ?", "^#{query}[a-z]*|[a-z]* #{query}")
   end

@@ -4,8 +4,13 @@ Catchup.Views.NavBar = Backbone.CompositeView.extend({
   initialize: function (options) {
     this.router = options.router;
     this.listenTo(this.router, "route", this.handleRoute);
+
     this.users = new Catchup.Collections.Users();
+
     this.listenTo(this.users, "sync", this.renderResults);
+    this.listenTo(this.users, "add", this.addUserResult);
+    this.listenTo(this.users, "remove", this.removeUserResult);
+
     $(document).keyup(this.handleKey.bind(this));
   },
 
@@ -27,29 +32,20 @@ Catchup.Views.NavBar = Backbone.CompositeView.extend({
 
   handleKey: function (e) {
     if (e.keyCode === 27) {
-      this.eachSubview(function (subview) { subview.remove(); });
-      this.$('.results').addClass("empty");
-      this.$('input.form-control').val("");
+      this.removeSearch();
     }
   },
 
   removeSearch: function (e) {
-    this.eachSubview(function (subview) { subview.remove(); });
     this.$('.results').addClass("empty");
-    this.$('input').val("");
+    this.$('input.form-control').val("");
   },
 
   renderResults: function () {
-    this.eachSubview(function (subview) { subview.remove(); });
-    if (this.users.length === 0) {
-      this.$('.empty').removeClass("empty").addClass("empty");
+    if (this.users.length !== 0) {
+      this.$('.results').removeClass("empty");
     } else {
-      if (this.users.length !== 0) {
-        this.$('.results').removeClass("empty");
-        this.users.each(this.addUserResult.bind(this));
-      } else {
-        this.$('.results').addClass("empty");
-      }
+      this.$('.results').addClass("empty");
     }
   },
 
@@ -58,16 +54,14 @@ Catchup.Views.NavBar = Backbone.CompositeView.extend({
     this.addSubview("ul.results", view);
   },
 
+  removeUserResult: function (user) {
+    this.removeModelSubview("ul.results", user)
+  },
+
   search: function (e) {
     e.preventDefault();
     var search = this.$("input.form-control").val();
-    if (search !== "") {
-      this.users.fetch({ data: { search: search }});
-      this.renderResults();
-    } else {
-      this.eachSubview(function (subview) { subview.remove(); });
-      this.$('.results').addClass("empty");
-    }
+    this.users.fetch({ data: { search: search }});
   },
 
   render: function () {
