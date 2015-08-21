@@ -1,3 +1,18 @@
-<img class="triple-photo-first" src="<%= photos.models[0].escape('url') %>" />
-<img class="triple-photo-second" src="<%= photos.models[1].escape('url') %>" />
-<img class="triple-photo-third" src="<%= photos.models[2].escape('url') %>" />
+<table class="triple-photos">
+
+  <tr>
+    <td colspan="3">
+      <img class="triple-photo-first" src="<%= photos.models[0].escape('url') %>" />
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <img class="triple-photo-second" src="<%= photos.models[1].escape('url') %>" />
+    </td>
+    <td>
+      <img class="triple-photo-third" src="<%= photos.models[2].escape('url') %>" />
+    </td>
+  </tr>
+
+</table>

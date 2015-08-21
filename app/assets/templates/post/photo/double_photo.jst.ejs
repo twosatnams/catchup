@@ -1,2 +1,15 @@
-<img class="double-photo-first" src="<%= photos.models[0].escape('url') %>" />
-<img class="double-photo-second" src="<%= photos.models[1].escape('url') %>" />
+<table class="double-photos">
+
+  <tr>
+    <td>
+      <img class="double-photo-first" src="<%= photos.models[0].escape('url') %>" />
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <img class="double-photo-second" src="<%= photos.models[1].escape('url') %>" />
+    </td>
+  </tr>
+
+</table>
