@@ -9,9 +9,11 @@ Catchup.Views.PostShow = Backbone.CompositeView.extend({
     this.listenTo(this.model.comments(), 'sync', this.render);
     this.listenTo(this.model.comments(), 'remove', this.removeCommentSubview);
     this.listenTo(this.model.comments(), 'add', this.addCommentsSubview);
-
     this.addNewCommentSubview();
-    this.addPhotosSubview();
+
+    if (this.model.photos().length > 0) {
+      this.addPhotosSubview();
+    }
 
     this.model.comments().each(function (comment) {
       this.addCommentsSubview(comment);
