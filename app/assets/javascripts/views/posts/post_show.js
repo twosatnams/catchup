@@ -6,18 +6,21 @@ Catchup.Views.PostShow = Backbone.CompositeView.extend({
     this.listenTo(this.model, 'add', this.addCommentsSubview);
     this.listenTo(this.model, 'sync change:numLikes change', this.render);
     this.listenTo(this.model.like(), 'change', this.render);
+
     this.listenTo(this.model.comments(), 'sync', this.render);
     this.listenTo(this.model.comments(), 'remove', this.removeCommentSubview);
     this.listenTo(this.model.comments(), 'add', this.addCommentsSubview);
     this.addNewCommentSubview();
 
-    if (this.model.photos().length > 0) {
-      this.addPhotosSubview();
-    }
-
     this.model.comments().each(function (comment) {
       this.addCommentsSubview(comment);
     }.bind(this));
+
+    this.listenTo(this.model.photos(), 'sync', this.render);
+
+    if (this.model.photos().length > 0) {
+      this.addPhotosSubview();
+    }
   },
 
   events: {
@@ -63,7 +66,6 @@ Catchup.Views.PostShow = Backbone.CompositeView.extend({
   //
   // stopEdit: function (event) {
   //   event.preventDefault();
-  //   debugger
   //   var $target = this.$(".post-body");
   //   var newBody = $target.val();
   //   var $input = $("<div class='post-body'></div>");

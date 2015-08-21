@@ -1,31 +1,23 @@
-json.extract! @post,
-  :id,
-  :body,
-  :author_id
+json.extract! @post, :id, :author_id, :body
 
 json.likes @post.likes do |like|
   json.extract! like, :id, :liker_id
 end
 
-json.photos @post.photos do |photo|
-  json.extract! photo, :id, :url
+like = @post.likes.find_by(liker_id: current_user.id)
+if like
+  json.like do
+    json.extract! like, :id
+  end
 end
 
-# json.mentions @post.mentions do |mention|
-#   json.id mention.id
-#   json.mentioned_user_id mention.mentioned_user_id
-#   json.extract!
-# end
+json.numLikes @post.likes.count
 
 json.comments @post.comments do |comment|
   json.extract! comment, :id, :author_id, :body
+  json.author_name comment.author.name
 end
 
-# like = photo.likes.find_by(user_id: current_user.id)
-#   if like
-#     json.like do
-#       json.extract! like, :id
-#     end
-#   end
-#
-#   json.numLikes photo.likes.count
+json.photos @post.photos do |photo|
+  json.extract! photo, :id, :url
+end

@@ -10,7 +10,8 @@ class Post < ActiveRecord::Base
   has_many :photos,
     class_name: "Photo",
     foreign_key: :post_id,
-    primary_key: :id
+    primary_key: :id,
+    inverse_of: :post
 
   has_many :likes,
     class_name: "Like",
