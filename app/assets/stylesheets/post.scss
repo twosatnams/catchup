@@ -85,3 +85,32 @@
   margin-bottom: 8px;
   border-top: 1px solid #E1E2E3;
 }
+
+.post-info {
+  position: relative;
+}
+
+.post-avatar {
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  object-fit: cover;
+}
+
+.post-author {
+  font-family: arial;
+  font-weight: bold;
+  font-size: 14px;
+  color: #3B5998;
+  margin-left: 50px;
+}
+
+.post-date {
+  color: #9197A3;
+  position: absolute;
+  font-size: 12px;
+  font-weight: normal;
+  font-family: helvetica,arial,sans-serif;
+  margin-left: 50px;
+  margin-top: -8px;
+}

@@ -32,4 +32,15 @@ class Post < ActiveRecord::Base
     through: :likes,
     source: :liker
 
+  def post_date
+    unformatted = self.created_at
+    year = unformatted.strftime('%Y')
+    month = unformatted.strftime('%B')
+    date = unformatted.strftime('%d')
+    hour = unformatted.strftime('%I')
+    minute = unformatted.strftime('%M')
+    am = unformatted.strftime('%p')
+    "#{month} #{date}, #{year} at #{hour}:#{minute}#{am}"
+  end
+
 end

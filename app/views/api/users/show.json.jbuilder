@@ -64,8 +64,12 @@ if current_user.id != @user.id
   end
 end
 
-json.posts @user.posts.order("created_at").includes(:photos, :likes, :comments) do |post|
+json.posts @user.posts.order("created_at").includes(:photos, :likes, :comments, :author) do |post|
+
   json.extract! post, :id, :author_id, :body
+  json.author_name post.author.name
+  json.author_avatar post.author.profile_pic
+  json.posted_at post.post_date
 
   json.likes post.likes do |like|
     json.extract! like, :id, :liker_id
@@ -81,8 +85,9 @@ json.posts @user.posts.order("created_at").includes(:photos, :likes, :comments) 
   json.numLikes post.likes.length
 
   json.comments post.comments do |comment|
-    json.extract! comment, :id, :author_id, :body
+    json.extract! comment, :id, :author_id, :body, :created_at
     json.author_name comment.author.name
+    json.author_avatar comment.author.profile_pic
   end
 
   json.photos post.photos do |photo|

@@ -5,7 +5,7 @@ Catchup.Views.PostForm = Backbone.View.extend({
   initialize: function(){
     this._attachedPhotos = [];
   },
-  
+
   events: {
     'click .btn-submit-post' : 'newPost',
     'click .btn-add-photo' : 'addPhoto',
@@ -14,7 +14,8 @@ Catchup.Views.PostForm = Backbone.View.extend({
 
   showButtonsPanel: function (event) {
     event.preventDefault();
-    this.$('.panel-new-post-buttons').slideToggle('fast');
+    this.$('.txt-new-post-form').attr('rows', '3');
+    this.$('.panel-new-post-buttons').slideDown('fast');
   },
 
   hideButtonsPanel: function (event) {

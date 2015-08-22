@@ -1,7 +1,7 @@
 class Api::PostsController < ApplicationController
   def create
     @post = current_user.posts.new(post_params)
-    @post.photos.build(photo_params)
+    @post.photos.build(photo_params) if params[:photos] != nil
     if @post.save
       render :show
     else

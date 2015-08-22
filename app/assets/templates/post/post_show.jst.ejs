@@ -1,4 +1,19 @@
 <div class="post-main">
+
+  <div class="post-info">
+     <img class="post-avatar"
+          src="<%= post.escape('author_avatar') %>" />
+
+    <p class="post-author">
+      <a href="#"><%= post.escape('author_name') %></a>
+    </p>
+
+    <p class="post-date">
+     <%= post.escape('posted_at') %>
+    </p>
+  </div>
+
+  <!-- Dropdown -->
   <li class="dropdown post">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
     <ul class="dropdown-menu">
@@ -6,17 +21,13 @@
       <li><a href="#" class="delete-post">Delete</a></li>
     </ul>
   </li>
+  <!-- Dropdown -->
 
   <div class="post-body">
     <%= post.escape('body') %>
   </div>
 
   <button type="button" class="btn btn-default btn-done-editing" style="display: none;" aria-label="Left Align">Done Editing</button>
-
-
-  <!-- Dropdown -->
-
-  <br>
 
   <div class="photos-container"></div>
 
