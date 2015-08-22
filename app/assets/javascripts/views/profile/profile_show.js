@@ -20,7 +20,6 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
   },
 
   addFriendStatusButton: function () {
-    // this.model.fetch();
     var button = new Catchup.Views.FriendStatus({
       model: this.model
     });
