@@ -32,7 +32,7 @@ class Post < ActiveRecord::Base
     through: :likes,
     source: :liker
 
-  def post_date
+  def posted_on
     unformatted = self.created_at
     year = unformatted.strftime('%Y')
     month = unformatted.strftime('%B')

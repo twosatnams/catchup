@@ -1,14 +1,8 @@
-<div class="comment-info">
-  <%= comment.escape('author_name') %> :
-</div>
-
-<div class="comment-body">
-  <%= comment.escape('body') %>
-</div>
+<img class="comment-author-avatar" src=" <%= comment.escape('author_avatar') %>" />
 
 <% if (comment.escape('author_id') === currentUser.escape('id')) { %>
-  <div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+  <div class="dropdown comment-dropdown">
+  <button class="btn-comment-dropdown dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -17,3 +11,11 @@
   </ul>
 </div>
 <% } %>
+
+<p class="comment-body">
+  <a href="#"><%= comment.escape('author_name') %></a> <%= comment.escape('body') %>
+</p>
+
+<p class="comment-date">
+  <%= comment.escape('commented_on') %>
+</p>

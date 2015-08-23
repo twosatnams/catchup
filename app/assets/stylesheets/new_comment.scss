@@ -1,0 +1,33 @@
+.new-comment-container > form {
+  position: relative;
+  width: 100%
+}
+
+.new-comment-input {
+  display: inline-block;
+  border: 1px solid lightgrey;
+  font-family: helvetica,arial,sans-serif;
+  font-size: 12px;
+  line-height: 17px;
+  padding-top: 7px;
+  margin-left: 40px;
+  width: calc(100% - 36px);
+  padding-bottom: 7px;
+}
+
+.btn-default.btn-create-comment {
+  border: none;
+  background-color: transparent;
+  margin-top: -29px;
+  margin-right: 10px;
+  float: right;
+  padding: 0px;
+}
+
+.new-comment-avatar {
+  height: 32px;
+  width: 32px;
+  object-fit: cover;
+  position: absolute;
+  display: inline-block;
+}

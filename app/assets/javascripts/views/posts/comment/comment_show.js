@@ -1,6 +1,6 @@
 Catchup.Views.CommentShow = Backbone.View.extend({
   template: JST['post/comment/comment_show'],
-  // tagName: 'li',
+  className: 'comment-box',
 
   events: {
     'click .edit-comment' : 'startEdit',

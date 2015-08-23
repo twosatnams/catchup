@@ -69,7 +69,7 @@ json.posts @user.posts.order("created_at").includes(:photos, :likes, :comments, 
   json.extract! post, :id, :author_id, :body
   json.author_name post.author.name
   json.author_avatar post.author.profile_pic
-  json.posted_at post.post_date
+  json.posted_at post.posted_on
 
   json.likes post.likes do |like|
     json.extract! like, :id, :liker_id
@@ -85,9 +85,10 @@ json.posts @user.posts.order("created_at").includes(:photos, :likes, :comments, 
   json.numLikes post.likes.length
 
   json.comments post.comments do |comment|
-    json.extract! comment, :id, :author_id, :body, :created_at
+    json.extract! comment, :id, :author_id, :body
     json.author_name comment.author.name
     json.author_avatar comment.author.profile_pic
+    json.commented_on comment.commented_on
   end
 
   json.photos post.photos do |photo|
