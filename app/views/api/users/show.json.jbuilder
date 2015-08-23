@@ -39,7 +39,7 @@ else
 end
 
 json.friends @user.friends do |friend|
-  json.extract! friend, :id, :name
+  json.extract! friend, :id, :name, :profile_pic
 end
 
 json.unsuccessful_requests @user.unsuccessful_requests do |friendship|
