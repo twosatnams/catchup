@@ -8,6 +8,10 @@ class User < ActiveRecord::Base
     foreign_key: :author_id,
     primary_key: :id
 
+  has_many :photos,
+    through: :posts,
+    source: :photos
+
   has_many :likes,
     class_name: "Like",
     foreign_key: :liker_id,

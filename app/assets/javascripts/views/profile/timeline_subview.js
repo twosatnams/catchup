@@ -31,7 +31,8 @@ Catchup.Views.TimelineSubview = Backbone.CompositeView.extend({
   },
 
   nineRandomPhotos: function () {
-
+    var photos = _.shuffle(this.model.photos().models);
+    return photos.slice(0, 10);
   },
 
   addPostsIndexSubview: function () {

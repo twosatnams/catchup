@@ -1,19 +1,24 @@
 <section class="content-sidebar">
-  <div class="basic-info"></div>
+  <div class="basic-info">
 
-  <div class="friends-thumbs">
+  
+  </div>
+
+  <div class="friends-thumbs clearfix">
     <p id="friends-thumbs-info">
       FRIENDS - <%= user.friends().models.length %>
     </p>
-    
+
     <ul>
       <% friends.forEach(function(friend) { %>
         <li>
 
-          <a href="#" class="friend-thumbnail"><img src="<%= friend.escape('profile_pic') %>" ></a>
+          <a href="#users/<%= friend.escape('id') %>"
+             class="friend-thumbnail">
+               <img src="<%= friend.escape('profile_pic') %>" ></a>
 
           <p class="friend-thumb-name">
-
+            <%= friend.escape('name') %>
           </p>
 
         </li>
@@ -21,9 +26,24 @@
     </ul>
   </div>
 
-  <div class="photos-thumbs">
+  <div class="photos-thumbs clearfix">
+    <p id="photos-thumbs-info">
+      PHOTOS - <%= user.photos().models.length %>
+    </p>
 
+    <ul>
+      <% photos.forEach(function(photo) { %>
+        <li>
+
+          <a href="#"
+             class="photo-thumbnail">
+               <img src="<%= photo.escape('url') %>" ></a>
+
+        </li>
+      <% }) %>
+    </ul>
   </div>
+
 </section>
 
 <section class="content-main">

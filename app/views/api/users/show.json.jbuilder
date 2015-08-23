@@ -64,6 +64,10 @@ if current_user.id != @user.id
   end
 end
 
+json.photos @user.photos do |photo|
+  json.extract! photo, :url, :created_at
+end
+
 json.posts @user.posts.order("created_at").includes(:photos, :likes, :comments, :author) do |post|
 
   json.extract! post, :id, :author_id, :body

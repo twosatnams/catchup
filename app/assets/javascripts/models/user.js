@@ -17,6 +17,14 @@ Catchup.Models.User = Backbone.Model.extend({
     return this._friends;
   },
 
+  photos: function () {
+    if (!this._photos) {
+      this._photos = new Catchup.Collections.Photos([], { user: this });
+    }
+
+    return this._photos;
+  },
+
   unsuccessfulRequests: function () {
     if (!this._unsuccessful_requests) {
       this._unsuccessful_requests = new Catchup.Collections.Friends([], { user: this });
@@ -80,6 +88,11 @@ Catchup.Models.User = Backbone.Model.extend({
     if (response.friendshipID) {
       this.friendshipID = response.friendshipID;
       delete response.friendshipID;
+    }
+
+    if (response.photos) {
+      this.photos().set(response.photos);
+      delete response.photos;
     }
 
     return response;

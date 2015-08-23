@@ -20,5 +20,6 @@ Catchup.Collections.Photos = Backbone.Collection.extend({
 
   initialize: function (models, options) {
     this.post = options.post;
+    this.user = options.user;
   }
 });
