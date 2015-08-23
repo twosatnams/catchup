@@ -1,4 +1,19 @@
-<li>Lives in: <%= user.escape("city") %></li>
-<li>Born on: <%= user.escape("dob") %></li>
-<li>Attended: <%= user.escape("school") %></li>
-<li>Works at: <%= user.escape("workplace") %></li>
+<li class="list-group-item">
+  <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+   Lives in <%= user.escape("city") %>
+</li>
+
+<li class="list-group-item">
+  <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+   Born on <%= user.escape("dob") %>
+</li>
+
+<li class="list-group-item">
+  <span class="glyphicon glyphicon-education" aria-hidden="true"></span>
+   Attended <%= user.escape("school") %>
+</li>
+
+<li class="list-group-item">
+  <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
+   Works at <%= user.escape("workplace") %>
+</li>

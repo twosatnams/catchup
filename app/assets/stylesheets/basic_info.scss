@@ -1,12 +1,23 @@
-div.basic-info {
+.basic-info {
   margin-bottom: 20px;
 }
 
-.basic-info > ul {
-  list-style-type: none;
-  background-color: white;
-  width: 100%;
+.basic-info-list {
   border-radius: 4px;
   border: 1px solid lightgrey;
-  padding: 15px;
+}
+//
+// .basic-info > ul {
+//   list-style-type: none;
+//   background-color: white;
+//   width: 100%;
+//   border-radius: 4px;
+//   border: 1px solid lightgrey;
+//   padding: 15px;
+// }
+
+.basic-info-list > li {
+  font-size: 12px;
+  line-height: 20px;
+  border: none;
 }
