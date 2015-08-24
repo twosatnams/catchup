@@ -1,0 +1,26 @@
+.friends-list {
+  
+}
+
+.friend-list-item {
+  height: 100px;
+  list-style-type: none;
+  background: white;
+  border: 1px solid lightgrey;
+  width: 50%;
+  display: inline-block;
+}
+
+.friend-list-item > img {
+  height: 100px;
+  width: 100px;
+  display: inline-block;
+}
+
+.friend-list-item > p {
+  font-weight: bold;
+  font-size: 14px;
+  color: black;
+  position: absolute;
+
+}
