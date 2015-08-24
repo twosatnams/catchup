@@ -1,1 +1,14 @@
-<%= user.escape('name') %>
+<a href="#">
+  <img src="<%= user.escape('profile_pic') %>" />
+
+  <div class="search-result-item-info">
+    <p class="search-result-item-name">
+      <%= user.escape('name') %>
+    </p>
+
+    <p class="search-result-item-city">
+      <%= user.escape('city') %>
+    </p>
+  </div>
+
+</a>
