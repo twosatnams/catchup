@@ -1,0 +1,35 @@
+.photo-show {
+  margin: 0 auto;
+  background: #F6F7F8;
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+
+.photo-show > h3 {
+  margin-left: 20px;
+  font-family: helvetica,arial,sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.photos-list {
+  margin-top: 20px;
+  background: white;
+  border-top: 1px solid lightgrey;
+}
+
+.photo-list-item {
+  list-style-type: none;
+  margin: 4px 0px 0px 4px;
+  background: white;
+  border: 1px solid #E9EAED;
+  display: inline-block;
+}
+
+.photo-list-item > img {
+  height: 206px;
+  width: 206px;
+  object-fit: cover;
+}

@@ -13,7 +13,7 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
   events: {
     'click #change-cover' : 'updateCover',
     'click #change-avatar' : 'updateAvatar',
-    'click #photos' : 'replaceWithPhotosSubview',
+    'click #photos-show' : 'replaceWithPhotosSubview',
     'click #about' : 'replaceWithAboutSubview',
     'click #timeline-show' : 'replaceWithTimelineSubview',
     'click #friends-show' : 'replaceWithFriendsSubview'
@@ -67,6 +67,16 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
       friendRequests: friendRequests
     });
     this.swapSubview(friendsView);
+  },
+
+  replaceWithPhotosSubview: function (event) {
+    if (event !== undefined) {
+      event.preventDefault();
+    }
+    var view = new Catchup.Views.PhotosShow({
+      collection: this.model.photos()
+    });
+    this.swapSubview(view);
   },
 
   swapSubview: function (newView) {

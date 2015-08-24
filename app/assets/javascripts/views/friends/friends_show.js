@@ -49,9 +49,7 @@ Catchup.Views.FriendsShow = Backbone.CompositeView.extend({
   },
 
   render: function () {
-    var content = this.template({
-      posts: this.collection
-    });
+    var content = this.template();
     this.$el.html(content);
     this.attachSubviews();
     return this;
