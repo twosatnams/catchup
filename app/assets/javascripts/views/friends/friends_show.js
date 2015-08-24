@@ -1,5 +1,6 @@
 Catchup.Views.FriendsShow = Backbone.CompositeView.extend({
   template: JST['friend/friends_show'],
+  className: 'friends-show',
 
   initialize: function (options) {
     this.friendRequests = options.friendRequests;

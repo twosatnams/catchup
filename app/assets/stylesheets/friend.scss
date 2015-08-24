@@ -1,13 +1,29 @@
+.friends-show {
+  margin: 0 auto;
+  background: #F6F7F8;
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+
+.friends-show > h3 {
+  margin-left: 20px;
+}
+
 .friends-list {
-  
+  margin-top: 40px;
+  background: white;
+  border-top: 1px solid lightgrey;
 }
 
 .friend-list-item {
   height: 100px;
   list-style-type: none;
+  margin-top: 12px;
+  margin-left: 12px;
   background: white;
   border: 1px solid lightgrey;
-  width: 50%;
+  width: 48%;
   display: inline-block;
 }
 
@@ -21,6 +37,6 @@
   font-weight: bold;
   font-size: 14px;
   color: black;
-  position: absolute;
-
+  position: relative;
+  display: inline-block;
 }
