@@ -36,6 +36,7 @@ Catchup.Views.PostForm = Backbone.View.extend({
       success: function (model, response, options) {
         that.collection.unshift(that.model, {merge: true});
         that.model = new Catchup.Models.Post();
+        $('.txt-new-post-form').val("");
       }
     });
   },

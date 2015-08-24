@@ -7,7 +7,14 @@ Catchup.Views.CommentForm = Backbone.View.extend({
   },
 
   events: {
-    'click .btn-create-comment' : 'newComment'
+    'click .btn-create-comment' : 'newComment',
+    'keyup .new-comment-input' : 'enterKeyHandler'
+  },
+
+  enterKeyHandler: function(event){
+    if(event.keyCode == 13){
+        this.$(".btn-create-comment").click();
+    }
   },
 
   newComment: function (event) {
@@ -20,6 +27,7 @@ Catchup.Views.CommentForm = Backbone.View.extend({
       success: function () {
         that.collection.add(that.model);
         that.model = new Catchup.Models.Comment({author_name: currentUser.get('name')});
+        $('.new-comment-input').val("");
       }
     });
   },
