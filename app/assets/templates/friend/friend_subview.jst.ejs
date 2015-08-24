@@ -1,5 +1,8 @@
 <img src="<%= friend.escape('profile_pic') %>" />
-
-<p>
-  <%= friend.escape('name') %>
-</p>
+<div>
+  <a href="#users/<%= friend.escape('id') %>"><%= friend.escape('name') %></a>
+  <br>
+  <p>
+    <%= friend.escape('number_friends') %> friends
+  </p>
+</div>

@@ -40,6 +40,7 @@ end
 
 json.friends @user.friends do |friend|
   json.extract! friend, :id, :name, :profile_pic
+  json.number_friends friend.friends.length
 end
 
 json.unsuccessful_requests @user.unsuccessful_requests do |friendship|
