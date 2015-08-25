@@ -35,8 +35,7 @@ Catchup.Views.NavBar = Backbone.CompositeView.extend({
     "click a": "removeSearch",
     "click .transparent-background" : "removeSearch",
     "click .friend-requests-badge" : "showFriendRequests",
-    "click a" : "hideFriendRequests",
-    "click .transparent-background" : "hideFriendRequests"
+    "click a" : "hideFriendRequests"
   },
 
   addFriendRequestsSubview: function (friend) {

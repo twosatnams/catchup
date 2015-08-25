@@ -1,6 +1,11 @@
 Catchup.Views.ProfileEdit = Backbone.View.extend({
   template: JST['profile/profile_edit'],
   tagName: 'form',
+  className: 'form-edit-profile',
+
+  initialize: function () {
+
+  },
 
   events: {
     "click .submit-changes" : "submit"
@@ -11,6 +16,7 @@ Catchup.Views.ProfileEdit = Backbone.View.extend({
       user: this.model
     });
     this.$el.html(content);
+    // this.$('.transparent-background').hide();
     return this;
   },
 

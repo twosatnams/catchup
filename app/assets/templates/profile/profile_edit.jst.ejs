@@ -1,19 +1,20 @@
-<label>Name: </label>
-<input type="text" name="name" value="<%= user.escape("name") %>">
-<br>
-<label>email: </label>
-<input type="text" name="email" value="<%= user.escape("email") %>">
-<br>
-<label>Date of Birth: </label>
-<input type="date" name="dob" value="<%= user.escape("dob") %>">
-<br>
-<label>City: </label>
-<input type="text" name="city" value="<%= user.escape("city") %>">
-<br>
-<label>School: </label>
-<input type="text" name="school" value="<%= user.escape("school") %>">
-<br>
-<label>Workplace: </label>
-<input type="text" name="workplace" value="<%= user.escape("workplace") %>">
-<br>
-<button class="submit-changes">Update</button>
+<div class="form-group">
+  <label for="exampleInputEmail">Email address</label>
+  <input type="text" name="email" class="form-control edit-input" id="exampleInputEmail" value="<%= user.escape("email") %>">
+</div>
+
+<div class="form-group">
+  <label for="exampleInputCity">City</label>
+  <input type="text" name="city" class="form-control edit-input" id="exampleInputCity" value="<%= user.escape("city") %>">
+</div>
+
+<div class="form-group">
+  <label for="exampleInputSchool">School</label>
+  <input type="text" name="school" class="form-control edit-input" id="exampleInputSchool" value="<%= user.escape("school") %>">
+</div>
+
+<div class="form-group">
+  <label for="exampleInputWorkplace">Workplace: </label>
+  <input type="text" name="workplace" class="form-control edit-input" id="exampleInputWorkplace" value="<%= user.escape("workplace") %>">
+</div>
+<button type="submit" class="btn btn-default submit-changes">Update</button>

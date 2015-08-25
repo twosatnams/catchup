@@ -38,6 +38,7 @@ gem 'annotate'
 gem 'bcrypt'
 gem 'backbone-on-rails'
 gem 'bootstrap-sass'
+gem 'faker'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
