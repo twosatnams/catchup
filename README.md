@@ -9,12 +9,12 @@ Catch Up is a clone of Facebook built on Rails and Backbone. Users can:
 
 <!-- This is a Markdown checklist. Use it to keep track of your progress! -->
 
-- [ ] Create accounts and log in
-- [ ] View and modify their profiles
-- [ ] Create posts and mention other users in them
-- [ ] Like and comment on posts
-- [ ] Send, receive, accept and deny friend requests to/from other users
-- [ ] Users can search for other users and pages
+- [x] Create accounts and log in
+- [x] View and modify their profiles
+- [x] Create posts and mention other users in them
+- [x] Like and comment on posts
+- [x] Send, receive, accept and deny friend requests to/from other users
+- [x] Users can search for other users and pages
 - [ ] Search is ranked by mutual friends, age, location and similar interests.
 
 ## Design Docs
@@ -65,14 +65,14 @@ mutual friends, location and age.
 
 ### Bonus Features (TBD)
 - [ ] Groups
-- [ ] User can a photos page
-- [ ] Users can create posts with one or multiple photos
+- [x] User has a photos page
+- [x] Users can create posts with one or multiple photos
 - [ ] Create pages
 - [ ] Users can follow other users or pages
 - [ ] Users can choose to make their information and posts public or private
 - [ ] User can have several interests
 - [ ] Rank search by interests
-- [ ] Notifications about friend requests and mentions
+- [x] Notifications about friend requests and mentions
 - [ ] Users can message each other privately or within a group
 
 [phase-one]: ./docs/phases/phase1.md

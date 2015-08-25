@@ -2,7 +2,7 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
   template: JST['profile/show'],
 
   initialize: function () {
-    this.listenTo(this.model, 'sync', this.render);
+    this.listenTo(this.model, 'sync change', this.render);
     // this.listenTo(this.model, 'sync', this.replaceWithTimelineSubview());
     this.replaceWithTimelineSubview();
 

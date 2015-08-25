@@ -1,5 +1,5 @@
 class Photo < ActiveRecord::Base
-  validates :url, :post, presence: true
+  validates :url, :post_id, presence: true
 
   belongs_to :post,
     class_name: "Post",

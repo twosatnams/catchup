@@ -9,6 +9,7 @@ Catchup.Views.NavBar = Backbone.CompositeView.extend({
     this.listenTo(this.model, 'sync', this.render);
 
     this.friendRequests = this.model.friendRequests();
+    this.friends = this.model.friends();
     this.listenTo(this.friendRequests, "add remove", this.updateCount);
 
     this.users = new Catchup.Collections.Users();
@@ -42,7 +43,7 @@ Catchup.Views.NavBar = Backbone.CompositeView.extend({
     var subview = new Catchup.Views.FriendRequestSubview({
       model: friend,
       collection: this.friendRequests,
-      friends: this.collection
+      friends: this.friends
     });
     // WTF is true doing here?
     this.addSubview(".friend-requests-list", subview, true);

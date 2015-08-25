@@ -2,14 +2,15 @@ Catchup.Views.FriendStatus = Backbone.View.extend({
   template: JST['profile/friendship_status'],
 
   initialize: function () {
-    this.listenTo(this.model, 'sync change', this.render);
+    this.listenTo(this.model, 'sync change reset', this.render);
   },
 
   events: {
     'click #add-friend' : 'addFriend',
     'click #un-friend' : 'unFriend',
     'click #friend-request-sent' : 'doNothing',
-    'click #accept-friend-request' : 'doNothing'
+    'click #accept-friend-request' : 'doNothing',
+    'click .friendship-status' : 'render'
   },
 
   addFriend: function (event) {

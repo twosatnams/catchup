@@ -15,7 +15,7 @@ if current_user.friends.pluck(:id).include?(@user.id)
     '(user_id = :id AND friend_id = :friend_id) OR
       user_id = :friend_id AND friend_id = :id',
      id: current_user.id, friend_id: @user.id
-  ).pluck(:id).join("").to_i
+  ).pluck(:id).last.to_i
 
   json.friendshipID friendshipID
 
@@ -28,7 +28,7 @@ elsif current_user.friend_requests.pluck(:user_id).include?(@user.id)
     '(user_id = :id AND friend_id = :friend_id) OR
       user_id = :friend_id AND friend_id = :id',
      id: current_user.id, friend_id: @user.id
-  ).pluck(:id).join("").to_i
+  ).pluck(:id).last.to_i
 
   json.friendshipID friendshipID
 
