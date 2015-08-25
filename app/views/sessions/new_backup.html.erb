@@ -1,0 +1,84 @@
+<head>
+<title>Welcome To Catch Up!</title>
+</head>
+<body class="login">
+<!-- header starts here -->
+<div id="facebook-Bar">
+  <div id="facebook-Frame">
+    <!-- To Do -->
+    <div id="logo"> <a href="#">Catch Up!</a> </div>
+    <div id="header-main-right">
+      <div id="header-main-right-nav">
+        <form method="post" action="/session" id="login_form" name="login_form">
+          <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+          <table border="0" style="border:none">
+            <tr>
+              <td ><input type="text" tabindex="1"  id="email" placeholder="Email" name="user[email]" class="inputtext radius1" value=""></td>
+              <td ><input type="password" tabindex="2" id="pass" placeholder="Password" name="user[password]" class="inputtext radius1" ></td>
+              <td ><input type="submit" class="fbbutton" name="login" value="Login" /></td>
+            </tr>
+            <tr>
+              <td><label>
+                  <input id="persist_box" type="checkbox" name="persistent" value="1" checked="1"/>
+                  <span style="color:#ccc;">Keep me logged in</span></label></td>
+              <td><label><a href="" style="color:#ccc; text-decoration:none">forgot your password?</a></label></td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- header ends here -->
+<div class="loginbox radius">
+  <h2 style="color:#141823; text-align:center;">Welcome to Catch Up</h2>
+  <div class="loginboxinner radius">
+    <div class="loginheader">
+      <h4 class="title">Connect with friends and the world around you.</h4>
+    </div>
+    <!--loginheader-->
+    <div class="loginform">
+      <form id="login" action="/users" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <p>
+          <input type="text" id="name" name="user[name]" placeholder="Enter Your Name" value="" class="radius mini" />
+        </p>
+        <p>
+          <input type="text" id="email" name="user[email]" placeholder="Your Email" value="" class="radius" />
+        </p>
+        <p>
+          <input type="password" id="password" name="user[password]" placeholder="Select a Password" class="radius" />
+        </p>
+        <p>
+          <!-- To Do -->
+          <input type="date" name="user[dob]" value="" placeholder="Your Date of Birth">
+        </p>
+        <p>
+          <!-- <input class="radius title loginbox" type="submit" value="Sign Up for Catch Up"> -->
+          <button type="submit" form="login" class="radius title" name="signup">Sign Up for Catch Up</button>
+
+        </p>
+      </form>
+
+        <button type="button" id="login-bruce">Log In as Bruce Wayne</button>
+        <button type="button" id="login-megan">Log In as Megan Fox</button>
+    </div>
+    <!--loginform-->
+  </div>
+  <!--loginboxinner-->
+</div>
+<!--loginbox-->
+</body>
+
+<script>
+  $('#login-bruce').on('click', function () {
+    $('#email').val('bruce@gotham.com');
+    $('#pass').val('qwerty');
+    $('#login_form').submit();
+  });
+  $('#login-megan').on('click', function () {
+    $('#email').val('megan@gotham.com');
+    $('#pass').val('qwerty');
+    $('#login_form').submit();
+  });
+</script>

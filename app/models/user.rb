@@ -67,6 +67,14 @@ class User < ActiveRecord::Base
       ).all
   end
 
+  def born_on
+    unformatted = self.dob
+    year = unformatted.strftime('%Y')
+    month = unformatted.strftime('%B')
+    date = unformatted.strftime('%d')
+    "#{month} #{date}, #{year}"
+  end
+
   def friends
     user_ids = Friend.where(
       '(user_id = :id OR friend_id = :id) AND pending = false',

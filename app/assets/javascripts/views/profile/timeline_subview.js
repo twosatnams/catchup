@@ -7,6 +7,7 @@ Catchup.Views.TimelineSubview = Backbone.CompositeView.extend({
     }
     this.addPostsIndexSubview();
     this.addBasicInfoSubview();
+    this.listenTo(this.model, 'sync', this.render);
   },
 
   addBasicInfoSubview: function () {

@@ -29,45 +29,82 @@
     </div>
   </div>
 </div>
-<!-- header ends here -->
-<div class="loginbox radius">
-  <h2 style="color:#141823; text-align:center;">Welcome to Catch Up</h2>
-  <div class="loginboxinner radius">
-    <div class="loginheader">
-      <h4 class="title">Connect with friends and the world around you.</h4>
+
+<form id="register" action="/users" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <h2>Sign Up</h2>
+  <h4>Catchup with friends around the world.</h4>
+
+  <input type="text" class="input-normal form-control" name="user[name]" placeholder="Your Name" value="" />
+  <input type="text" class="input-normal form-control" name="user[email]" placeholder="Your Email Address" value="" />
+  <input type="password" class="input-normal form-control" name="user[password]" placeholder="Your Password" value="" />
+
+  <input type="date" class="input-date form-control" name="user[dob]" placeholder="Your Birthday" value="" />
+  <button type="submit" form="register" class="btn btn-default btn-register" name="signup">Sign Up!</button>
+
+</form>
+
+<section class="guest-logins">
+  <h2>Log In as</h2>
+
+  <div class="row">
+
+  <div class="hovereffect" id="login-bruce">
+    <img class="img-responsive" src="/assets/profile/Bruce.jpg" alt="">
+    <div class="overlay">
+       <h2>Bruce Wayne</h2>
     </div>
-    <!--loginheader-->
-    <div class="loginform">
-      <form id="login" action="/users" method="post">
-        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-        <p>
-          <input type="text" id="name" name="user[name]" placeholder="Enter Your Name" value="" class="radius mini" />
-        </p>
-        <p>
-          <input type="text" id="email" name="user[email]" placeholder="Your Email" value="" class="radius" />
-        </p>
-        <p>
-          <input type="password" id="password" name="user[password]" placeholder="Select a Password" class="radius" />
-        </p>
-        <p>
-          <!-- To Do -->
-          <input type="password" id="repassword" name="" placeholder="Re-enter Password" class="radius" />
-        </p>
-        <p>
-          <!-- To Do -->
-          <input type="date" name="user[dob]" value="" placeholder="Your Date of Birth">
-        </p>
-        <p>
-          <!-- <input class="radius title loginbox" type="submit" value="Sign Up for Catch Up"> -->
-          <button type="submit" form="login" class="radius title" name="signup">Sign Up for Catch Up</button>
-          
-        </p>
-      </form>
-    </div>
-    <!--loginform-->
   </div>
-  <!--loginboxinner-->
+
+  <div class="hovereffect" id="login-megan">
+    <img class="img-responsive" src="/assets/profile/megan.jpg" alt="">
+    <div class="overlay">
+       <h2>Megan Fox</h2>
+    </div>
+  </div>
+
+  <div class="hovereffect" id="login-mark">
+    <img class="img-responsive" src="/assets/profile/mark.jpg" alt="">
+    <div class="overlay">
+       <h2>Mark Zuckerberg</h2>
+    </div>
+  </div>
+
+  <div class="hovereffect" id="login-ronda">
+    <img class="img-responsive" src="/assets/profile/Ronda.png" alt="">
+    <div class="overlay">
+       <h2>Ronda Rousey</h2>
+    </div>
+  </div>
+
+
 </div>
-<!--loginbox-->
-</body>
-</html>
+
+</section>
+
+<script>
+  $('#login-bruce').on('click', function () {
+    $('#email').val('bruce@gotham.com');
+    $('#pass').val('qwerty');
+    $('#login_form').submit();
+  });
+
+  $('#login-megan').on('click', function () {
+    $('#email').val('megan@gotham.com');
+    $('#pass').val('qwerty');
+    $('#login_form').submit();
+  });
+
+  $('#login-mark').on('click', function () {
+    $('#email').val('mark@gotham.com');
+    $('#pass').val('qwerty');
+    $('#login_form').submit();
+  });
+
+  $('#login-ronda').on('click', function () {
+    $('#email').val('ronda@gotham.com');
+    $('#pass').val('qwerty');
+    $('#login_form').submit();
+  });
+</script>

@@ -3,6 +3,7 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
 
   initialize: function () {
     this.listenTo(this.model, 'sync', this.render);
+    // this.listenTo(this.model, 'sync', this.replaceWithTimelineSubview());
     this.replaceWithTimelineSubview();
 
     if (currentUser.get('id') !== parseInt(this.model.id)) {

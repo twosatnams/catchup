@@ -1,7 +1,7 @@
 json.extract! @user,
   :id,
   :name,
-  :dob,
+  :born_on,
   :profile_pic,
   :cover_pic,
   :city,
