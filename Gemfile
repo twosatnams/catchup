@@ -39,6 +39,7 @@ gem 'bcrypt'
 gem 'backbone-on-rails'
 gem 'bootstrap-sass'
 gem 'faker'
+gem 'image_suckr'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
