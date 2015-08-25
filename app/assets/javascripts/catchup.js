@@ -4,9 +4,18 @@ window.Catchup = {
   Views: {},
   Routers: {},
   initialize: function() {
-    var router = new Catchup.Routers.Router();
+    var user = new Catchup.Models.User({
+      id: currentUser.escape('id')
+    });
+    user.fetch();
+
+    var router = new Catchup.Routers.Router({
+      model: user
+    });
+
     var nav = new Catchup.Views.NavBar({
-      router: router
+      router: router,
+      model: user
     });
     $("#nav-bar").html(nav.render().$el);
 

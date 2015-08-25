@@ -1,7 +1,7 @@
 Catchup.Routers.Router = Backbone.Router.extend({
-  initialize: function () {
+  initialize: function (options) {
     this.$rootEl = $('#content');
-    // this.user = new Catchup.Models.User();
+    this.user = options.model;
   },
 
   routes: {
@@ -16,10 +16,10 @@ Catchup.Routers.Router = Backbone.Router.extend({
 
   show: function (id) {
     //To Do, do this using currentUser
-    var user = new Catchup.Models.User({id: id});
-    user.fetch();
+    // var user = new Catchup.Models.User({id: id});
+    // user.fetch();
     var view = new Catchup.Views.ProfileShow({
-      model: user
+      model: this.user
     });
     this._swapview(view);
   },
