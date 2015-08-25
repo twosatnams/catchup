@@ -3,6 +3,7 @@ img.single-photo {
   height: auto;
   max-height: 500px;
   object-fit: cover;
+  border: 1px solid lightgrey;
 }
 
 img.double-photo-first {
@@ -10,12 +11,14 @@ img.double-photo-first {
   height: 250px;
   margin-bottom: 2px;
   object-fit: cover;
+  border: 1px solid lightgrey;
 }
 
 img.double-photo-second {
   width:100%;
   height:250px;
   object-fit: cover;
+  border: 1px solid lightgrey;
 }
 
 img.triple-photo-first {
@@ -23,6 +26,7 @@ img.triple-photo-first {
   height: 250px;
   margin-bottom: 2px;
   object-fit: cover;
+  border: 1px solid lightgrey;
 }
 
 img.triple-photo-second {
@@ -30,10 +34,12 @@ img.triple-photo-second {
   height: 200px;
   padding-right: 2px;
   object-fit: cover;
+  border: 1px solid lightgrey;
 }
 
 img.triple-photo-third {
   width:100%;
   height: 200px;
   object-fit: cover;
+  border: 1px solid lightgrey;
 }

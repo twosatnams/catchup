@@ -92,15 +92,15 @@ input.sign-out:hover {
   background: transparent;
 }
 
-.navbar-right {
-  margin-right: 210px;
+#nav-bar > div > nav > div > ul {
+  margin-right: 20%;
 }
 
 .navbar-form .form-control {
   width: 400px;
   margin-top: 5px;
   height: 25px;
-  margin-left: 242px;
+  margin-left: 262px;
 }
 
 button.btn.btn-default.search {
