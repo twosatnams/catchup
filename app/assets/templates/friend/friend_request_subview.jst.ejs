@@ -1,3 +1,6 @@
-<%= friend.escape('name') %>
-<button type="button" class="btn button-default accept-friend">Accept</button>
-<button type="button" class="btn button-default decline-friend">Decline</button>
+<img src="<%= friend.escape('profile_pic') %>" />
+<h5><%= friend.escape('name') %></h5>
+<div class="friend-request-buttons">
+  <button type="button" class="btn button-default accept-friend">Accept</button>
+  <button type="button" class="btn button-default decline-friend">Decline</button>
+</div>

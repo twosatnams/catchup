@@ -51,6 +51,7 @@ end
 json.friend_requests @user.friend_requests do |friendship|
   json.extract! friendship, :id, :user_id
   json.name User.find(friendship.user_id).name
+  json.profile_pic User.find(friendship.user_id).profile_pic
 end
 
 if current_user.id != @user.id

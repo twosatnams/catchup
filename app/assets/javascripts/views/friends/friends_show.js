@@ -3,26 +3,14 @@ Catchup.Views.FriendsShow = Backbone.CompositeView.extend({
   className: 'friends-show',
 
   initialize: function (options) {
-    this.friendRequests = options.friendRequests;
-
     this.listenTo(this.collection, 'add reset', this.addFriendSubview);
     this.listenTo(this.collection, 'sync', this.render);
-
-    this.listenTo(this.friendRequests, 'add reset', this.addFriendRequestsSubview);
-    this.listenTo(this.friendRequests, 'sync', this.render);
-    this.listenTo(this.friendRequests, 'remove', this.removeFriendRequestSubview);
-
 
     var that = this;
     this.collection.each(function (friend) {
       that.addFriendSubview(friend);
     });
 
-    if (currentUser.get('id') === this.collection.user.id) {
-      this.friendRequests.each(function (friend) {
-        that.addFriendRequestsSubview(friend);
-      });
-    }
   },
 
   addFriendRequestsSubview: function (friend) {

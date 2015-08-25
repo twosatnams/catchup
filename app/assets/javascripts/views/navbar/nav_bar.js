@@ -5,11 +5,25 @@ Catchup.Views.NavBar = Backbone.CompositeView.extend({
     this.router = options.router;
     this.listenTo(this.router, "route", this.handleRoute);
 
+    this.model = options.router.user;
+    this.listenTo(this.model, 'sync', this.render);
+
+    this.friendRequests = this.model.friendRequests();
+    this.listenTo(this.friendRequests, "add remove", this.updateCount);
+
     this.users = new Catchup.Collections.Users();
 
     this.listenTo(this.users, "sync", this.renderResults);
     this.listenTo(this.users, "add", this.addUserResult);
     this.listenTo(this.users, "remove", this.removeUserResult);
+
+    this.listenTo(this.friendRequests, 'add reset', this.addFriendRequestsSubview);
+    this.listenTo(this.friendRequests, 'sync', this.render);
+    this.listenTo(this.friendRequests, 'remove', this.removeFriendRequestSubview);
+
+    this.friendRequests.each(function (friend) {
+      that.addFriendRequestsSubview(friend);
+    });
 
     $(document).keyup(this.handleKey.bind(this));
   },
@@ -18,7 +32,32 @@ Catchup.Views.NavBar = Backbone.CompositeView.extend({
     "click #edit-profile" : "editProfile",
     "input input[type=text]": "search",
     "click a": "removeSearch",
-    "click .transparent-background" : "removeSearch"
+    "click .transparent-background" : "removeSearch",
+    "click .friend-requests-badge" : "showFriendRequests",
+    "click a" : "hideFriendRequests",
+    "click .transparent-background" : "hideFriendRequests"
+  },
+
+  addFriendRequestsSubview: function (friend) {
+    var subview = new Catchup.Views.FriendRequestSubview({
+      model: friend,
+      collection: this.friendRequests,
+      friends: this.collection
+    });
+    // WTF is true doing here?
+    this.addSubview(".friend-requests-list", subview, true);
+  },
+
+  updateCount: function () {
+    this.$("#requests-count").text(this.friendRequests.length);
+  },
+
+  showFriendRequests: function () {
+    this.$('.friend-requests-list').show();
+  },
+
+  hideFriendRequests: function () {
+    this.$('.friend-requests-list').hide();
   },
 
   editProfile: function () {
@@ -67,8 +106,12 @@ Catchup.Views.NavBar = Backbone.CompositeView.extend({
   },
 
   render: function () {
-    var content = this.template();
+    var content = this.template({
+      user: this.model
+    });
     this.$el.html(content);
+    this.attachSubviews();
+    this.$('.friend-requests-list').hide();
     this.$el.find('#sign_out_auth_token')
             .val($('meta[name=csrf-token]').attr('content'));
     return this;

@@ -7,7 +7,7 @@ window.Catchup = {
     var user = new Catchup.Models.User({
       id: currentUser.escape('id')
     });
-    user.fetch();
+    user.fetch()
 
     var router = new Catchup.Routers.Router({
       model: user

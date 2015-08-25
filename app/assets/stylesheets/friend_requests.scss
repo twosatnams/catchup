@@ -1,0 +1,49 @@
+.friend-requests-list {
+  padding-left: 0px;
+  width: 14%;
+  position: absolute;
+  right: 24%;
+  top: 100%;
+  z-index: 200;
+  background: white;
+  border-radius: 4px;
+}
+
+.friend-request-item {
+  margin-bottom: 10px;
+  border-bottom: 1px solid lightgrey;
+  height: 70px;
+  list-style-type: none;
+}
+
+.friend-request-item > img {
+  height: 60px;
+  width: 60px;
+  padding: 3px;
+  object-fit: cover;
+  position: absolute;
+  display: inline-block;
+  margin-left: 2px;
+  margin-top: 7px;
+}
+
+.friend-request-item > h5 {
+  margin-left: 65px;
+  display: inline-block;
+  position: absolute;
+}
+
+.friend-request-buttons {
+  display: inline-block;
+  position: absolute;
+  margin-left: 65px;
+  margin-top: 38px;
+}
+
+.friend-request-buttons > button {
+  height: 25px;
+  font-size: 12px;
+  background: #45619D;
+  border: none;
+  color: white;
+}

@@ -15,21 +15,24 @@ Catchup.Routers.Router = Backbone.Router.extend({
   },
 
   show: function (id) {
-    //To Do, do this using currentUser
-    // var user = new Catchup.Models.User({id: id});
-    // user.fetch();
+    if (id !== currentUser.escape('id')) {
+      var user = new Catchup.Models.User({id: id});
+      user.fetch();
+    } else {
+      user = this.user;
+    }
     var view = new Catchup.Views.ProfileShow({
-      model: this.user
+      model: user
     });
     this._swapview(view);
   },
 
   edit: function (id) {
     //do this using currentUser
-    var user = new Catchup.Models.User({id: id});
-    user.fetch();
+    // var user = new Catchup.Models.User({id: id});
+    this.user.fetch();
     var view = new Catchup.Views.ProfileEdit({
-      model: user
+      model: this.user
     });
     this._swapview(view);
   },

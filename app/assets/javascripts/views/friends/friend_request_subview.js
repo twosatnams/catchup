@@ -1,6 +1,7 @@
 Catchup.Views.FriendRequestSubview = Backbone.View.extend({
   template: JST['friend/friend_request_subview'],
   tagName: 'li',
+  className: 'friend-request-item',
 
   events: {
     'click .accept-friend' : 'acceptFriend',
