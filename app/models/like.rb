@@ -1,5 +1,6 @@
 class Like < ActiveRecord::Base
   validates :liker_id, :post_id, presence: true
+  validates_uniqueness_of :liker_id, scope: :post_id
 
   belongs_to :post,
     class_name: "Post",
