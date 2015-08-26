@@ -1,6 +1,6 @@
 suckr = ImageSuckr::GoogleSuckr.new
 created_users = 10
-generated_users = 4990
+generated_users = 490
 user_count = 0
 post_count = 0
 comment_count = 0
@@ -66,6 +66,7 @@ generated_users.times do |user|
   user[:workplace] = Faker::Company.name
   successful = User.create!([user])
   user_count += 1 if successful
+  puts user_count
 end
 
 # Posts
@@ -76,6 +77,7 @@ user_range.each do |user|
     post[:body] = Faker::Lorem.paragraph((2..5).to_a.sample)
     successful = Post.create!([post])
     post_count += 1 if successful
+    puts post_count
   end
 end
 
@@ -88,17 +90,19 @@ end
     comment[:author_id] = user_range.sample
     successful = Comment.create!([comment])
     comment_count += 1 if successful
+    puts comment_count
   end
 end
 
 # Likes
 user_range.each do |user|
-  (post_count/20).times do
+  (post_count/10).times do
     like = {}
     like[:liker_id] = user
     like[:post_id] = (1..425).to_a.sample
     successful = Like.create([like])
     likes_count += 1 if successful
+    puts likes_count
   end
 end
 
@@ -112,18 +116,20 @@ end
     next if photo[:url] == ""
     successful = Photo.create([photo])
     photos_count += 1 if successful
+    puts photos_count
   end
 end
 
 #Friends
 user_range.each do |user|
-  (100..500).to_a.sample.times do
+  (50..150).to_a.sample.times do
     friend = {}
     friend[:user_id] = user
     friend[:friend_id] = user_range.sample
     friend[:pending] = [true, false].sample
     successful = Friend.create([friend])
     friendships_count += 1 if successful
+    puts friendships_count
   end
 end
 
