@@ -35,7 +35,7 @@ generated_users.times do |user|
   day =  (1..28).to_a.sample
   user[:dob] = "#{year}-#{month}-#{day}"
 
-  user[:profile_pic] = suckr.get_image_url({"q" => "profile picture"})
+  user[:profile_pic] = "http://loremflickr.com/300/300/profile?random=#{rand(1000)}"
 
   user[:password] = "qwerty"
   user[:city] = "#{Faker::Address.city}, #{Faker::Address.state}"
@@ -71,7 +71,7 @@ end
 
 # Posts
 user_range.each do |user|
-  (5..8).to_a.sample.times do
+  (3..6).to_a.sample.times do
     post = {}
     post[:author_id] = user
     post[:body] = Faker::Lorem.paragraph((2..5).to_a.sample)
@@ -83,7 +83,7 @@ end
 
 # Comments
 (post_count + 1).times do |post|
-  (1..8).to_a.sample.times do |comment|
+  (1..6).to_a.sample.times do |comment|
     comment = {}
     comment[:body] = Faker::Lorem.sentence
     comment[:post_id] = post
@@ -96,7 +96,7 @@ end
 
 # Likes
 user_range.each do |user|
-  (post_count/10).times do
+  (post_count/20).times do
     like = {}
     like[:liker_id] = user
     like[:post_id] = (1..425).to_a.sample
@@ -111,7 +111,7 @@ end
 (post_count + 1).times do |post|
   (0..3).to_a.sample.times do |number_photos|
     photo = {}
-    photo[:url] = suckr.get_image_url
+    photo[:url] = "http://loremflickr.com/460/300/a?random=#{rand(10000)}"
     photo[:post_id] = post
     next if photo[:url] == ""
     successful = Photo.create([photo])
