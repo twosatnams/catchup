@@ -1,5 +1,7 @@
 require_relative 'photo_urls'
-require_relative 'profile_pic_urls'
+require_relative 'profile_urls'
+load './profile_urls.rb'
+load './photo_urls.rb'
 
 suckr = ImageSuckr::GoogleSuckr.new
 created_users = 10
@@ -38,7 +40,7 @@ generated_users.times do |user|
   day =  (1..28).to_a.sample
   user[:dob] = "#{year}-#{month}-#{day}"
 
-  user[:profile_pic] = "http://loremflickr.com/300/300/profile?random=#{rand(1000)}"
+  user[:profile_pic] = profile_pics.sample
 
   user[:password] = "qwerty"
   user[:city] = "#{Faker::Address.city}, #{Faker::Address.state}"
@@ -99,7 +101,7 @@ end
 
 # Likes
 user_range.each do |user|
-  (post_count/20).times do
+  (post_count/50).times do
     like = {}
     like[:liker_id] = user
     like[:post_id] = (1..425).to_a.sample
@@ -114,7 +116,7 @@ end
 (post_count + 1).times do |post|
   (0..3).to_a.sample.times do |number_photos|
     photo = {}
-    photo[:url] = "http://loremflickr.com/460/300/a?random=#{rand(10000)}"
+    photo[:url] = photos.sample
     photo[:post_id] = post
     next if photo[:url] == ""
     successful = Photo.create([photo])
@@ -125,7 +127,7 @@ end
 
 #Friends
 user_range.each do |user|
-  (50..150).to_a.sample.times do
+  (50..100).to_a.sample.times do
     friend = {}
     friend[:user_id] = user
     friend[:friend_id] = user_range.sample
@@ -135,3 +137,10 @@ user_range.each do |user|
     puts friendships_count
   end
 end
+
+puts "Users created: #{user_count}"
+puts "Posts created: #{post_count}"
+puts "Comments created: #{comment_count}"
+puts "Likes created: #{likes_count}"
+puts "Friendships created: #{friendships_count}"
+puts "Photos created: #{photos_count}"
