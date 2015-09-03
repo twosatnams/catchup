@@ -2,10 +2,10 @@ require 'image_suckr'
 
 profile_pics = []
 
-suckr = ImageSuckr::GoogleSuckr.new({:usz => "200"})
+suckr = ImageSuckr::GoogleSuckr.new({:usz => "200", :q => "profile", :imgsz => "medium", :imgtype => "face"})
 iteration = 0
 
-while profile_pics.length < 200 do
+while profile_pics.length < 500 do
   iteration += 1
   picture = suckr.get_image_url
   if picture == nil

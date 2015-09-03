@@ -37,7 +37,8 @@ class User < ActiveRecord::Base
   def self.search(search)
     return [] if search == ""
     query = search.downcase
-    User.where("name ~* ?", "^#{query}[a-z]*|[a-z]* #{query}")
+    results = User.where("name ~* ?", "^#{query}[a-z]*|[a-z]* #{query}")
+    return results.take(8)
   end
 
   def password=(password)
