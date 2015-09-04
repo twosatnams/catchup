@@ -40,7 +40,7 @@ end
 
 json.friends @user.friends do |friend|
   json.extract! friend, :id, :name, :profile_pic
-  # json.number_friends friend.num_friends
+  # json.number_friends friend.friends.length
 end
 
 json.unsuccessful_requests @user.unsuccessful_requests.includes(:friend) do |friendship|
@@ -50,10 +50,10 @@ json.unsuccessful_requests @user.unsuccessful_requests.includes(:friend) do |fri
   # json.name User.find(friendship.friend_id).name
 end
 
-json.friend_requests @user.friend_requests do |friendship|
+json.friend_requests @user.friend_requests.includes(:user) do |friendship|
   json.extract! friendship, :id, :user_id
-  # json.name User.find(friendship.user_id).name
-  # json.profile_pic User.find(friendship.user_id).profile_pic
+  json.name friendship.user.name
+  json.profile_pic friendship.user.profile_pic
 end
 
 # if current_user.id != @user.id

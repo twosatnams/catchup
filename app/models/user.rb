@@ -86,6 +86,19 @@ class User < ActiveRecord::Base
      .reject { |id| id == self.id }
 
     User.where(id: user_ids)
+
+    # SQL
+      # SELECT
+      #   COUNT(*)
+      # FROM
+      #   users
+      # JOIN
+      #   friends as f1 ON f1.user_id = users.id
+      # JOIN
+      #   friends as f2 ON f2.friend_id = users.id
+      # WHERE
+      #   (f1.user_id = 1 AND f1.pending = false) OR (f2.friend_id = 1 AND f2.pending = false)
+
   end
 
   def num_friends

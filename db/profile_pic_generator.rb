@@ -2,7 +2,7 @@ require 'image_suckr'
 
 profile_pics = []
 
-suckr = ImageSuckr::GoogleSuckr.new({:usz => "200", :q => "profile", :imgsz => "medium", :imgtype => "face"})
+suckr = ImageSuckr::GoogleSuckr.new({:usz => "500", :q => "actor", :imgsz => "medium", :imgtype => "face"})
 iteration = 0
 
 while profile_pics.length < 500 do
