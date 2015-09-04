@@ -1,7 +1,5 @@
 require_relative 'photo_urls'
 require_relative 'profile_urls'
-load './profile_urls.rb'
-load './photo_urls.rb'
 
 suckr = ImageSuckr::GoogleSuckr.new
 created_users = 10
@@ -40,7 +38,7 @@ generated_users.times do |user|
   day =  (1..28).to_a.sample
   user[:dob] = "#{year}-#{month}-#{day}"
 
-  user[:profile_pic] = profile_pics.sample
+  user[:profile_pic] = ProfilePics.sample
 
   user[:password] = "qwerty"
   user[:city] = "#{Faker::Address.city}, #{Faker::Address.state}"
@@ -116,7 +114,7 @@ end
 (post_count + 1).times do |post|
   (0..3).to_a.sample.times do |number_photos|
     photo = {}
-    photo[:url] = photos.sample
+    photo[:url] = Photos.sample
     photo[:post_id] = post
     next if photo[:url] == ""
     successful = Photo.create([photo])

@@ -1,4 +1,4 @@
-profile_pics = [
+ProfilePics = [
 "http://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/JRE_209-500_Ura80.jpg/240px-JRE_209-500_Ura80.jpg",
 "http://ag-spots-2013.o.auroraobjects.eu/2013/05/19/thumbs/porsche-993-turbo-s-c486619052013111644_1.jpg",
 "http://www.pk.all.biz/img/pk/catalog/middle/5652.png%3Frrr%3D1",

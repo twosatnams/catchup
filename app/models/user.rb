@@ -88,6 +88,12 @@ class User < ActiveRecord::Base
     User.where(id: user_ids)
   end
 
+  def num_friends
+    Rails.cache.fetch("num_friends") do
+      friends.length
+    end
+  end
+
   protected
 
   def ensure_session_token

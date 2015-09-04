@@ -1,4 +1,4 @@
-photos = [
+Photos = [
   "http://imgc.allpostersimages.com/images/P-488-488-90/13/1359/ARLS000Z/posters/665-neighbor-of-the-beast.jpg",
   "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/WY-412.svg/391px-WY-412.svg.png",
   "https://upload.wikimedia.org/wikipedia/commons/d/d6/PA-345.svg",

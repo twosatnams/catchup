@@ -40,37 +40,39 @@ end
 
 json.friends @user.friends do |friend|
   json.extract! friend, :id, :name, :profile_pic
-  json.number_friends friend.friends.length
+  # json.number_friends friend.num_friends
 end
 
-json.unsuccessful_requests @user.unsuccessful_requests do |friendship|
+json.unsuccessful_requests @user.unsuccessful_requests.includes(:friend) do |friendship|
+  # fail
   json.extract! friendship, :id, :friend_id
-  json.name User.find(friendship.friend_id).name
+  json.name friendship.friend.name
+  # json.name User.find(friendship.friend_id).name
 end
 
 json.friend_requests @user.friend_requests do |friendship|
   json.extract! friendship, :id, :user_id
-  json.name User.find(friendship.user_id).name
-  json.profile_pic User.find(friendship.user_id).profile_pic
+  # json.name User.find(friendship.user_id).name
+  # json.profile_pic User.find(friendship.user_id).profile_pic
 end
 
-if current_user.id != @user.id
-  mutual_friends = []
-  current_user.friends.each do |friend|
-    if @user.friends.include?(friend)
-      mutual_friends << friend
-    end
-  end
-  json.mutual_friends mutual_friends do |friend|
-    json.extract! friend, :name
-  end
-end
+# if current_user.id != @user.id
+#   mutual_friends = []
+#   current_user.friends.each do |friend|
+#     if @user.friends.include?(friend)
+#       mutual_friends << friend
+#     end
+#   end
+#   json.mutual_friends mutual_friends do |friend|
+#     json.extract! friend, :name
+#   end
+# end
 
 json.photos @user.photos do |photo|
   json.extract! photo, :url, :created_at
 end
 
-json.posts @user.posts.order("created_at").includes(:photos, :likes, :comments, :author) do |post|
+json.posts @user.posts.order("created_at").includes(:photos, :likes, { comments: [:author] }, :author) do |post|
 
   json.extract! post, :id, :author_id, :body
   json.author_name post.author.name

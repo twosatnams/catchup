@@ -28,7 +28,7 @@ Catchup.Views.TimelineSubview = Backbone.CompositeView.extend({
 
   nineRandomFriends: function () {
     var friends = _.shuffle(this.model.friends().models);
-    return friends.slice(0, 10);
+    return friends.slice(0, 9);
   },
 
   nineRandomPhotos: function () {
