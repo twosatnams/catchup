@@ -1,3 +1,4 @@
+require 'byebug'
 class User < ActiveRecord::Base
   validates :email, :session_token, presence: true
   validates :password, length: { minimum: 5, allow_nil: true }
@@ -32,13 +33,6 @@ class User < ActiveRecord::Base
   def self.find_by_credentials(user_params)
     user = User.find_by_email(user_params[:email])
     user.try(:is_password?, user_params[:password]) ? user : nil
-  end
-
-  def self.search(search)
-    return [] if search == ""
-    query = search.downcase
-    results = User.where("name ~* ?", "^#{query}[a-z]*|[a-z]* #{query}")
-    return results.take(8)
   end
 
   def password=(password)
@@ -85,19 +79,59 @@ class User < ActiveRecord::Base
      .uniq
      .reject { |id| id == self.id }
 
-    User.where(id: user_ids)
+    users = User.where(id: user_ids)
+  end
 
-    # SQL
-      # SELECT
-      #   COUNT(*)
-      # FROM
-      #   users
-      # JOIN
-      #   friends as f1 ON f1.user_id = users.id
-      # JOIN
-      #   friends as f2 ON f2.friend_id = users.id
-      # WHERE
-      #   (f1.user_id = 1 AND f1.pending = false) OR (f2.friend_id = 1 AND f2.pending = false)
+  def self.sort_by_university(results, seeker)
+    preresults = results.dup
+    users_with_same_uni = []
+
+    results.each do |user|
+      if user.school == seeker.school
+        users_with_same_uni << user
+        preresults.delete(user)
+      end
+    end
+
+    users_with_same_uni.concat(preresults)
+  end
+
+  def self.sort_by_state(results, seeker)
+    users_with_same_state = []
+    results.each do |user|
+      if user.city.split(",").last == seeker.city.split(",").last
+        users_with_same_state << user
+        results.delete(user)
+      end
+    end
+
+    users_with_same_state.concat(results)
+  end
+
+  def self.sort_by_city(results, seeker)
+    users_with_same_city = []
+    results.each do |user|
+      if user.city.split(",").first == seeker.city.split(",").first
+        users_with_same_city << user
+        results.delete(user)
+      end
+    end
+
+    users_with_same_city.concat(results)
+  end
+
+  def self.search(search, seeker)
+    return [] if search == ""
+    query = search.downcase
+
+    results = User.where("name ~* ?", "^#{query}[a-z]*|[a-z]* #{query}")
+    # results.to_a.sort_by! { |user| (self.dob - user.dob).abs }
+
+    sort_state = sort_by_state(results, seeker)
+    sort_city = sort_by_city(sort_state, seeker)
+    sort_univ = sort_by_university(sort_city, seeker)
+
+    return sort_univ.take(8)
 
   end
 

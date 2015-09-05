@@ -3,7 +3,7 @@ require_relative 'profile_urls'
 
 suckr = ImageSuckr::GoogleSuckr.new
 created_users = 10
-generated_users = 490
+generated_users = 990
 user_count = 0
 post_count = 0
 comment_count = 0

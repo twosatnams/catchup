@@ -2,7 +2,7 @@ class Api::UsersController < ApplicationController
 
   def index
     if params[:search]
-      @users = User.search(params[:search])
+      @users = User.search(params[:search], current_user)
     else
       @users = User.all
     end
