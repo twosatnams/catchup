@@ -2,9 +2,8 @@ Catchup.Views.TimelineSubview = Backbone.CompositeView.extend({
   template: JST['profile/timeline_subview'],
 
   initialize: function () {
-    if (this.model.escape('id') === currentUser.escape('id')) {
-      this.addNewPostSubview();
-    }
+    this.addNewPostSubview();
+
     this.addPostsIndexSubview();
     this.addBasicInfoSubview();
     this.listenTo(this.model, 'sync', this.render);
@@ -33,7 +32,7 @@ Catchup.Views.TimelineSubview = Backbone.CompositeView.extend({
 
   nineRandomPhotos: function () {
     var photos = _.shuffle(this.model.photos().models);
-    return photos.slice(0, 10);
+    return photos.slice(0, 9);
   },
 
   addPostsIndexSubview: function () {
@@ -50,6 +49,11 @@ Catchup.Views.TimelineSubview = Backbone.CompositeView.extend({
       photos: this.nineRandomPhotos()
     });
     this.$el.html(content);
+
+    if (this.model.escape('id') !== currentUser.escape('id')) {
+      this.$('.new-post-form').hide();
+    }
+
     this.attachSubviews();
     return this;
   }

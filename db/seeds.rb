@@ -3,7 +3,7 @@ require_relative 'profile_urls'
 
 suckr = ImageSuckr::GoogleSuckr.new
 created_users = 10
-generated_users = 990
+generated_users = 90
 user_count = 0
 post_count = 0
 comment_count = 0
@@ -74,7 +74,7 @@ end
 
 # Posts
 user_range.each do |user|
-  (3..6).to_a.sample.times do
+  (4..6).to_a.sample.times do
     post = {}
     post[:author_id] = user
     post[:body] = Faker::Lorem.paragraph((2..5).to_a.sample)
@@ -102,7 +102,7 @@ user_range.each do |user|
   (post_count/50).times do
     like = {}
     like[:liker_id] = user
-    like[:post_id] = (1..425).to_a.sample
+    like[:post_id] = (1..post_count).to_a.sample
     successful = Like.create([like])
     likes_count += 1 if successful
     puts likes_count
@@ -112,7 +112,7 @@ end
 
 # Photos
 (post_count + 1).times do |post|
-  (0..3).to_a.sample.times do |number_photos|
+  (1..5).to_a.sample.times do |number_photos|
     photo = {}
     photo[:url] = Photos.sample
     photo[:post_id] = post
@@ -129,7 +129,7 @@ user_range.each do |user|
     friend = {}
     friend[:user_id] = user
     friend[:friend_id] = user_range.sample
-    friend[:pending] = [true, false].sample
+    friend[:pending] = [true, false, false, false].sample
     successful = Friend.create([friend])
     friendships_count += 1 if successful
     puts friendships_count

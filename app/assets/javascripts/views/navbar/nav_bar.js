@@ -33,9 +33,14 @@ Catchup.Views.NavBar = Backbone.CompositeView.extend({
     "click #edit-profile" : "editProfile",
     "input input[type=text]": "search",
     "click a": "removeSearch",
-    "click .transparent-background" : "removeSearch",
+    "click .transparent-background" : "hideDropdowns",
     "click .friend-requests-badge" : "showFriendRequests",
     "click a" : "hideFriendRequests"
+  },
+
+  hideDropdowns: function (event) {
+    this.removeSearch(event);
+    this.hideFriendRequests(event);
   },
 
   addFriendRequestsSubview: function (friend) {
@@ -46,6 +51,10 @@ Catchup.Views.NavBar = Backbone.CompositeView.extend({
     });
     // WTF is true doing here?
     this.addSubview(".friend-requests-list", subview, true);
+  },
+
+  removeFriendRequestSubview: function (model, collection, options) {
+    this.removeModelSubview(".friend-requests-list", model);
   },
 
   updateCount: function () {

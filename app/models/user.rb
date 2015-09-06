@@ -82,42 +82,66 @@ class User < ActiveRecord::Base
     users = User.where(id: user_ids)
   end
 
-  def self.sort_by_university(results, seeker)
-    preresults = results.dup
-    users_with_same_uni = []
-
-    results.each do |user|
+  def self.rank_by_university!(results, seeker)
+    same_uni_score = 50
+    results.each do |user, rank|
       if user.school == seeker.school
-        users_with_same_uni << user
-        preresults.delete(user)
+        results[user][0] += same_uni_score
+        results[user][1] = "#{user.school}"
       end
     end
-
-    users_with_same_uni.concat(preresults)
   end
 
-  def self.sort_by_state(results, seeker)
-    users_with_same_state = []
-    results.each do |user|
+  def self.rank_by_state!(results, seeker)
+    same_state_score = 5
+    results.each do |user, rank|
       if user.city.split(",").last == seeker.city.split(",").last
-        users_with_same_state << user
-        results.delete(user)
+        results[user][0] += same_state_score
       end
     end
-
-    users_with_same_state.concat(results)
   end
 
-  def self.sort_by_city(results, seeker)
-    users_with_same_city = []
-    results.each do |user|
+  def self.rank_by_city!(results, seeker)
+    same_city_score = 10
+    results.each do |user, rank|
       if user.city.split(",").first == seeker.city.split(",").first
-        users_with_same_city << user
-        results.delete(user)
+        results[user] += same_city_score
       end
     end
+  end
 
-    users_with_same_city.concat(results)
+  def self.rank_by_friends!(results, seeker)
+    friend_score = 2
+    seeker_friends = seeker.friends
+
+    results.each do |user, rank|
+      num_mutual_friends = mutual_friends(seeker_friends, user.friends)
+      if num_mutual_friends > 0
+        current_score = results[user][0]
+        add_score = friend_score*num_mutual_friends
+        dominating = add_score > current_score ? true : false
+
+        results[user][0] += add_score
+        if dominating
+          if num_mutual_friends == 1
+            results[user][1] = "1 mutual friend"
+          else
+            results[user][1] = "#{num_mutual_friends} mutual friends"
+          end
+        end
+      end
+    end
+  end
+
+  def self.mutual_friends(friends_first, friends_second)
+    common_friends = friends_first&friends_second
+    common_friends.length
+  end
+
+  def self.print_search_results(results)
+    results.each do |user, rank_array|
+      puts "#{user.name}: #{rank_array.first} - #{rank_array.second}"
+    end
   end
 
   def self.search(search, seeker)
@@ -127,12 +151,17 @@ class User < ActiveRecord::Base
     results = User.where("name ~* ?", "^#{query}[a-z]*|[a-z]* #{query}")
     # results.to_a.sort_by! { |user| (self.dob - user.dob).abs }
 
-    sort_state = sort_by_state(results, seeker)
-    sort_city = sort_by_city(sort_state, seeker)
-    sort_univ = sort_by_university(sort_city, seeker)
+    ranked = {}
+    results.each { |user| ranked[user] = [0, "user.city"] }
 
-    return sort_univ.take(8)
+    rank_by_state!(ranked, seeker)
+    rank_by_city!(ranked, seeker)
+    rank_by_university!(ranked, seeker)
+    rank_by_friends!(ranked, seeker)
 
+    print_search_results(ranked)
+
+    return ranked.sort_by{ |k,v| v.first }.reverse.to_h.take(8)
   end
 
   def num_friends

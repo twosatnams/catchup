@@ -14,6 +14,7 @@ Catchup.Views.PostForm = Backbone.View.extend({
 
   showButtonsPanel: function (event) {
     event.preventDefault();
+    this.$('.txt-new-post-form').css('border-radius', '4px 4px 0px 0px');
     this.$('.txt-new-post-form').attr('rows', '3');
     this.$('.panel-new-post-buttons').slideDown('fast');
   },

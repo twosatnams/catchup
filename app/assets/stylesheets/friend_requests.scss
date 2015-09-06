@@ -10,16 +10,17 @@
 }
 
 .friend-request-item {
-  margin-bottom: 10px;
+  // margin-bottom: 10px;
   border-bottom: 1px solid lightgrey;
   height: 70px;
   list-style-type: none;
 }
 
-.friend-request-item > img {
+.friend-request-item > a > img {
   height: 60px;
   width: 60px;
   padding: 3px;
+  // border: 1px solid lightgrey;
   object-fit: cover;
   position: absolute;
   display: inline-block;
@@ -27,7 +28,7 @@
   margin-top: 7px;
 }
 
-.friend-request-item > h5 {
+.friend-request-item > a > h5 {
   margin-left: 65px;
   display: inline-block;
   position: absolute;

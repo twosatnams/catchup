@@ -12,6 +12,12 @@ Catchup.Views.FriendRequestSubview = Backbone.View.extend({
     this.friends = options.friends;
   },
 
+  viewProfile: function (event) {
+    event.preventDefault();
+    debugger
+    // Backbone.history.navigate("users/" + , {trigger: true});
+  },
+
   acceptFriend: function (event) {
     event.preventDefault();
     var request = new Catchup.Models.Friendship({id: this.model.id});
