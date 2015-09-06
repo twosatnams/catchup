@@ -1,5 +1,6 @@
 require_relative 'photo_urls'
 require_relative 'profile_urls'
+require_relative 'cities'
 
 suckr = ImageSuckr::GoogleSuckr.new
 created_users = 10
@@ -16,8 +17,8 @@ user_range = (1..(generated_users + created_users)).to_a
 
 # Users
 User.create!([
-  {name: "Bruce Wayne", email: "bruce@gotham.com", dob: "1990-12-24", password: "qwerty", profile_pic: "http://vignette2.wikia.nocookie.net/thedarkknighttrilogy/images/9/96/Bruce_Wayne.jpg/revision/latest?cb=20130114180415", city: "Gotham, New Jersey", school: "Gotham State", workplace: "Wayne Enterprises"},
-  {name: "Megan Fox", email: "megan@gotham.com", dob: "1986-05-06", password: "qwerty", profile_pic: "http://res.cloudinary.com/satnam14/image/upload/v1440309181/lsymzbqhtdhckmqlc5rv.jpg", city: "Los Angeles, California", school: "St. Lucie West Centennial High School", workplace: "Hollywood"},
+  {name: "Bruce Wayne", email: "bruce@gotham.com", dob: "1990-12-24", password: "qwerty", profile_pic: "http://vignette2.wikia.nocookie.net/thedarkknighttrilogy/images/9/96/Bruce_Wayne.jpg/revision/latest?cb=20130114180415", city: "Gotham, New Jersey", school: "Stanford University", workplace: "Wayne Enterprises"},
+  {name: "Megan Fox", email: "megan@gotham.com", dob: "1986-05-06", password: "qwerty", profile_pic: "http://res.cloudinary.com/satnam14/image/upload/v1440309181/lsymzbqhtdhckmqlc5rv.jpg", city: "Los Angeles, California", school: "University of California, Los Angeles", workplace: "Hollywood"},
   {name: "Mark Zuckerberg", email: "mark@gotham.com", dob: "1984-05-14", password: "qwerty", profile_pic: "http://images.askmen.com/photos/mark-zuckerberg/86153.jpg", city: "Menlo Park, California", school: "Harvard University", workplace: "Facebook"},
   {name: "Rhonda Rousey", email: "ronda@gotham.com", dob: "1987-02-01", password: "qwerty", profile_pic: "http://www.mmaoddsbreaker.com/wp-content/uploads/2013/02/ronda-rousey.jpeg", city: "Venice, California", school: "Hayastan MMA Academy", workplace: "Ultimate Fighting Championship"},
   {name: "Tyler Durden", email: "tyler@gotham.com", dob: "1975-08-01", password: "qwerty", profile_pic: "https://daleylife.files.wordpress.com/2013/07/tumblr_mqckwkatmg1st51fio4_500.jpg", cover_pic: "/assets/cover.jpg", city: "Chicago, Illinois", school: "Homeschooled", workplace: "Self-Employed"},
@@ -33,7 +34,7 @@ generated_users.times do |user|
   user = {}
   user[:name] = Faker::Name.name
   user[:email] = Faker::Internet.email
-  year = (1930..2015).to_a.sample
+  year = (1950..2015).to_a.sample
   month = (1..12).to_a.sample
   day =  (1..28).to_a.sample
   user[:dob] = "#{year}-#{month}-#{day}"
@@ -41,7 +42,7 @@ generated_users.times do |user|
   user[:profile_pic] = ProfilePics.sample
 
   user[:password] = "qwerty"
-  user[:city] = "#{Faker::Address.city}, #{Faker::Address.state}"
+  user[:city] = Cities.sample,
   university = [
     "Princeton University",
     "Harvard University",
