@@ -100,7 +100,7 @@ input.sign-out:hover {
   width: 400px;
   margin-top: 5px;
   height: 25px;
-  margin-left: 262px;
+  // margin-left: 262px;
 }
 
 button.btn.btn-default.search {
@@ -121,7 +121,25 @@ a.navbar-brand {
 
 .btn-default.btn-search {
   border: none;
-  padding-bottom: 2px;
-  padding-top: 3px;
-  margin-top: 5px;
+  padding-bottom: 1px;
+  padding-top: 2px;
+  margin-top: 6px;
+  /* height: 24px; */
+  position: absolute;
+  left: 45.6%;
+}
+
+#requests-count {
+  background-color: red;
+  font-size: 12px;
+  font-weight: 500;
+  position: absolute;
+  top: 12%;
+  left: 62%;
+  border-radius: 2px;
+  padding: 2px 2px;
+}
+
+.friend-requests-badge {
+  margin-right: 10px;
 }

@@ -1,6 +1,7 @@
 require_relative 'photo_urls'
 require_relative 'profile_urls'
 require_relative 'cities'
+require_relative 'universities'
 
 suckr = ImageSuckr::GoogleSuckr.new
 created_users = 10
@@ -29,7 +30,7 @@ User.create!([
   {name: "Katrina Kaif", email: "katrina@gotham.com", dob: "1983-07-16", password: "qwerty", profile_pic: "http://res.cloudinary.com/satnam14/image/upload/v1440310318/vl2mfvwtxg5mtqe2d79w.jpg", cover_pic: "/assets/cover.jpg", city: "Mumbai, India", school: "Delhi Public School", workplace: "Bollywood"}
 ])
 
-
+users = []
 generated_users.times do |user|
   user = {}
   user[:name] = Faker::Name.name
@@ -43,45 +44,22 @@ generated_users.times do |user|
 
   user[:password] = "qwerty"
   user[:city] = Cities.sample,
-  university = [
-    "Princeton University",
-    "Harvard University",
-    "Yale University",
-    "Columbia University",
-    "Stanford University",
-    "University of Chicago",
-    "Massachusetts Institute of Technology",
-    "Duke University",
-    "University of Pennsylvania",
-    "California Institute of Technology",
-    "University College London",
-    "University of California, Berkeley",
-    "University of Oxford",
-    "University of California, Los Angeles",
-    "Imperial College London",
-    "University of California, San Diego",
-    "ETH Zurich",
-    "Queen Mary University of London",
-    "Cornell University",
-    "University of Michigan",
-    "University of Texas at Austin"
-  ]
-  user[:school] = university.sample
+  user[:school] = Universities.sample
   user[:workplace] = Faker::Company.name
   successful = User.create!([user])
   user_count += 1 if successful
-  puts user_count
+  puts "Users created: #{user_count}"
 end
 
 # Posts
 user_range.each do |user|
-  (4..6).to_a.sample.times do
+  (3..6).to_a.sample.times do
     post = {}
     post[:author_id] = user
     post[:body] = Faker::Lorem.paragraph((2..5).to_a.sample)
     successful = Post.create!([post])
     post_count += 1 if successful
-    puts post_count
+    puts "Posts created: #{post_count}"
   end
 end
 
@@ -94,19 +72,19 @@ end
     comment[:author_id] = user_range.sample
     successful = Comment.create!([comment])
     comment_count += 1 if successful
-    puts comment_count
+    puts "Comments created: #{comment_count}"
   end
 end
 
 # Likes
 user_range.each do |user|
-  (post_count/50).times do
+  (post_count/100).times do
     like = {}
     like[:liker_id] = user
     like[:post_id] = (1..post_count).to_a.sample
     successful = Like.create([like])
     likes_count += 1 if successful
-    puts likes_count
+    puts "Likes created: #{likes_count}"
   end
 end
 
@@ -120,7 +98,7 @@ end
     next if photo[:url] == ""
     successful = Photo.create([photo])
     photos_count += 1 if successful
-    puts photos_count
+    puts "Photos created: #{photos_count}"
   end
 end
 
@@ -133,7 +111,7 @@ user_range.each do |user|
     friend[:pending] = [true, false, false, false].sample
     successful = Friend.create([friend])
     friendships_count += 1 if successful
-    puts friendships_count
+    puts "Friendships created: #{friendships_count}"
   end
 end
 

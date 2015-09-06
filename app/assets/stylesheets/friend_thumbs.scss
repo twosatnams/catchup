@@ -40,6 +40,20 @@
 
 }
 
+.friend-thumb-fader {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 29;
+
+  background: -webkit-linear-gradient(bottom, rgba(255,0,0,0) 70%, black); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom, rgba(255,0,0,0) 70%, black); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom, rgba(255,0,0,0) 70%, black); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom, rgba(255,0,0,0) 70%, black); /* Standard syntax (must be last) */
+}
+
+
+
 .friend-thumbnail > img {
   height: 100%;
   width: 100%;
@@ -54,7 +68,6 @@
   word-wrap: break-word;
   margin-bottom: 2px;
   position: absolute;
-  background: transparentize(black, 0.9);
   text-shadow: 1px;
   cursor: pointer;
   bottom: 0;

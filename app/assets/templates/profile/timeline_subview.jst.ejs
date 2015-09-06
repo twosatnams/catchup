@@ -9,10 +9,12 @@
     <ul>
       <% friends.forEach(function(friend) { %>
         <li>
+          <div class="friend-thumb-fader"></div>
 
           <a href="#users/<%= friend.escape('id') %>"
              class="friend-thumbnail">
-               <img src="<%= friend.escape('profile_pic') %>" ></a>
+             <img src="<%= friend.escape('profile_pic') %>" >
+          </a>
 
           <p class="friend-thumb-name">
             <%= friend.escape('name') %>

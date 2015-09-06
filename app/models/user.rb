@@ -71,6 +71,12 @@ class User < ActiveRecord::Base
   end
 
   def friends
+    Rails.cache.fetch("#{self.id}", :expires_in => 30.seconds) do
+      force_friends
+    end
+  end
+
+  def force_friends
     user_ids = Friend.where(
       '(user_id = :id OR friend_id = :id) AND pending = false',
        id: self.id
