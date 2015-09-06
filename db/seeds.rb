@@ -5,7 +5,7 @@ require_relative 'universities'
 
 suckr = ImageSuckr::GoogleSuckr.new
 created_users = 10
-generated_users = 90
+generated_users = 4990
 user_count = 0
 post_count = 0
 comment_count = 0

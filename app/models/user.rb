@@ -1,4 +1,3 @@
-require 'byebug'
 class User < ActiveRecord::Base
   validates :email, :session_token, presence: true
   validates :password, length: { minimum: 5, allow_nil: true }
