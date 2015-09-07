@@ -5,7 +5,7 @@ require_relative 'universities'
 
 suckr = ImageSuckr::GoogleSuckr.new
 created_users = 10
-generated_users = 1990
+generated_users = 190
 user_count = 0
 post_count = 0
 comment_count = 0
@@ -103,7 +103,7 @@ end
 
 #Friends
 user_range.each do |user|
-  (50..100).to_a.sample.times do
+  (30..80).to_a.sample.times do
     friend = {}
     friend[:user_id] = user
     friend[:friend_id] = user_range.sample
