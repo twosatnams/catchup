@@ -5,7 +5,7 @@ require_relative 'universities'
 
 suckr = ImageSuckr::GoogleSuckr.new
 created_users = 10
-generated_users = 4990
+generated_users = 1990
 user_count = 0
 post_count = 0
 comment_count = 0
@@ -30,7 +30,6 @@ User.create!([
   {name: "Katrina Kaif", email: "katrina@gotham.com", dob: "1983-07-16", password: "qwerty", profile_pic: "http://res.cloudinary.com/satnam14/image/upload/v1440310318/vl2mfvwtxg5mtqe2d79w.jpg", cover_pic: "/assets/cover.jpg", city: "Mumbai, India", school: "Delhi Public School", workplace: "Bollywood"}
 ])
 
-users = []
 generated_users.times do |user|
   user = {}
   user[:name] = Faker::Name.name
