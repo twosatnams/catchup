@@ -13,7 +13,6 @@ likes_count = 0
 friendships_count = 0
 photos_count = 0
 user_range = (1..(generated_users + created_users)).to_a
-# user_range = (1..generated_users).to_a
 
 
 # Users
