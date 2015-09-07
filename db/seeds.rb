@@ -106,7 +106,7 @@ user_range.each do |user|
     friend = {}
     friend[:user_id] = user
     friend[:friend_id] = user_range.sample
-    friend[:pending] = [true, false, false, false].sample
+    friend[:pending] = [true, false, false, false, false, false].sample
     successful = Friend.create([friend])
     friendships_count += 1 if successful
     puts "Friendships created: #{friendships_count}"
