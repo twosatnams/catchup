@@ -13,7 +13,7 @@
 <% } %>
 
 <p class="comment-body">
-  <a href="#"><%= comment.escape('author_name') %></a> <%= comment.escape('body') %>
+  <a href="#users/<%= comment.escape('author_id') %>"><%= comment.escape('author_name') %></a> <%= comment.escape('body') %>
 </p>
 
 <p class="comment-date">

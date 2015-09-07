@@ -70,7 +70,7 @@ class User < ActiveRecord::Base
   end
 
   def friends
-    Rails.cache.fetch("#{self.id}", :expires_in => 3600.seconds) do
+    Rails.cache.fetch("#{self.id}") do
       force_friends
     end
   end
