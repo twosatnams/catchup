@@ -41,7 +41,7 @@ generated_users.times do |user|
   user[:profile_pic] = ProfilePics.sample
 
   user[:password] = "qwerty"
-  user[:city] = Cities.sample,
+  user[:city] = Cities.sample
   user[:school] = Universities.sample
   user[:workplace] = Faker::Company.name
   successful = User.create!([user])
