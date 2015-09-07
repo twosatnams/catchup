@@ -70,7 +70,7 @@ class User < ActiveRecord::Base
   end
 
   def friends
-    Rails.cache.fetch("#{self.id}", :expires_in => 30.seconds) do
+    Rails.cache.fetch("#{self.id}", :expires_in => 3600.seconds) do
       force_friends
     end
   end
@@ -166,7 +166,7 @@ class User < ActiveRecord::Base
 
     print_search_results(ranked)
 
-    return ranked.sort_by{ |k,v| v.first }.reverse.to_h.take(8)
+    return ranked.sort_by{ |k,v| v.first }.reverse.take(8)
   end
 
   def num_friends
