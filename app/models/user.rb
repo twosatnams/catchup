@@ -26,6 +26,26 @@ class User < ActiveRecord::Base
     foreign_key: :author_id,
     primary_key: :id
 
+  # has_many :friendships,
+  #   class_name: "Friendship",
+  #   foreign_key: :user_id,
+  #   primary_key: id
+  #
+  # has_many :friends,
+  #   through: :friendships,
+  #   source: :user,
+  #   { where pending: false }
+  #
+  # has_many :friend_requests,
+  #   through: :friendships,
+  #   source: :friend,
+  #   { where pending: true }
+  #
+  # has_many :unsuccessful_requests,
+  #   through: :friendships,
+  #   source: :user,
+  #   { where pending: true }
+
   attr_reader :password
   after_initialize :ensure_session_token, :blank_profile_pics
 
@@ -167,12 +187,6 @@ class User < ActiveRecord::Base
     print_search_results(ranked)
 
     return ranked.sort_by{ |k,v| v.first }.reverse.take(8)
-  end
-
-  def num_friends
-    Rails.cache.fetch("num_friends") do
-      friends.length
-    end
   end
 
   protected

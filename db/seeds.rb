@@ -102,7 +102,7 @@ end
 
 #Friends
 user_range.each do |user|
-  (30..80).to_a.sample.times do
+  (30..50).to_a.sample.times do
     friend = {}
     friend[:user_id] = user
     friend[:friend_id] = user_range.sample
