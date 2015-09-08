@@ -90,9 +90,12 @@ class User < ActiveRecord::Base
   end
 
   def friends
-    Rails.cache.fetch("#{self.id}") do
-      force_friends
+    friends = Rails.cache.read("#{self.id}.friends")
+    if !friends
+      friends = force_friends
+      Rails.cache.write("#{self.id}.friends", friends)
     end
+    friends
   end
 
   def force_friends

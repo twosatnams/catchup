@@ -5,7 +5,7 @@ require_relative 'universities'
 
 suckr = ImageSuckr::GoogleSuckr.new
 created_users = 10
-generated_users = 190
+generated_users = 1990
 user_count = 0
 post_count = 0
 comment_count = 0
@@ -76,7 +76,7 @@ end
 
 # Likes
 user_range.each do |user|
-  (post_count/100).times do
+  (post_count/200).times do
     like = {}
     like[:liker_id] = user
     like[:post_id] = (1..post_count).to_a.sample
@@ -102,11 +102,11 @@ end
 
 #Friends
 user_range.each do |user|
-  (30..50).to_a.sample.times do
+  (30..80).to_a.sample.times do
     friend = {}
     friend[:user_id] = user
     friend[:friend_id] = user_range.sample
-    friend[:pending] = [true, false, false, false, false, false].sample
+    friend[:pending] = [true, false, false, false, false, false, false, false].sample
     successful = Friend.create([friend])
     friendships_count += 1 if successful
     puts "Friendships created: #{friendships_count}"
