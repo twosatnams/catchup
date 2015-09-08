@@ -23,7 +23,19 @@ module Catchup
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.assets.initialize_on_precompile = false
     config.active_record.raise_in_transactional_callbacks = true
-    custom_cache_store = ENV["REDISTOGO_URL"] || "redis://localhost:6379/"
-    config.cache_store = :redis_store, ENV["REDISTOGO_URL"]
+
+    if ENV["REDISTOGO_URL"]
+      config = Catchup::Application.config
+      uri = URI.parse(ENV["REDISTOGO_URL"])
+
+      config.cache_store = [
+        :redis_store, {
+          :host => uri.host,
+          :port => uri.port,
+          :password => uri.password,
+          :namespace => "cache"
+        }
+      ]
+    end
   end
 end
