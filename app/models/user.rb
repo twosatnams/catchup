@@ -111,6 +111,26 @@ class User < ActiveRecord::Base
     users = User.where(id: user_ids)
   end
 
+  def friend_ids
+    ids = Rails.cache.read("#{self.id}.friend_ids")
+
+    if !ids
+      ids = force_friend_ids
+      Rails.cache.write("#{self.id}.friend_ids", ids)
+    end
+    ids
+  end
+
+  def force_friend_ids
+    Friend.where(
+      '(user_id = :id OR friend_id = :id) AND pending = false',
+       id: self.id
+    ).pluck(:user_id, :friend_id)
+     .flatten
+     .uniq
+     .reject { |id| id == self.id }
+  end
+
   def self.rank_by_university!(results, seeker)
     same_uni_score = 50
     results.each do |user, rank|
@@ -134,17 +154,17 @@ class User < ActiveRecord::Base
     same_city_score = 10
     results.each do |user, rank|
       if user.city.split(",").first == seeker.city.split(",").first
-        results[user] += same_city_score
+        results[user][0] += same_city_score
       end
     end
   end
 
   def self.rank_by_friends!(results, seeker)
     friend_score = 2
-    seeker_friends = seeker.friends
+    seeker_friends = seeker.friend_ids
 
     results.each do |user, rank|
-      num_mutual_friends = mutual_friends(seeker_friends, user.friends)
+      num_mutual_friends = mutual_friends(seeker_friends, user.friend_ids)
       if num_mutual_friends > 0
         current_score = results[user][0]
         add_score = friend_score*num_mutual_friends
@@ -176,19 +196,28 @@ class User < ActiveRecord::Base
   def self.search(search, seeker)
     return [] if search == ""
     query = search.downcase
+    a = Time.now
 
     results = User.where("name ~* ?", "^#{query}[a-z]*|[a-z]* #{query}")
+    b = Time.now
     # results.to_a.sort_by! { |user| (self.dob - user.dob).abs }
 
     ranked = {}
     results.each { |user| ranked[user] = [0, "user.city"] }
+    c = Time.now
 
     rank_by_state!(ranked, seeker)
     rank_by_city!(ranked, seeker)
     rank_by_university!(ranked, seeker)
+    d = Time.now
     rank_by_friends!(ranked, seeker)
+    e = Time.now
 
     print_search_results(ranked)
+    puts "Time for searching by name - #{b - a}"
+    puts "Time for creating the hash - #{c - b}"
+    puts "Time for ranking results - #{d - c}"
+    puts "Time for ranking friends - #{e - d}"
 
     return ranked.sort_by{ |k,v| v.first }.reverse.take(8)
   end
