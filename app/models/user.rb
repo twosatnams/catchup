@@ -91,6 +91,7 @@ class User < ActiveRecord::Base
 
   def friends
     friends = Rails.cache.read("#{self.id}.friends")
+
     if !friends
       friends = force_friends
       Rails.cache.write("#{self.id}.friends", friends)

@@ -2,6 +2,7 @@ body.login {
   background-image: image-url('session/background.jpg');
   background-size: 100%;
 	background-size: cover;
+  background-repeat: no-repeat;
 }
 
 #facebook-Bar {
@@ -12,6 +13,7 @@ body.login {
 	width: 100%;
 	z-index: 1000;
 }
+
 #facebook-Frame {
 	margin-left:auto;
 	margin-right:auto;
@@ -157,7 +159,7 @@ input[type="date"]:valid:before {
 .guest-logins {
 	position: absolute;
 	padding: 20px;
-	width: 30%;
+	width: 430px;
 	bottom: 5%;
 	right: 15%;
 	background: transparentize(white, 0.3);
