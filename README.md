@@ -1,12 +1,59 @@
 # Catch Up
 
-[Heroku link][heroku]
+[Live][live]
 
-[heroku]: https://catchup-fb.herokuapp.com
+[live]: http://www.catchup.click
 
-## Minimum Viable Product
-Catch Up is a clone of Facebook built on Rails and Backbone. Users can:
+## Introduction
+Catchup is a social networking service, a platform to build social networks or social relations among people who share similar interests, activities, backgrounds or real-life connections. It consists of a representation of each user (a profile), his or her social links (friends), and a variety of additional services.
 
+It allows individuals to create a public profile, create a list of users with whom to share connections, and view and cross the connections within the system. Users can also to share ideas, pictures, posts, activities, events, and interests with people in their network.
+
+## Features
+
+#### Profile
+- Users can register and make/customize profile
+- Uses BCrypt to store the user passwords as an encrypted password digest
+- Users can change their profile and cover pictures by hovering and clicking "Change"
+- From the profile, the user can view his friends and pictures
+
+#### Posts
+- Users can create posts only on their own profiles
+- Comments can be made on any post
+- Photos can be added to posts by clicking on the camera icon when creating a new post
+- Post chooses the best view for displaying the pictures appropriately
+- Users can choose to edit or delete the posts
+
+#### friendships
+- User can send a friend request by going to other user's profiles
+- Notifications are sent to a user if they receive a friend request
+- Users can choose to accept or reject friend requests
+- Users can unfriend a friend by going to their profile and clicking "Unfriend"
+
+#### Search
+Search is ranked by the following criteria -
+  - Match in either the first name or the last name. Uses Regular Expressions
+  - Common State - 5 points
+  - Common City - 15 points
+  - Common School - 30 points
+  - Common Age group - 10 points for being within += 5 years
+  - Common Friends - 2 points for each mutual friend
+
+All of the above mentioned criteria involve a lot of querying into the database, resulting in slow response times. Finding the mutual friends is the single most expensive function in the operation so all the friends of all the user are cached into the memory. Caching and a few other schema modification lead to much higher response times. As of now, a database seeded with 5,000 years can be searced through in an average time of < 100ms 
+
+## Technologies Used
+- Ruby on Rails server
+- Backbone.js
+- jQuery
+- PostgreSQL - RDBMS
+- JBuilder - to parse API data into json format
+- BCrypt - to encrypt user password
+- Cloudinary - to store user uploaded images
+- Bootstrap - Front-end framework
+- Redis - data store for caching
+
+
+## Development
 <!-- This is a Markdown checklist. Use it to keep track of your progress! -->
 
 - [x] Create accounts and log in
@@ -15,7 +62,7 @@ Catch Up is a clone of Facebook built on Rails and Backbone. Users can:
 - [x] Like and comment on posts
 - [x] Send, receive, accept and deny friend requests to/from other users
 - [x] Users can search for other users and pages
-- [ ] Search is ranked by mutual friends, age, location and similar interests.
+- [x] Search is ranked by mutual friends, age, location and similar interests.
 
 ## Design Docs
 * [View Wireframes][views]
@@ -49,7 +96,7 @@ to/from other users and will be able to accept or deny them.
 
 ### Phase 4: Seed data (~0.5 day)
 To be able to demo a efficient search feature I will need a lot of seed data.
-The target of this phase will be to add ~1,000 fake users using faker. Seed data
+The target of this phase will be to add ~5,000 fake users using faker. Seed data
 will have profile pictures (celebrity or anime pictures will do). Seed data
 for friendships and posts will also be required to demo the search feature in an
 appealing way.
