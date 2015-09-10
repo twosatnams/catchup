@@ -96,13 +96,6 @@ input.sign-out:hover {
   margin-right: 20%;
 }
 
-.navbar-form .form-control {
-  width: 400px;
-  margin-top: 5px;
-  height: 25px;
-  // margin-left: 262px;
-}
-
 button.btn.btn-default.search {
   height: 25px;
   padding:inherit;
@@ -117,16 +110,6 @@ a.navbar-brand {
   color: #FFF;
   text-decoration: none;
   font-family: "Lucida Sans Unicode","Lucida Grande",sans-serif;
-}
-
-.btn-default.btn-search {
-  border: none;
-  padding-bottom: 1px;
-  padding-top: 2px;
-  margin-top: 6px;
-  /* height: 24px; */
-  position: absolute;
-  left: 45.6%;
 }
 
 #requests-count {

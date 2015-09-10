@@ -131,6 +131,13 @@ class User < ActiveRecord::Base
      .reject { |id| id == self.id }
   end
 
+  def mutual_friend_ids
+    friend_ids = Friend.where(
+      '(user_id = :id OR friend_id = :id) AND pending = false',
+       id: self.id
+      ).all
+  end
+
   def self.rank_by_university!(results, seeker)
     same_uni_score = 50
     results.each do |user, rank|
@@ -150,6 +157,55 @@ class User < ActiveRecord::Base
     end
   end
 
+  def exp
+    a = Time.now
+    num_comments = 0
+    friends = self.friends
+    friends.each do |friend|
+      comments = friend.comments
+      comments.each do |comment|
+        num_comments += 1
+      end
+    end
+    puts num_comments
+    puts "Time taken: #{(Time.now - a)*1000}"
+  end
+
+  def exp2
+    a = Time.now
+    num_comments = 0
+    friends = self.friends.includes(:comments)
+    friends.each do |friend|
+      comments = friend.comments
+      comments.each do |comment|
+        num_comments += 1
+      end
+    end
+    puts num_comments
+    puts "Time Taken: #{(Time.now - a)*1000.0}"
+  end
+
+  # def method_sss
+  #   select
+  #     u.name,
+  #     count(mutual.shared_friend_id) over (partition by u.id) as num_shared
+  #   from
+  #     users u
+  #     left join (
+  #         select
+  #           f1.friend_id as shared_friend_id,
+  #           f2.friend_id as friend_id
+  #         from friends f1
+  #           join friends f2
+  #             on f1.friend_id = f2.user_id
+  #         where f1.user_id = 1
+  #           and f2.friend_id != f1.user_id
+  #       ) mutual
+  #       on u.id = mutual.friend_id
+  #   where u.name like 'C%'
+  #   order by count(mutual.shared_friend_id) over (partition by u.id) desc
+  # end
+
   def self.rank_by_city!(results, seeker)
     same_city_score = 10
     results.each do |user, rank|
@@ -159,12 +215,23 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.rank_by_friends!(results, seeker)
+  def self.rank_by_friends_second!(results, seeker)
     friend_score = 2
     seeker_friends = seeker.friend_ids
+    ttb_mutual_function = 0
+    ttb_getting_friends = 0
 
     results.each do |user, rank|
-      num_mutual_friends = mutual_friends(seeker_friends, user.friend_ids)
+      before_getting_friends = Time.now
+      user_friends = user.friend_ids
+      after_getting_friends = Time.now
+      ttb_getting_friends += (after_getting_friends - before_getting_friends)
+
+      before_mutual = Time.now
+      num_mutual_friends = mutual_friends(seeker_friends, user_friends)
+      after_mutual = Time.now
+      ttb_mutual_function += (after_mutual - before_mutual)
+
       if num_mutual_friends > 0
         current_score = results[user][0]
         add_score = friend_score*num_mutual_friends
@@ -180,6 +247,45 @@ class User < ActiveRecord::Base
         end
       end
     end
+    puts "Inside rank by friends function"
+    puts "Time spent in querying for friends - #{(100*ttb_getting_friends/(ttb_mutual_function + ttb_getting_friends)).floor}%"
+    puts "Time spent in mutual friends function - #{(100*ttb_mutual_function/(ttb_mutual_function + ttb_getting_friends)).floor}%"
+  end
+
+  def self.rank_by_friends!(results, seeker)
+    friend_score = 2
+    seeker_friends = seeker.friend_ids
+    ttb_mutual_function = 0
+    ttb_getting_friends = 0
+
+    results.each do |user, rank|
+      before_getting_friends = Time.now
+      user_friends = user.friend_ids
+      after_getting_friends = Time.now
+      ttb_getting_friends += (after_getting_friends - before_getting_friends)
+
+      before_mutual = Time.now
+      num_mutual_friends = mutual_friends(seeker_friends, user_friends)
+      after_mutual = Time.now
+      ttb_mutual_function += (after_mutual - before_mutual)
+      if num_mutual_friends > 0
+        current_score = results[user][0]
+        add_score = friend_score*num_mutual_friends
+        dominating = add_score > current_score ? true : false
+
+        results[user][0] += add_score
+        if dominating
+          if num_mutual_friends == 1
+            results[user][1] = "1 mutual friend"
+          else
+            results[user][1] = "#{num_mutual_friends} mutual friends"
+          end
+        end
+      end
+    end
+    puts "Inside rank by friends function"
+    puts "Time spent in querying for friends - #{(100*ttb_getting_friends/(ttb_mutual_function + ttb_getting_friends)).floor}%"
+    puts "Time spent in mutual friends function - #{(100*ttb_mutual_function/(ttb_mutual_function + ttb_getting_friends)).floor}%"
   end
 
   def self.mutual_friends(friends_first, friends_second)
@@ -210,14 +316,20 @@ class User < ActiveRecord::Base
     rank_by_city!(ranked, seeker)
     rank_by_university!(ranked, seeker)
     d = Time.now
-    rank_by_friends!(ranked, seeker)
+    rank_by_friends_second!(ranked, seeker)
     e = Time.now
 
-    print_search_results(ranked)
-    puts "Time for searching by name - #{b - a}"
-    puts "Time for creating the hash - #{c - b}"
-    puts "Time for ranking results - #{d - c}"
-    puts "Time for ranking friends - #{e - d}"
+    # print_search_results(ranked)
+    # puts "Time for searching by name - #{b - a}"
+    # puts "Time for creating the hash - #{c - b}"
+    # puts "Time for ranking results - #{d - c}"
+    # puts "Time for ranking friends - #{e - d}"
+    total_time_taken = (b - a) + (c - b) + (d - c) + (e - d)
+    puts "total time taken by query: #{(total_time_taken)*1000}ms"
+    puts "For searching by name: #{(100*(b - a)/total_time_taken).floor}%"
+    puts "For creating the hash: #{(100*(c - b)/total_time_taken).floor}%"
+    puts "For ranking results except friends: #{(100*(d - c)/total_time_taken).floor}%"
+    puts "For ranking by friends: #{(100*(e - d)/total_time_taken).floor}%"
 
     return ranked.sort_by{ |k,v| v.first }.reverse.take(8)
   end
@@ -233,3 +345,27 @@ class User < ActiveRecord::Base
     self.cover_pic ||= "/assets/cover.jpg"
   end
 end
+
+# select *
+# from (
+#     select
+#       u.name,
+#       count(mutual.shared_friend_id) over (partition by u.id) as num_shared,
+#       row_number() over (partition by u.id) as copy_num
+#     from
+#       users u
+#       left join (
+#           select
+#             f1.friend_id as shared_friend_id,
+#             f2.friend_id as friend_id
+#           from friends f1
+#             join friends f2
+#               on f1.friend_id = f2.user_id
+#           where f1.user_id = 1
+#             and f2.friend_id != f1.user_id
+#         ) mutual
+#         on u.id = mutual.friend_id
+#     where u.name like 'S%'
+#   ) all_rows
+# where copy_num = 1
+# order by num_shared desc
