@@ -2,6 +2,9 @@ require_relative 'photo_urls'
 require_relative 'profile_urls'
 require_relative 'cities'
 require_relative 'universities'
+require_relative 'family_names'
+require_relative 'male_first_names'
+require_relative 'female_first_names'
 
 suckr = ImageSuckr::GoogleSuckr.new
 created_users = 10
