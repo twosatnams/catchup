@@ -32,7 +32,7 @@ Catchup.Views.NavBar = Backbone.CompositeView.extend({
   events: {
     "click #edit-profile" : "editProfile",
     "input input[type=text]": "search",
-    "click a": "removeSearch",
+    "click .search-results-list": "removeSearch",
     "click .transparent-background" : "hideDropdowns",
     "click .friend-requests-badge" : "showFriendRequests",
     "click a" : "hideFriendRequests"
