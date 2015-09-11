@@ -8,7 +8,7 @@ require_relative 'female_first_names'
 
 suckr = ImageSuckr::GoogleSuckr.new
 created_users = 10
-generated_users = 99
+generated_users = 1090
 user_count = 0
 post_count = 0
 comment_count = 0
@@ -66,7 +66,7 @@ end
 
 # Comments
 (post_count + 1).times do |post|
-  (1..6).to_a.sample.times do |comment|
+  (3..6).to_a.sample.times do |comment|
     comment = {}
     comment[:body] = Faker::Lorem.sentence
     comment[:post_id] = post
@@ -79,7 +79,7 @@ end
 
 # Likes
 user_range.each do |user|
-  (post_count/20).times do
+  (post_count/generated_users).times do
     like = {}
     like[:liker_id] = user
     like[:post_id] = (1..post_count).to_a.sample
