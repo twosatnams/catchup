@@ -8,7 +8,7 @@ require_relative 'female_first_names'
 
 suckr = ImageSuckr::GoogleSuckr.new
 created_users = 10
-generated_users = 1990
+generated_users = 99
 user_count = 0
 post_count = 0
 comment_count = 0
@@ -79,7 +79,7 @@ end
 
 # Likes
 user_range.each do |user|
-  (post_count/200).times do
+  (post_count/20).times do
     like = {}
     like[:liker_id] = user
     like[:post_id] = (1..post_count).to_a.sample
@@ -105,7 +105,7 @@ end
 
 #Friends
 user_range.each do |user|
-  (30..80).to_a.sample.times do
+  (30..50).to_a.sample.times do
     friend = {}
     friend[:user_id] = user
     friend[:friend_id] = user_range.sample
