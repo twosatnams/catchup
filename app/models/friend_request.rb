@@ -1,4 +1,4 @@
-class Friend < ActiveRecord::Base
+class FriendRequest < ActiveRecord::Base
   validates :user_id, :friend_id, presence: true
   validates_uniqueness_of :user_id, :scope => :friend_id
   validate :user_and_friend_are_different
@@ -18,5 +18,4 @@ class Friend < ActiveRecord::Base
     class_name: "User",
     foreign_key: :friend_id,
     primary_key: :id
-
 end

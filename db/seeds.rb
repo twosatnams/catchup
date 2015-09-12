@@ -6,42 +6,55 @@ require_relative 'family_names'
 require_relative 'male_first_names'
 require_relative 'female_first_names'
 
-suckr = ImageSuckr::GoogleSuckr.new
 created_users = 10
-generated_users = 190
+generated_users = 90
 user_count = 0
 post_count = 0
 comment_count = 0
 likes_count = 0
 friendships_count = 0
+broken_friendships = 0
+friend_requests_count = 0
+unsuccessful_requests = 0
 photos_count = 0
+friendship_conflicts = 0
 user_range = (1..(generated_users + created_users)).to_a
 
 
 # Users
 User.create!([
-  {name: "Bruce Wayne", email: "bruce@gotham.com", dob: "1990-12-24", password: "qwerty", profile_pic: "http://vignette2.wikia.nocookie.net/thedarkknighttrilogy/images/9/96/Bruce_Wayne.jpg/revision/latest?cb=20130114180415", city: "Gotham, New Jersey", school: "Stanford University", workplace: "Wayne Enterprises"},
-  {name: "Megan Fox", email: "megan@gotham.com", dob: "1986-05-06", password: "qwerty", profile_pic: "http://res.cloudinary.com/satnam14/image/upload/v1440309181/lsymzbqhtdhckmqlc5rv.jpg", city: "Los Angeles, California", school: "University of California, Los Angeles", workplace: "Hollywood"},
-  {name: "Mark Zuckerberg", email: "mark@gotham.com", dob: "1984-05-14", password: "qwerty", profile_pic: "http://images.askmen.com/photos/mark-zuckerberg/86153.jpg", city: "Menlo Park, California", school: "Harvard University", workplace: "Facebook"},
-  {name: "Rhonda Rousey", email: "ronda@gotham.com", dob: "1987-02-01", password: "qwerty", profile_pic: "http://www.mmaoddsbreaker.com/wp-content/uploads/2013/02/ronda-rousey.jpeg", city: "Venice, California", school: "Hayastan MMA Academy", workplace: "Ultimate Fighting Championship"},
-  {name: "Tyler Durden", email: "tyler@gotham.com", dob: "1975-08-01", password: "qwerty", profile_pic: "https://daleylife.files.wordpress.com/2013/07/tumblr_mqckwkatmg1st51fio4_500.jpg", cover_pic: "/assets/cover.jpg", city: "Chicago, Illinois", school: "Homeschooled", workplace: "Self-Employed"},
-  {name: "Cristiano Ronaldo", email: "ronaldo@gotham.com", dob: "1985-02-05", password: "qwerty", profile_pic: "http://res.cloudinary.com/satnam14/image/upload/v1440310185/sgvwypu1yzpmuf2mtkuv.jpg", cover_pic: "/assets/cover.jpg", city: "Madrid, Spain", school: "Academia Sporting", workplace: "Real Madrid FC"},
-  {name: "J. K. Rowling", email: "jk@gotham.com", dob: "1965-07-31", password: "qwerty", profile_pic: "http://a4.files.biography.com/image/upload/c_fill,cs_srgb,dpr_1.0,g_face,h_300,q_80,w_300/MTE1ODA0OTcxMzcxNTYyNTA5.jpg", cover_pic: "/assets/cover.jpg", city: "London, United Kingdom", school: "University of Exeter", workplace: "Self-Employed"},
-  {name: "Lionel Messi", email: "messi@gotham.com", dob: "1987-06-24", password: "qwerty", profile_pic: "http://dailymailnews.com/wp-content/uploads/2015/05/messi.jpg", cover_pic: "/assets/cover.jpg", city: "Barcelona, Spain", school: "La Masia", workplace: "FC Barcelona"},
-  {name: "Alexis Sanchez", email: "alexis@gotham.com", dob: "1988-12-19", password: "qwerty", profile_pic: "http://static.goal.com/434100/434187_heroa.jpg", cover_pic: "/assets/cover.jpg", city: "London, England", school: "Emirates Stadium", workplace: "Arsenal FC"},
-  {name: "Katrina Kaif", email: "katrina@gotham.com", dob: "1983-07-16", password: "qwerty", profile_pic: "http://res.cloudinary.com/satnam14/image/upload/v1440310318/vl2mfvwtxg5mtqe2d79w.jpg", cover_pic: "/assets/cover.jpg", city: "Mumbai, India", school: "Delhi Public School", workplace: "Bollywood"}
+  {name: "Bruce Wayne", email: "bruce@gotham.com", dob: "1990-12-24", password: "qwerty", gender: "male", profile_pic: "http://vignette2.wikia.nocookie.net/thedarkknighttrilogy/images/9/96/Bruce_Wayne.jpg/revision/latest?cb=20130114180415", city: "Gotham, New Jersey", school: "Stanford University", workplace: "Wayne Enterprises"},
+  {name: "Megan Fox", email: "megan@gotham.com", dob: "1986-05-06", password: "qwerty", gender: "female", profile_pic: "http://res.cloudinary.com/satnam14/image/upload/v1440309181/lsymzbqhtdhckmqlc5rv.jpg", city: "Los Angeles, California", school: "University of California, Los Angeles", workplace: "Hollywood"},
+  {name: "Mark Zuckerberg", email: "mark@gotham.com", dob: "1984-05-14", password: "qwerty", gender: "male", profile_pic: "http://images.askmen.com/photos/mark-zuckerberg/86153.jpg", city: "Menlo Park, California", school: "Harvard University", workplace: "Facebook"},
+  {name: "Rhonda Rousey", email: "ronda@gotham.com", dob: "1987-02-01", password: "qwerty", gender: "female", profile_pic: "http://www.mmaoddsbreaker.com/wp-content/uploads/2013/02/ronda-rousey.jpeg", city: "Venice, California", school: "Hayastan MMA Academy", workplace: "Ultimate Fighting Championship"},
+  {name: "Tyler Durden", email: "tyler@gotham.com", dob: "1975-08-01", password: "qwerty", gender: "male", profile_pic: "https://daleylife.files.wordpress.com/2013/07/tumblr_mqckwkatmg1st51fio4_500.jpg", cover_pic: "/assets/cover.jpg", city: "Chicago, Illinois", school: "Homeschooled", workplace: "Self-Employed"},
+  {name: "Cristiano Ronaldo", email: "ronaldo@gotham.com", dob: "1985-02-05", password: "qwerty", gender: "male", profile_pic: "http://res.cloudinary.com/satnam14/image/upload/v1440310185/sgvwypu1yzpmuf2mtkuv.jpg", cover_pic: "/assets/cover.jpg", city: "Madrid, Spain", school: "Academia Sporting", workplace: "Real Madrid FC"},
+  {name: "J. K. Rowling", email: "jk@gotham.com", dob: "1965-07-31", password: "qwerty", gender: "female", profile_pic: "http://a4.files.biography.com/image/upload/c_fill,cs_srgb,dpr_1.0,g_face,h_300,q_80,w_300/MTE1ODA0OTcxMzcxNTYyNTA5.jpg", cover_pic: "/assets/cover.jpg", city: "London, United Kingdom", school: "University of Exeter", workplace: "Self-Employed"},
+  {name: "Lionel Messi", email: "messi@gotham.com", dob: "1987-06-24", password: "qwerty", gender: "male", profile_pic: "http://dailymailnews.com/wp-content/uploads/2015/05/messi.jpg", cover_pic: "/assets/cover.jpg", city: "Barcelona, Spain", school: "La Masia", workplace: "FC Barcelona"},
+  {name: "Alexis Sanchez", email: "alexis@gotham.com", dob: "1988-12-19", password: "qwerty", gender: "male", profile_pic: "http://static.goal.com/434100/434187_heroa.jpg", cover_pic: "/assets/cover.jpg", city: "London, England", school: "Emirates Stadium", workplace: "Arsenal FC"},
+  {name: "Katrina Kaif", email: "katrina@gotham.com", dob: "1983-07-16", password: "qwerty", gender: "female", profile_pic: "http://res.cloudinary.com/satnam14/image/upload/v1440310318/vl2mfvwtxg5mtqe2d79w.jpg", cover_pic: "/assets/cover.jpg", city: "Mumbai, India", school: "Delhi Public School", workplace: "Bollywood"}
 ])
 
 generated_users.times do |user|
   user = {}
-  user[:name] = Faker::Name.name
+  gender = ["male", "female"].sample
+  if gender == "male"
+    name = "#{MaleFirstNames.sample} #{FamilyNames.sample}"
+    user[:name] = name
+    user[:gender] = "male"
+    user[:profile_pic] = MaleProfilePics.sample
+  else
+    name = "#{FemaleFirstNames.sample} #{FamilyNames.sample}"
+    user[:name] = name
+    user[:gender] = "female"
+    user[:profile_pic] = FemaleProfilePics.sample
+  end
   user[:email] = Faker::Internet.email
   year = (1950..2015).to_a.sample
   month = (1..12).to_a.sample
   day =  (1..28).to_a.sample
   user[:dob] = "#{year}-#{month}-#{day}"
 
-  user[:profile_pic] = ProfilePics.sample
 
   user[:password] = "qwerty"
   user[:city] = Cities.sample
@@ -104,21 +117,88 @@ end
 end
 
 #Friends
+# user_range.each do |user|
+#   (30..50).to_a.sample.times do
+#     friend = {}
+#     friend[:user_id] = user
+#     friend[:friend_id] = user_range.sample
+#     friend[:pending] = [true, false, false, false, false, false, false, false].sample
+#     successful = Friend.create([friend])
+#     friendships_count += 1 if successful
+#     puts "Friendships created: #{friendships_count}"
+#   end
+# end
+
+# Friendships
 user_range.each do |user|
   (30..50).to_a.sample.times do
     friend = {}
     friend[:user_id] = user
-    friend[:friend_id] = user_range.sample
-    friend[:pending] = [true, false, false, false, false, false, false, false].sample
-    successful = Friend.create([friend])
-    friendships_count += 1 if successful
-    puts "Friendships created: #{friendships_count}"
+    friend_id = user_range.sample
+    friend[:friend_id] = friend_id
+    successful = Friendship.create([friend])
+    if successful
+      reciprocate = {}
+      reciprocate[:user_id] = friend_id
+      reciprocate[:friend_id] = user
+      successful_again = Friendship.create([reciprocate])
+      friendships_count += 1 if successful_again
+      broken_friendships += 1 if !successful_again
+      puts "Friendships created: #{friendships_count}"
+    end
   end
 end
+
+# Friend Request
+User.all.each do |user|
+  friends = user.friends
+  not_friends = User.all - user.friends
+  requestees = not_friends.sample((4..6).to_a.sample)
+  requestees.each do |requestee|
+    friend_request = {}
+    friend_request[:user_id] = user.id
+    friend_request[:friend_id] = requestee.id
+    successful = FriendRequest.create([friend_request])
+    if successful
+      friend_requests_count += 1
+    else
+      unsuccessful_requests += 1
+    end
+    puts "Friend Requests created: #{friend_requests_count}"
+  end
+end
+
+# Test Friendships integrity
+User.all do |user|
+  friends_ids = user.friends.pluck(:id)
+  unsuccessful_request_ids = user.unsuccessful_requests.pluck(:friend_id)
+  request_received_ids = user.friend_requests.pluck(:user_id)
+  inter_friends_unsuccessful_requests = friends_ids&unsuccessful_request_ids
+  inter_friends_requests = friends_ids&request_received_ids
+  inter_sent_received = unsuccessful_request_ids&request_received_ids
+  if inter_friends_unsuccessful_requests.length > 0
+    puts "Conflict 1 for #{user.name} with id = #{user.id}"
+    friendship_conflicts += 1
+  elsif inter_friends_requests.length > 0
+    puts "Conflict 1 for #{user.name} with id = #{user.id}"
+    friendship_conflicts += 1
+  elsif inter_sent_received.length > 0
+    puts "Conflict 1 for #{user.name} with id = #{user.id}"
+    friendship_conflicts += 1
+  else
+    puts "all good for #{user.name} with id = #{user.id}"
+  end
+end
+
+
 
 puts "Users created: #{user_count}"
 puts "Posts created: #{post_count}"
 puts "Comments created: #{comment_count}"
 puts "Likes created: #{likes_count}"
+puts "Friend Requests created: #{friend_requests_count}"
+puts "Unsuccessful Requests: #{unsuccessful_requests}"
 puts "Friendships created: #{friendships_count}"
+puts "Broken Friendships: #{broken_friendships}"
+puts "Friendship Conflicts: #{friendship_conflicts}"
 puts "Photos created: #{photos_count}"

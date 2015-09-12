@@ -5,6 +5,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :password_digest, null: false
       t.string :session_token, null: false
       t.string :name, null: false
+      t.string :gender
       t.date :dob, null: false
       t.string :profile_pic
       t.string :cover_pic

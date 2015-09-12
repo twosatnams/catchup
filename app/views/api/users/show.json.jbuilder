@@ -8,29 +8,28 @@ json.extract! @user,
   :school,
   :workplace
 
-if current_user.friends.pluck(:id).include?(@user.id)
+if current_user.friends.include?(@user)
   json.friendship_status "un-friend"
 
-  friendshipID = Friend.where(
+  friendshipIDs = Friendship.where(
     '(user_id = :id AND friend_id = :friend_id) OR
       user_id = :friend_id AND friend_id = :id',
      id: current_user.id, friend_id: @user.id
-  ).pluck(:id).last.to_i
+  ).pluck(:id)
 
-  json.friendshipID friendshipID
+  json.friendshipIDs friendshipIDs
 
 elsif current_user.unsuccessful_requests.pluck(:friend_id).include?(@user.id)
   json.friendship_status "friend-request-sent"
 elsif current_user.friend_requests.pluck(:user_id).include?(@user.id)
   json.friendship_status "accept-friend-request"
 
-  friendshipID = Friend.where(
-    '(user_id = :id AND friend_id = :friend_id) OR
-      user_id = :friend_id AND friend_id = :id',
-     id: current_user.id, friend_id: @user.id
+  friend_request_id = FriendRequest.where(
+    '(user_id = :id AND friend_id = :friend_id)',
+     id: @user.id, friend_id: current_user.id
   ).pluck(:id).last.to_i
 
-  json.friendshipID friendshipID
+  json.friendRequest friend_request_id
 
 elsif current_user == @user
   json.friendship_status "user-himself"
@@ -43,7 +42,6 @@ json.friends @user.friends do |friend|
 end
 
 json.unsuccessful_requests @user.unsuccessful_requests.includes(:friend) do |friendship|
-  # fail
   json.extract! friendship, :id, :friend_id
   json.name friendship.friend.name
   # json.name User.find(friendship.friend_id).name

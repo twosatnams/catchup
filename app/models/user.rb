@@ -26,25 +26,24 @@ class User < ActiveRecord::Base
     foreign_key: :author_id,
     primary_key: :id
 
-  # has_many :friendships,
-  #   class_name: "Friendship",
-  #   foreign_key: :user_id,
-  #   primary_key: id
-  #
-  # has_many :friends,
-  #   through: :friendships,
-  #   source: :user,
-  #   { where pending: false }
-  #
-  # has_many :friend_requests,
-  #   through: :friendships,
-  #   source: :friend,
-  #   { where pending: true }
-  #
-  # has_many :unsuccessful_requests,
-  #   through: :friendships,
-  #   source: :user,
-  #   { where pending: true }
+  has_many :friendships,
+    class_name: "Friendship",
+    foreign_key: :user_id,
+    primary_key: :id
+
+  has_many :friends,
+    through: :friendships,
+    source: :friend
+
+  has_many :friend_requests,
+    class_name: "FriendRequest",
+    foreign_key: :friend_id,
+    primary_key: :id
+
+  has_many :unsuccessful_requests,
+    class_name: "FriendRequest",
+    foreign_key: :user_id,
+    primary_key: :id
 
   attr_reader :password
   after_initialize :ensure_session_token, :blank_profile_pics
@@ -69,17 +68,17 @@ class User < ActiveRecord::Base
     self.session_token
   end
 
-  def friend_requests
-    friend_ids = Friend.where(
-      'friend_id = ? AND pending = true', self.id
-      ).all
-  end
-
-  def unsuccessful_requests
-    friend_ids = Friend.where(
-      'user_id = ? AND pending = true', self.id
-      ).all
-  end
+  # def friend_requests
+  #   friend_ids = Friend.where(
+  #     'friend_id = ? AND pending = true', self.id
+  #     ).all
+  # end
+  #
+  # def unsuccessful_requests
+  #   friend_ids = Friend.where(
+  #     'user_id = ? AND pending = true', self.id
+  #     ).all
+  # end
 
   def born_on
     unformatted = self.dob
@@ -89,15 +88,15 @@ class User < ActiveRecord::Base
     "#{month} #{date}, #{year}"
   end
 
-  def friends
-    friends = Rails.cache.read("#{self.id}.friends")
-
-    if !friends
-      friends = force_friends
-      Rails.cache.write("#{self.id}.friends", friends)
-    end
-    friends
-  end
+  # def friends
+  #   friends = Rails.cache.read("#{self.id}.friends")
+  #
+  #   if !friends
+  #     friends = force_friends
+  #     Rails.cache.write("#{self.id}.friends", friends)
+  #   end
+  #   friends
+  # end
 
   def force_friends
     user_ids = Friend.where(
