@@ -24,6 +24,10 @@ default: &default
 development:
   <<: *default
   database: catchup_development
+# 
+# hundredusers:
+#   <<: *default
+#   database: catchup_hundred_users
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.

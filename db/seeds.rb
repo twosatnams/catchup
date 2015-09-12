@@ -7,7 +7,7 @@ require_relative 'male_first_names'
 require_relative 'female_first_names'
 
 created_users = 10
-generated_users = 90
+generated_users = 9990
 user_count = 0
 post_count = 0
 comment_count = 0
@@ -92,7 +92,7 @@ end
 
 # Likes
 user_range.each do |user|
-  (10*post_count/generated_users).times do
+  (5*post_count/generated_users).times do
     like = {}
     like[:liker_id] = user
     like[:post_id] = (1..post_count).to_a.sample
@@ -131,7 +131,7 @@ end
 
 # Friendships
 user_range.each do |user|
-  (30..50).to_a.sample.times do
+  (50..150).to_a.sample.times do
     friend = {}
     friend[:user_id] = user
     friend_id = user_range.sample

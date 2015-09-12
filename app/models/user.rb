@@ -214,52 +214,21 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.rank_by_friends_second!(results, seeker)
-    friend_score = 2
-    seeker_friends = seeker.friend_ids
-    ttb_mutual_function = 0
-    ttb_getting_friends = 0
-
-    results.each do |user, rank|
-      before_getting_friends = Time.now
-      user_friends = user.friend_ids
-      after_getting_friends = Time.now
-      ttb_getting_friends += (after_getting_friends - before_getting_friends)
-
-      before_mutual = Time.now
-      num_mutual_friends = mutual_friends(seeker_friends, user_friends)
-      after_mutual = Time.now
-      ttb_mutual_function += (after_mutual - before_mutual)
-
-      if num_mutual_friends > 0
-        current_score = results[user][0]
-        add_score = friend_score*num_mutual_friends
-        dominating = add_score > current_score ? true : false
-
-        results[user][0] += add_score
-        if dominating
-          if num_mutual_friends == 1
-            results[user][1] = "1 mutual friend"
-          else
-            results[user][1] = "#{num_mutual_friends} mutual friends"
-          end
-        end
-      end
-    end
-    puts "Inside rank by friends function"
-    puts "Time spent in querying for friends - #{(100*ttb_getting_friends/(ttb_mutual_function + ttb_getting_friends)).floor}%"
-    puts "Time spent in mutual friends function - #{(100*ttb_mutual_function/(ttb_mutual_function + ttb_getting_friends)).floor}%"
-  end
-
   def self.rank_by_friends!(results, seeker)
     friend_score = 2
-    seeker_friends = seeker.friend_ids
+    seeker_friends = seeker.friends
     ttb_mutual_function = 0
     ttb_getting_friends = 0
 
+    # candidate_ids = []
+    # results.keys.each do |user|
+    #   candidate_ids << user.id
+    # end
+
+
     results.each do |user, rank|
       before_getting_friends = Time.now
-      user_friends = user.friend_ids
+      user_friends = user.friends
       after_getting_friends = Time.now
       ttb_getting_friends += (after_getting_friends - before_getting_friends)
 
@@ -267,6 +236,7 @@ class User < ActiveRecord::Base
       num_mutual_friends = mutual_friends(seeker_friends, user_friends)
       after_mutual = Time.now
       ttb_mutual_function += (after_mutual - before_mutual)
+
       if num_mutual_friends > 0
         current_score = results[user][0]
         add_score = friend_score*num_mutual_friends
@@ -303,7 +273,7 @@ class User < ActiveRecord::Base
     query = search.downcase
     a = Time.now
 
-    results = User.where("name ~* ?", "^#{query}[a-z]*|[a-z]* #{query}")
+    results = User.where("name ~* ?", "^#{query}[a-z]*|[a-z]* #{query}").includes(:friends)
     b = Time.now
     # results.to_a.sort_by! { |user| (self.dob - user.dob).abs }
 
@@ -315,14 +285,10 @@ class User < ActiveRecord::Base
     rank_by_city!(ranked, seeker)
     rank_by_university!(ranked, seeker)
     d = Time.now
-    rank_by_friends_second!(ranked, seeker)
+    rank_by_friends!(ranked, seeker)
     e = Time.now
 
     # print_search_results(ranked)
-    # puts "Time for searching by name - #{b - a}"
-    # puts "Time for creating the hash - #{c - b}"
-    # puts "Time for ranking results - #{d - c}"
-    # puts "Time for ranking friends - #{e - d}"
     total_time_taken = (b - a) + (c - b) + (d - c) + (e - d)
     puts "total time taken by query: #{(total_time_taken)*1000}ms"
     puts "For searching by name: #{(100*(b - a)/total_time_taken).floor}%"
@@ -344,27 +310,3 @@ class User < ActiveRecord::Base
     self.cover_pic ||= "/assets/cover.jpg"
   end
 end
-
-# select *
-# from (
-#     select
-#       u.name,
-#       count(mutual.shared_friend_id) over (partition by u.id) as num_shared,
-#       row_number() over (partition by u.id) as copy_num
-#     from
-#       users u
-#       left join (
-#           select
-#             f1.friend_id as shared_friend_id,
-#             f2.friend_id as friend_id
-#           from friends f1
-#             join friends f2
-#               on f1.friend_id = f2.user_id
-#           where f1.user_id = 1
-#             and f2.friend_id != f1.user_id
-#         ) mutual
-#         on u.id = mutual.friend_id
-#     where u.name like 'S%'
-#   ) all_rows
-# where copy_num = 1
-# order by num_shared desc
