@@ -21,10 +21,13 @@ default: &default
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
 
+# development:
+#   <<: *default
+#   database: catchup_development
+
 development:
   <<: *default
-  database: catchup_development
-
+  database: catchup_100_friends
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is

@@ -185,27 +185,6 @@ class User < ActiveRecord::Base
     puts "Time Taken: #{(Time.now - a)*1000.0}"
   end
 
-  # def method_sss
-  #   select
-  #     u.name,
-  #     count(mutual.shared_friend_id) over (partition by u.id) as num_shared
-  #   from
-  #     users u
-  #     left join (
-  #         select
-  #           f1.friend_id as shared_friend_id,
-  #           f2.friend_id as friend_id
-  #         from friends f1
-  #           join friends f2
-  #             on f1.friend_id = f2.user_id
-  #         where f1.user_id = 1
-  #           and f2.friend_id != f1.user_id
-  #       ) mutual
-  #       on u.id = mutual.friend_id
-  #   where u.name like 'C%'
-  #   order by count(mutual.shared_friend_id) over (partition by u.id) desc
-  # end
-
   def self.rank_by_city!(results, seeker)
     same_city_score = 10
     results.each do |user, rank|
@@ -304,7 +283,7 @@ class User < ActiveRecord::Base
     query = search.downcase
     a = Time.now
 
-    results = User.where("name ~* ?", "^#{query}[a-z]*|[a-z]* #{query}")
+    results = User.where("name ~* ?", "^#{query}[a-z]*|[a-z]* #{query}").includes(:friends)
     b = Time.now
     # results.to_a.sort_by! { |user| (self.dob - user.dob).abs }
 
@@ -345,27 +324,3 @@ class User < ActiveRecord::Base
     self.cover_pic ||= "/assets/cover.jpg"
   end
 end
-
-# select *
-# from (
-#     select
-#       u.name,
-#       count(mutual.shared_friend_id) over (partition by u.id) as num_shared,
-#       row_number() over (partition by u.id) as copy_num
-#     from
-#       users u
-#       left join (
-#           select
-#             f1.friend_id as shared_friend_id,
-#             f2.friend_id as friend_id
-#           from friends f1
-#             join friends f2
-#               on f1.friend_id = f2.user_id
-#           where f1.user_id = 1
-#             and f2.friend_id != f1.user_id
-#         ) mutual
-#         on u.id = mutual.friend_id
-#     where u.name like 'S%'
-#   ) all_rows
-# where copy_num = 1
-# order by num_shared desc
