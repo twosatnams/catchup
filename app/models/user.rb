@@ -156,55 +156,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def exp
-    a = Time.now
-    num_comments = 0
-    friends = self.friends
-    friends.each do |friend|
-      comments = friend.comments
-      comments.each do |comment|
-        num_comments += 1
-      end
-    end
-    puts num_comments
-    puts "Time taken: #{(Time.now - a)*1000}"
-  end
-
-  def exp2
-    a = Time.now
-    num_comments = 0
-    friends = self.friends.includes(:comments)
-    friends.each do |friend|
-      comments = friend.comments
-      comments.each do |comment|
-        num_comments += 1
-      end
-    end
-    puts num_comments
-    puts "Time Taken: #{(Time.now - a)*1000.0}"
-  end
-
-  # def method_sss
-  #   select
-  #     u.name,
-  #     count(mutual.shared_friend_id) over (partition by u.id) as num_shared
-  #   from
-  #     users u
-  #     left join (
-  #         select
-  #           f1.friend_id as shared_friend_id,
-  #           f2.friend_id as friend_id
-  #         from friends f1
-  #           join friends f2
-  #             on f1.friend_id = f2.user_id
-  #         where f1.user_id = 1
-  #           and f2.friend_id != f1.user_id
-  #       ) mutual
-  #       on u.id = mutual.friend_id
-  #   where u.name like 'C%'
-  #   order by count(mutual.shared_friend_id) over (partition by u.id) desc
-  # end
-
   def self.rank_by_city!(results, seeker)
     same_city_score = 10
     results.each do |user, rank|
@@ -219,12 +170,6 @@ class User < ActiveRecord::Base
     seeker_friends = seeker.friends
     ttb_mutual_function = 0
     ttb_getting_friends = 0
-
-    # candidate_ids = []
-    # results.keys.each do |user|
-    #   candidate_ids << user.id
-    # end
-
 
     results.each do |user, rank|
       before_getting_friends = Time.now
@@ -277,15 +222,17 @@ class User < ActiveRecord::Base
     b = Time.now
     # results.to_a.sort_by! { |user| (self.dob - user.dob).abs }
 
-    ranked = {}
-    results.each { |user| ranked[user] = [0, "user.city"] }
+    ranked = Hash.new { |hash, user| hash[user] = [0, "user.city"] }
+    # ranked = {}
+    # results.each { |user| ranked[user] = [0, "#{user.city}"] }
+
     c = Time.now
 
     rank_by_state!(ranked, seeker)
     rank_by_city!(ranked, seeker)
     rank_by_university!(ranked, seeker)
     d = Time.now
-    rank_by_friends!(ranked, seeker)
+    # rank_by_friends!(ranked, seeker)
     e = Time.now
 
     # print_search_results(ranked)
