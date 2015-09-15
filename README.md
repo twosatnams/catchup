@@ -39,7 +39,13 @@ Search is ranked by the following criteria -
   - Common Age group - 10 points for being within += 5 years
   - Common Friends - 2 points for each mutual friend
 
-All of the above mentioned criteria involve a lot of querying into the database, resulting in slow response times. Finding the mutual friends is the single most expensive function in the operation so all the friends of all the user are cached into the memory. Caching and a few other schema modification lead to much higher response times. As of now, a database seeded with 5,000 years can be searced through in an average time of < 100ms 
+All of the above mentioned criteria involve a lot of querying into the database, resulting in slow response times. Finding the mutual friends is the single most expensive function in the operation. So to improve response times, all the friends of all the user are cached - I use Redis as my caching service. As of now, a database seeded with 5,000 years can be searched through in an average time of < 100ms
+
+#### Seed Data
+For entertaining experience on the website, it's currently seeded with 10,000 artificial users -
+  - Names were extracted from the 100 most common male, female and family names of 20th century released by Social Security Service.
+  - All users have profile pictures of Hollywood actors, acquired from IMDB
+  - Other information was generated using Faker gem
 
 ## Technologies Used
 - Ruby on Rails server

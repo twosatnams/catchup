@@ -139,7 +139,7 @@ class User < ActiveRecord::Base
   end
 
   def self.rank_by_university!(results, seeker)
-    same_uni_score = 50
+    same_uni_score = 20
     results.each do |user, rank|
       if user.school == seeker.school
         results[user][0] += same_uni_score
@@ -157,34 +157,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def exp
-    a = Time.now
-    num_comments = 0
-    friends = self.friends
-    friends.each do |friend|
-      comments = friend.comments
-      comments.each do |comment|
-        num_comments += 1
-      end
-    end
-    puts num_comments
-    puts "Time taken: #{(Time.now - a)*1000}"
-  end
-
-  def exp2
-    a = Time.now
-    num_comments = 0
-    friends = self.friends.includes(:comments)
-    friends.each do |friend|
-      comments = friend.comments
-      comments.each do |comment|
-        num_comments += 1
-      end
-    end
-    puts num_comments
-    puts "Time Taken: #{(Time.now - a)*1000.0}"
-  end
-
   def self.rank_by_city!(results, seeker)
     same_city_score = 10
     results.each do |user, rank|
@@ -194,52 +166,23 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.rank_by_friends_second!(results, seeker)
-    friend_score = 2
-    seeker_friends = seeker.friend_ids
-    ttb_mutual_function = 0
-    ttb_getting_friends = 0
-
-    results.each do |user, rank|
-      before_getting_friends = Time.now
-      user_friends = user.friend_ids
-      after_getting_friends = Time.now
-      ttb_getting_friends += (after_getting_friends - before_getting_friends)
-
-      before_mutual = Time.now
-      num_mutual_friends = mutual_friends(seeker_friends, user_friends)
-      after_mutual = Time.now
-      ttb_mutual_function += (after_mutual - before_mutual)
-
-      if num_mutual_friends > 0
-        current_score = results[user][0]
-        add_score = friend_score*num_mutual_friends
-        dominating = add_score > current_score ? true : false
-
-        results[user][0] += add_score
-        if dominating
-          if num_mutual_friends == 1
-            results[user][1] = "1 mutual friend"
-          else
-            results[user][1] = "#{num_mutual_friends} mutual friends"
-          end
-        end
-      end
-    end
-    puts "Inside rank by friends function"
-    puts "Time spent in querying for friends - #{(100*ttb_getting_friends/(ttb_mutual_function + ttb_getting_friends)).floor}%"
-    puts "Time spent in mutual friends function - #{(100*ttb_mutual_function/(ttb_mutual_function + ttb_getting_friends)).floor}%"
-  end
-
   def self.rank_by_friends!(results, seeker)
-    friend_score = 2
+    friend_score = 4
     seeker_friends = seeker.friend_ids
     ttb_mutual_function = 0
     ttb_getting_friends = 0
 
+    mget_helper = []
+    results.keys.each do |user|
+      mget_helper << "cache:#{user.id}.friend_ids"
+    end
+
+    results_friend_ids = Rails.cache.read_multi(*mget_helper)
+
     results.each do |user, rank|
       before_getting_friends = Time.now
-      user_friends = user.friend_ids
+      # user_friends = user.friend_ids
+      user_friends = results_friend_ids["cache:#{user.id}.friend_ids"]
       after_getting_friends = Time.now
       ttb_getting_friends += (after_getting_friends - before_getting_friends)
 
@@ -283,22 +226,22 @@ class User < ActiveRecord::Base
     query = search.downcase
     a = Time.now
 
-    results = User.where("name ~* ?", "^#{query}[a-z]*|[a-z]* #{query}").includes(:friends)
+    results = User.where("name ~* ?", "^#{query}[a-z]*|[a-z]* #{query}")
     b = Time.now
     # results.to_a.sort_by! { |user| (self.dob - user.dob).abs }
 
     ranked = {}
-    results.each { |user| ranked[user] = [0, "user.city"] }
+    results.each { |user| ranked[user] = [0, "#{user.city}"] }
     c = Time.now
 
     rank_by_state!(ranked, seeker)
     rank_by_city!(ranked, seeker)
     rank_by_university!(ranked, seeker)
     d = Time.now
-    rank_by_friends_second!(ranked, seeker)
+    rank_by_friends!(ranked, seeker)
     e = Time.now
 
-    # print_search_results(ranked)
+    print_search_results(ranked)
     # puts "Time for searching by name - #{b - a}"
     # puts "Time for creating the hash - #{c - b}"
     # puts "Time for ranking results - #{d - c}"

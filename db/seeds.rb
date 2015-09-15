@@ -6,9 +6,8 @@ require_relative 'family_names'
 require_relative 'male_first_names'
 require_relative 'female_first_names'
 
-suckr = ImageSuckr::GoogleSuckr.new
 created_users = 10
-generated_users = 90
+generated_users = 9990
 user_count = 0
 post_count = 0
 comment_count = 0
@@ -34,14 +33,22 @@ User.create!([
 
 generated_users.times do |user|
   user = {}
-  user[:name] = Faker::Name.name
+  gender = ["male", "female"].sample
+  if gender == "male"
+    name = "#{MaleFirstNames.sample} #{FamilyNames.sample}"
+    user[:name] = name
+    user[:profile_pic] = MaleProfilePics.sample
+  else
+    name = "#{FemaleFirstNames.sample} #{FamilyNames.sample}"
+    user[:name] = name
+    user[:profile_pic] = FemaleProfilePics.sample
+  end
   user[:email] = Faker::Internet.email
   year = (1950..2015).to_a.sample
   month = (1..12).to_a.sample
   day =  (1..28).to_a.sample
   user[:dob] = "#{year}-#{month}-#{day}"
 
-  user[:profile_pic] = ProfilePics.sample
 
   user[:password] = "qwerty"
   user[:city] = Cities.sample
@@ -105,7 +112,7 @@ end
 
 #Friends
 user_range.each do |user|
-  (20..40).to_a.sample.times do
+  (50..120).to_a.sample.times do
     friend = {}
     friend[:user_id] = user
     friend[:friend_id] = user_range.sample

@@ -1,4 +1,4 @@
-ProfilePics = [
+FemaleProfilePics = [
   "http://res.cloudinary.com/satnam14/image/upload/v1441604145/xw8farrra8aoai1ynz3z.jpg",
   "http://res.cloudinary.com/satnam14/image/upload/v1441604145/hvcntpmt0oosucxiqp77.jpg",
   "http://res.cloudinary.com/satnam14/image/upload/v1441604146/cct92g2quna0fthoxrjs.jpg",
@@ -370,7 +370,10 @@ ProfilePics = [
   "http://res.cloudinary.com/satnam14/image/upload/v1441604361/ylhdk3jjnj0fyinxfnfo.jpg",
   "http://res.cloudinary.com/satnam14/image/upload/v1441604361/tjopbmgsmeiovok0wvez.jpg",
   "http://res.cloudinary.com/satnam14/image/upload/v1441604362/azpgeuuyrowhvitauqn1.jpg",
-  "http://res.cloudinary.com/satnam14/image/upload/v1441604362/r9v6b9cs6tknhnhmyez2.jpg",
+  "http://res.cloudinary.com/satnam14/image/upload/v1441604362/r9v6b9cs6tknhnhmyez2.jpg"
+]
+
+MaleProfilePics = [
   "http://res.cloudinary.com/satnam14/image/upload/v1441604363/bje0hgjmrkoucfubfdnv.jpg",
   "http://res.cloudinary.com/satnam14/image/upload/v1441604363/ewtggplidkq7hediaqyf.jpg",
   "http://res.cloudinary.com/satnam14/image/upload/v1441604364/f84eutcqsgjdhpgebvle.jpg",
