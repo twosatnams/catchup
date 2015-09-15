@@ -1,3 +1,4 @@
+require 'byebug'
 class User < ActiveRecord::Base
   validates :email, :session_token, presence: true
   validates :password, length: { minimum: 5, allow_nil: true }
@@ -68,18 +69,6 @@ class User < ActiveRecord::Base
     self.session_token
   end
 
-  # def friend_requests
-  #   friend_ids = Friend.where(
-  #     'friend_id = ? AND pending = true', self.id
-  #     ).all
-  # end
-  #
-  # def unsuccessful_requests
-  #   friend_ids = Friend.where(
-  #     'user_id = ? AND pending = true', self.id
-  #     ).all
-  # end
-
   def born_on
     unformatted = self.dob
     year = unformatted.strftime('%Y')
@@ -87,16 +76,6 @@ class User < ActiveRecord::Base
     date = unformatted.strftime('%d')
     "#{month} #{date}, #{year}"
   end
-
-  # def friends
-  #   friends = Rails.cache.read("#{self.id}.friends")
-  #
-  #   if !friends
-  #     friends = force_friends
-  #     Rails.cache.write("#{self.id}.friends", friends)
-  #   end
-  #   friends
-  # end
 
   def force_friends
     user_ids = Friend.where(
@@ -121,13 +100,7 @@ class User < ActiveRecord::Base
   end
 
   def force_friend_ids
-    Friend.where(
-      '(user_id = :id OR friend_id = :id) AND pending = false',
-       id: self.id
-    ).pluck(:user_id, :friend_id)
-     .flatten
-     .uniq
-     .reject { |id| id == self.id }
+    Friendship.where(user_id: self.id).pluck(:friend_id)
   end
 
   def mutual_friend_ids
@@ -137,43 +110,43 @@ class User < ActiveRecord::Base
       ).all
   end
 
-  def self.rank_by_university!(results, seeker)
+  def self.rank_by_university!(results, ranked, seeker)
     same_uni_score = 50
-    results.each do |user, rank|
+    results.each do |user|
       if user.school == seeker.school
-        results[user][0] += same_uni_score
-        results[user][1] = "#{user.school}"
+        ranked[user][0] += same_uni_score
+        ranked[user][1] = "#{user.school}"
       end
     end
   end
 
-  def self.rank_by_state!(results, seeker)
+  def self.rank_by_state!(results, ranked, seeker)
     same_state_score = 5
-    results.each do |user, rank|
+    results.each do |user|
       if user.city.split(",").last == seeker.city.split(",").last
-        results[user][0] += same_state_score
+        ranked[user][0] += same_state_score
       end
     end
   end
 
-  def self.rank_by_city!(results, seeker)
+  def self.rank_by_city!(results, ranked, seeker)
     same_city_score = 10
     results.each do |user, rank|
       if user.city.split(",").first == seeker.city.split(",").first
-        results[user][0] += same_city_score
+        ranked[user][0] += same_city_score
       end
     end
   end
 
-  def self.rank_by_friends!(results, seeker)
+  def self.rank_by_friends!(results, ranked, seeker)
     friend_score = 2
-    seeker_friends = seeker.friends
+    seeker_friends = seeker.friend_ids
     ttb_mutual_function = 0
     ttb_getting_friends = 0
 
-    results.each do |user, rank|
+    results.each do |user|
       before_getting_friends = Time.now
-      user_friends = user.friends
+      user_friends = user.friend_ids
       after_getting_friends = Time.now
       ttb_getting_friends += (after_getting_friends - before_getting_friends)
 
@@ -183,16 +156,16 @@ class User < ActiveRecord::Base
       ttb_mutual_function += (after_mutual - before_mutual)
 
       if num_mutual_friends > 0
-        current_score = results[user][0]
+        current_score = ranked[user][0]
         add_score = friend_score*num_mutual_friends
         dominating = add_score > current_score ? true : false
 
-        results[user][0] += add_score
+        ranked[user][0] += add_score
         if dominating
           if num_mutual_friends == 1
-            results[user][1] = "1 mutual friend"
+            ranked[user][1] = "1 mutual friend"
           else
-            results[user][1] = "#{num_mutual_friends} mutual friends"
+            ranked[user][1] = "#{num_mutual_friends} mutual friends"
           end
         end
       end
@@ -216,9 +189,10 @@ class User < ActiveRecord::Base
   def self.search(search, seeker)
     return [] if search == ""
     query = search.downcase
+    # byebug
     a = Time.now
 
-    results = User.where("name ~* ?", "^#{query}[a-z]*|[a-z]* #{query}").includes(:friends)
+    results = User.where("name ~* ?", "^#{query}[a-z]*|[a-z]* #{query}")
     b = Time.now
     # results.to_a.sort_by! { |user| (self.dob - user.dob).abs }
 
@@ -228,11 +202,11 @@ class User < ActiveRecord::Base
 
     c = Time.now
 
-    rank_by_state!(ranked, seeker)
-    rank_by_city!(ranked, seeker)
-    rank_by_university!(ranked, seeker)
+    rank_by_state!(results, ranked, seeker)
+    rank_by_city!(results, ranked, seeker)
+    rank_by_university!(results, ranked, seeker)
     d = Time.now
-    # rank_by_friends!(ranked, seeker)
+    rank_by_friends!(results, ranked, seeker)
     e = Time.now
 
     # print_search_results(ranked)
