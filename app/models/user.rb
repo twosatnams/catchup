@@ -26,26 +26,6 @@ class User < ActiveRecord::Base
     foreign_key: :author_id,
     primary_key: :id
 
-  # has_many :friendships,
-  #   class_name: "Friendship",
-  #   foreign_key: :user_id,
-  #   primary_key: id
-  #
-  # has_many :friends,
-  #   through: :friendships,
-  #   source: :user,
-  #   { where pending: false }
-  #
-  # has_many :friend_requests,
-  #   through: :friendships,
-  #   source: :friend,
-  #   { where pending: true }
-  #
-  # has_many :unsuccessful_requests,
-  #   through: :friendships,
-  #   source: :user,
-  #   { where pending: true }
-
   attr_reader :password
   after_initialize :ensure_session_token, :blank_profile_pics
 
@@ -90,16 +70,6 @@ class User < ActiveRecord::Base
   end
 
   def friends
-    friends = Rails.cache.read("#{self.id}.friends")
-
-    if !friends
-      friends = force_friends
-      Rails.cache.write("#{self.id}.friends", friends)
-    end
-    friends
-  end
-
-  def force_friends
     user_ids = Friend.where(
       '(user_id = :id OR friend_id = :id) AND pending = false',
        id: self.id
@@ -112,16 +82,6 @@ class User < ActiveRecord::Base
   end
 
   def friend_ids
-    ids = Rails.cache.read("#{self.id}.friend_ids")
-
-    if !ids
-      ids = force_friend_ids
-      Rails.cache.write("#{self.id}.friend_ids", ids)
-    end
-    ids
-  end
-
-  def force_friend_ids
     Friend.where(
       '(user_id = :id OR friend_id = :id) AND pending = false',
        id: self.id
@@ -129,13 +89,6 @@ class User < ActiveRecord::Base
      .flatten
      .uniq
      .reject { |id| id == self.id }
-  end
-
-  def mutual_friend_ids
-    friend_ids = Friend.where(
-      '(user_id = :id OR friend_id = :id) AND pending = false',
-       id: self.id
-      ).all
   end
 
   def self.rank_by_university!(results, seeker)
@@ -241,11 +194,7 @@ class User < ActiveRecord::Base
     rank_by_friends!(ranked, seeker)
     e = Time.now
 
-    print_search_results(ranked)
-    # puts "Time for searching by name - #{b - a}"
-    # puts "Time for creating the hash - #{c - b}"
-    # puts "Time for ranking results - #{d - c}"
-    # puts "Time for ranking friends - #{e - d}"
+    # print_search_results(ranked)
     total_time_taken = (b - a) + (c - b) + (d - c) + (e - d)
     puts "total time taken by query: #{(total_time_taken)*1000}ms"
     puts "For searching by name: #{(100*(b - a)/total_time_taken).floor}%"

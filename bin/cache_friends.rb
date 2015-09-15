@@ -1,5 +1,5 @@
 puts "running"
 User.all.each do |user|
-  temp = user.friend_ids
-  p temp
+  Rails.cache.write("#{user.id}.friend_ids", user.friend_ids)
+  puts user.id
 end
