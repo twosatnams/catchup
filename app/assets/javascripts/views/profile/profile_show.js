@@ -17,7 +17,8 @@ Catchup.Views.ProfileShow = Backbone.CompositeView.extend({
     'click #photos-show' : 'replaceWithPhotosSubview',
     'click #about' : 'replaceWithAboutSubview',
     'click #timeline-show' : 'replaceWithTimelineSubview',
-    'click #friends-show' : 'replaceWithFriendsSubview'
+    'click #friends-show' : 'replaceWithFriendsSubview',
+    'click .photos-thumbs': 'replaceWithPhotosSubview',
   },
 
   addFriendStatusButton: function () {

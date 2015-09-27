@@ -43,10 +43,8 @@ json.friends @user.friends do |friend|
 end
 
 json.unsuccessful_requests @user.unsuccessful_requests.includes(:friend) do |friendship|
-  # fail
   json.extract! friendship, :id, :friend_id
   json.name friendship.friend.name
-  # json.name User.find(friendship.friend_id).name
 end
 
 json.friend_requests @user.friend_requests.includes(:user) do |friendship|
@@ -92,7 +90,7 @@ json.posts @user.posts.order("created_at").includes(:photos, :likes, { comments:
 
   json.numLikes post.likes.length
 
-  json.comments post.comments.order("updated_at") do |comment|
+  json.comments post.comments do |comment|
     json.extract! comment, :id, :author_id, :body
     json.author_name comment.author.name
     json.author_avatar comment.author.profile_pic

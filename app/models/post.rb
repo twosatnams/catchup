@@ -23,10 +23,7 @@ class Post < ActiveRecord::Base
     foreign_key: :post_id,
     primary_key: :id
 
-  has_many :comments,
-    class_name: "Comment",
-    foreign_key: :post_id,
-    primary_key: :id
+  has_many :comments, -> { order(:updated_at => :asc) }
 
   has_many :likers,
     through: :likes,
