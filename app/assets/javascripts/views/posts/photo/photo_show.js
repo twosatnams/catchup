@@ -1,5 +1,9 @@
 Catchup.Views.PhotoShow = Backbone.View.extend({
 
+  events: {
+    'click img': 'focusPhoto'
+  },
+
   initialize: function () {
     this.listenTo(this.collection, 'sync', this.render);
   },
@@ -12,6 +16,17 @@ Catchup.Views.PhotoShow = Backbone.View.extend({
     } else {
       return JST['post/photo/triple_photo'](options);
     }
+  },
+
+  focusPhoto: function (event) {
+    event.preventDefault();
+    var photoURL = event.currentTarget.src;
+    var photoModel = this.collection.findWhere({url: photoURL});
+    var subview = new Catchup.Views.focusPhotoSubview({
+      model: photoModel
+    });
+    $('body').append(subview.$el);
+    subview.render();
   },
 
   render: function () {

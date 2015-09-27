@@ -27,6 +27,7 @@
   background: white;
   border: 1px solid #E9EAED;
   display: inline-block;
+  cursor: -webkit-zoom-in; cursor: -moz-zoom-in;
 }
 
 .photo-list-item > img {

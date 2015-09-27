@@ -1,9 +1,72 @@
+.focusPhoto {
+  border: 5px solid white;
+  z-index: 5;
+  width: 70%;
+  height: 65%;
+  object-fit: cover;
+  animation: fadein 2s;
+    -moz-animation: fadein 2s; /* Firefox */
+    -webkit-animation: fadein 2s; /* Safari and Chrome */
+    -o-animation: fadein 2s; /* Opera */
+	margin-top: 10%;
+}
+
+.fp-background {
+  background: rgba(92, 88, 88, 0.6);
+  position: fixed;
+  text-align: center;
+  vertical-align: middle;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 4;
+  animation: fadein 1s;
+    -moz-animation: fadein 1s; /* Firefox */
+    -webkit-animation: fadein 1s; /* Safari and Chrome */
+    -o-animation: fadein 1s; /* Opera */
+}
+
+@keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-moz-keyframes fadein { /* Firefox */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-o-keyframes fadein { /* Opera */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 img.single-photo {
   width: 100%;
   height: auto;
   max-height: 500px;
   object-fit: cover;
   border: 1px solid lightgrey;
+  cursor: -webkit-zoom-in; cursor: -moz-zoom-in;
 }
 
 img.double-photo-first {
@@ -12,6 +75,7 @@ img.double-photo-first {
   margin-bottom: 2px;
   object-fit: cover;
   border: 1px solid lightgrey;
+  cursor: -webkit-zoom-in; cursor: -moz-zoom-in;
 }
 
 img.double-photo-second {
@@ -19,6 +83,7 @@ img.double-photo-second {
   height:250px;
   object-fit: cover;
   border: 1px solid lightgrey;
+  cursor: -webkit-zoom-in; cursor: -moz-zoom-in;
 }
 
 img.triple-photo-first {
@@ -27,6 +92,7 @@ img.triple-photo-first {
   margin-bottom: 2px;
   object-fit: cover;
   border: 1px solid lightgrey;
+  cursor: -webkit-zoom-in; cursor: -moz-zoom-in;
 }
 
 img.triple-photo-second {
@@ -35,6 +101,7 @@ img.triple-photo-second {
   padding-right: 2px;
   object-fit: cover;
   border: 1px solid lightgrey;
+  cursor: -webkit-zoom-in; cursor: -moz-zoom-in;
 }
 
 img.triple-photo-third {
@@ -42,4 +109,5 @@ img.triple-photo-third {
   height: 200px;
   object-fit: cover;
   border: 1px solid lightgrey;
+  cursor: -webkit-zoom-in; cursor: -moz-zoom-in;
 }

@@ -16,7 +16,6 @@ Catchup.Views.PhotosShow = Backbone.CompositeView.extend({
     var subview = new Catchup.Views.PhotoSubview({
       model: photo,
     });
-    // WTF is true doing here?
     this.addSubview(".photos-list", subview, true);
   },
 
