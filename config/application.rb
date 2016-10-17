@@ -24,9 +24,9 @@ module Catchup
     config.assets.initialize_on_precompile = false
     config.active_record.raise_in_transactional_callbacks = true
 
-    if ENV["REDISTOGO_URL"]
+    if ENV["REDIS_URL"]
       config = Catchup::Application.config
-      uri = URI.parse(ENV["REDISTOGO_URL"])
+      uri = URI.parse(ENV["REDIS_URL"])
 
       config.cache_store = [
         :redis_store, {
