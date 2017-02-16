@@ -17,7 +17,7 @@ photos_count = 0
 user_range = (1..(generated_users + created_users)).to_a
 
 
-Users
+# Users
 User.create!([
   {name: "Bruce Wayne", email: "bruce@gotham.com", dob: "1990-12-24", password: "qwerty", profile_pic: "http://vignette2.wikia.nocookie.net/thedarkknighttrilogy/images/9/96/Bruce_Wayne.jpg/revision/latest?cb=20130114180415", city: "Gotham, New Jersey", school: "Stanford University", workplace: "Wayne Enterprises"},
   {name: "Megan Fox", email: "megan@gotham.com", dob: "1986-05-06", password: "qwerty", profile_pic: "http://res.cloudinary.com/satnam14/image/upload/v1440309181/lsymzbqhtdhckmqlc5rv.jpg", city: "Los Angeles, California", school: "University of California, Los Angeles", workplace: "Hollywood"},
