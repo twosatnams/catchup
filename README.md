@@ -2,7 +2,7 @@
 
 [Live][live]
 
-[live]: http://www.catchup.click
+[live]: http://www.catchup.website
 
 ## Introduction
 Catchup is a social networking service, a platform to build social networks or social relations among people who share similar interests, activities, backgrounds or real-life connections. It consists of a representation of each user (a profile), his or her social links (friends), and a variety of additional services.
