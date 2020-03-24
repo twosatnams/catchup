@@ -119,7 +119,7 @@ GEM
     newrelic_rpm (6.9.0.363)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
-    pg (1.2.3)
+    pg (0.21.0)
     rack (1.6.13)
     rack-mini-profiler (2.0.1)
       rack (>= 1.2.0)
@@ -246,7 +246,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   newrelic_rpm
-  pg
+  pg (~> 0.15)
   rack-mini-profiler
   rails (= 4.2.10)
   rails_12factor
