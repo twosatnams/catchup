@@ -7,7 +7,7 @@ require_relative 'male_first_names'
 require_relative 'female_first_names'
 
 created_users = 10
-generated_users = 1990
+generated_users = 490
 user_count = 0
 post_count = 0
 comment_count = 0
